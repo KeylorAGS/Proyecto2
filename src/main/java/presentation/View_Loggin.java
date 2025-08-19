@@ -1,4 +1,4 @@
-package presentation.logic;
+package presentation;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
