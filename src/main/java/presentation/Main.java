@@ -21,4 +21,7 @@ public class Main {
         // HOLA
 
     }
+
+    public final static int MODE_CREATE = 1;
+    public final static int MODE_EDIT = 2;
 }
