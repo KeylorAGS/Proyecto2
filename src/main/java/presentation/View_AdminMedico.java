@@ -2,7 +2,7 @@ package presentation;
 
 import javax.swing.*;
 
-public class View_Admin {
+public class View_AdminMedico {
     private JPanel panel;
     private JLabel searchNombreLbl;
     private JTextField searchNombre;
