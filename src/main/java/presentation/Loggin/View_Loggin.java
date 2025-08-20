@@ -1,4 +1,6 @@
-package presentation;
+package presentation.Loggin;
+
+import presentation.Logic.View_CambiarClave;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

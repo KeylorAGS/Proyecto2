@@ -1,4 +1,4 @@
-package presentation;
+package presentation.Logic;
 
 import javax.swing.*;
 
