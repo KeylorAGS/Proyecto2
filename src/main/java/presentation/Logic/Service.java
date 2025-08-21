@@ -74,4 +74,46 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
+    //================= Farmaceuticos ============
+
+    public void createFarmaceutico(Farmaceutico farmaceutico) throws Exception {
+        Farmaceutico result = data.getFarmaceuticos().stream().filter(i -> i.getId() == farmaceutico.getId()).findFirst().orElse(null);
+        if (result == null) {
+            data.getFarmaceuticos().add(farmaceutico);
+        } else {
+            throw new Exception("farmaceutico ya existe");
+        }
+    }
+
+    public Farmaceutico readFarmaceutico(Farmaceutico farmaceutico) throws Exception {
+        Farmaceutico result = data.getFarmaceuticos().stream().filter(i -> i.getId() == farmaceutico.getId()).findFirst().orElse(null);
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Farmaceutico no existe");
+        }
+    }
+
+    public void updateFarmaceutico(Farmaceutico farmaceutico) throws Exception {
+        Farmaceutico result;
+        try {
+            result = this.readFarmaceutico(farmaceutico);
+            data.getFarmaceuticos().remove(result);
+            data.getFarmaceuticos().add(farmaceutico);
+        } catch (Exception ex) {
+            throw new Exception("Farmaceutico no existe");
+        }
+    }
+    public void deleteFarmaceutico(Farmaceutico farmaceutico) throws Exception {
+        Farmaceutico result = this.readFarmaceutico(farmaceutico);
+        data.getFarmaceuticos().remove(result);
+    }
+    public List<Farmaceutico> searchFarmaceutico(Farmaceutico filter) {
+        return data.getFarmaceuticos().stream()
+                .filter(m -> (filter.getId() == 0 || m.getId() == filter.getId()) &&
+                        (filter.getNombre() == null || m.getNombre().contains(filter.getNombre())) &&
+                        (filter.getClave() == null || m.getClave().contains(filter.getClave())))
+                .sorted(Comparator.comparing(Farmaceutico::getId))
+                .collect(Collectors.toList());
+    }
 }
