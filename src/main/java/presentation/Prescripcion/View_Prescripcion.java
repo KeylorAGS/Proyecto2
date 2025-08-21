@@ -1,4 +1,4 @@
-package presentation;
+package presentation.Prescripcion;
 
 import javax.swing.*;
 
