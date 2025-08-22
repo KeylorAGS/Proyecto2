@@ -12,7 +12,7 @@ public class View_Prescripcion {
     private JButton fechaRetiroB;
     private JLabel paciente;
     private JLabel fechaRetiro;
-    private JTable table1;
+    private JTable listaMedicamentos;
     private JPanel ajustarPrescripcion;
     private JButton guardar;
     private JButton descartarMedicamentoButton;

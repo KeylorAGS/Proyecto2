@@ -78,7 +78,7 @@
                 <properties/>
                 <border type="bevel-raised"/>
                 <children>
-                  <component id="587c7" class="javax.swing.JTable" binding="table1" default-binding="true">
+                  <component id="587c7" class="javax.swing.JTable" binding="listaMedicamentos">
                     <constraints/>
                     <properties>
                       <autoResizeMode value="2"/>
