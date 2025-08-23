@@ -6,46 +6,80 @@ import presentation.Main;
 
 import java.util.List;
 
+/**
+ * Modelo para la gestión de Farmacéuticos en el patrón MVC.
+ *
+ * - Mantiene el estado actual de la vista de farmaceutas.
+ * - Contiene la lista de resultados, el filtro de búsqueda y el farmaceuta actualmente seleccionado.
+ * - Notifica a la vista cuando cambian los datos mediante {@link #firePropertyChange(String)} heredado de {@link AbstractModel}.
+ */
 public class FarmaceuticosModel extends AbstractModel {
-    Farmaceutico filter;
-    List<Farmaceutico> list;
-    Farmaceutico current;
-    int mode;
 
-    public static final String LIST="list";
-    public static final String CURRENT="current";
-    public static final String FILTER="filter";
+    /** Filtro actual para realizar búsquedas de farmaceutas. */
+    private Farmaceutico filter;
 
+    /** Lista de farmaceutas obtenida de la búsqueda. */
+    private List<Farmaceutico> list;
+
+    /** Farmaceuta actualmente seleccionado o en edición. */
+    private Farmaceutico current;
+
+    /** Modo actual del modelo (crear o editar). */
+    private int mode;
+
+    /** Constante usada para notificar cambios en la lista. */
+    public static final String LIST = "list";
+
+    /** Constante usada para notificar cambios en el elemento actual. */
+    public static final String CURRENT = "current";
+
+    /** Constante usada para notificar cambios en el filtro. */
+    public static final String FILTER = "filter";
+
+    /**
+     * Constructor por defecto.
+     */
     public FarmaceuticosModel() {
-
     }
 
+    /**
+     * Inicializa el modelo con una lista de farmaceutas.
+     * También crea instancias vacías para {@code current} y {@code filter},
+     * y establece el modo en {@code MODE_CREATE}.
+     *
+     * @param list Lista inicial de farmaceutas.
+     */
     public void init(List<Farmaceutico> list) {
         this.list = list;
-        this.current= new Farmaceutico(0, "", "");
-        this.filter= new Farmaceutico(0, "", "");
-        this.mode= Main.MODE_CREATE;
+        this.current = new Farmaceutico(0, "", "");
+        this.filter = new Farmaceutico(0, "", "");
+        this.mode = Main.MODE_CREATE;
     }
 
-    public List<Farmaceutico> getList() { return list; }
+    public List<Farmaceutico> getList() {
+        return list;
+    }
 
     public void setList(List<Farmaceutico> list) {
-        this.list= list;
+        this.list = list;
         firePropertyChange(LIST);
     }
+
     public Farmaceutico getCurrent() {
         return current;
     }
 
     public void setCurrent(Farmaceutico current) {
-        this.current= current;
+        this.current = current;
         firePropertyChange(CURRENT);
     }
+
     public Farmaceutico getFilter() {
         return filter;
     }
+
     public void setFilter(Farmaceutico filter) {
-        this.filter= filter;
+        this.filter = filter;
         firePropertyChange(FILTER);
     }
 
@@ -54,6 +88,6 @@ public class FarmaceuticosModel extends AbstractModel {
     }
 
     public void setMode(int mode) {
-        this.mode= mode;
+        this.mode = mode;
     }
 }
