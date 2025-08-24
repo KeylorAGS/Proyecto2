@@ -52,7 +52,6 @@ public class View_Login implements PropertyChangeListener {
                 frame.setVisible(true);
             }
         });
-
         botonCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +59,6 @@ public class View_Login implements PropertyChangeListener {
                 claveField.setText("");
             }
         });
-
         botonInicioSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
