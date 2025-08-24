@@ -1,5 +1,7 @@
 package presentation;
 
+import presentation.Logic.Usuario;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -21,4 +23,9 @@ public abstract class AbstractModel {
     protected void firePropertyChange(String propertyName) {
         propertyChangeSupport.firePropertyChange(propertyName, null, null);
     }
+
+    protected void firePropertyChange(String propertyName,Usuario Old,Usuario New) {
+        propertyChangeSupport.firePropertyChange(propertyName, Old, New);
+    }
+
 }

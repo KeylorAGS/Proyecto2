@@ -219,4 +219,16 @@ public class Service {
                 .sorted(Comparator.comparing(Farmaceutico::getId))
                 .collect(Collectors.toList());
     }
+
+    //Buscar Usuario
+    public Usuario login(int id, String clave) {
+        for (Medico medico : data.getMedicos()) {
+            if (medico.getId() == id && medico.getClave().equals(clave)) { return medico; }
+        }
+        for (Farmaceutico farmaceutico : data.getFarmaceuticos()) {
+            if (farmaceutico.getId() == id && farmaceutico.getClave().equals(clave)) { return farmaceutico; }
+        }
+        return null;
+    }
+
 }

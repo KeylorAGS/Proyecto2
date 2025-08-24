@@ -1,6 +1,8 @@
 package presentation;
 
-import presentation.Loggin.View_Loggin;
+import presentation.Loggin.LoginController;
+import presentation.Loggin.LoginModel;
+import presentation.Loggin.View_Login;
 
 import javax.swing.*;
 
@@ -10,13 +12,18 @@ public class Main {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         }catch (Exception e){};
 
-        View_Loggin view =  new View_Loggin();
+        View_Login view =  new View_Login();
+        LoginModel model = new LoginModel();
+        LoginController controller = new LoginController(model,view);
+
+        view.setModel(model);
+        view.setController(controller);
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600,300);
         frame.setTitle("Clinica");
-        frame.setContentPane(view.getPanelLoggin());
+        frame.setContentPane(view.getPanelLogin());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
 

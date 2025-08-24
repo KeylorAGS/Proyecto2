@@ -19,7 +19,7 @@
           <color color="-16777216"/>
         </border>
         <children>
-          <component id="6e3" class="javax.swing.JLabel">
+          <component id="6e3" class="javax.swing.JLabel" binding="labelClaveActual">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -27,7 +27,7 @@
               <text value="Clave Actual  "/>
             </properties>
           </component>
-          <component id="1bd8a" class="javax.swing.JLabel">
+          <component id="1bd8a" class="javax.swing.JLabel" binding="labelClaveNueva">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -35,7 +35,7 @@
               <text value="Clave Nueva "/>
             </properties>
           </component>
-          <component id="59078" class="javax.swing.JButton" binding="botonInicioSesion">
+          <component id="59078" class="javax.swing.JButton" binding="botonAceptarCambio">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="15" height="30"/>
@@ -48,7 +48,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="9d57d" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
+          <component id="9d57d" class="javax.swing.JPasswordField" binding="claveActualField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -58,7 +58,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="d2ab2" class="javax.swing.JPasswordField" binding="passwordField2" default-binding="true">
+          <component id="d2ab2" class="javax.swing.JPasswordField" binding="claveNuevaField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -68,7 +68,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="bccaf" class="javax.swing.JPasswordField" binding="passwordField3" default-binding="true">
+          <component id="bccaf" class="javax.swing.JPasswordField" binding="claveNuevaFieldConfirmacion">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -78,7 +78,15 @@
             </constraints>
             <properties/>
           </component>
-          <component id="b6b81" class="javax.swing.JButton" binding="button3" default-binding="true">
+          <component id="a011c" class="javax.swing.JLabel" binding="labelClaveActual_Confirmacion">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Clave Nueva"/>
+            </properties>
+          </component>
+          <component id="b6b81" class="javax.swing.JButton" binding="botonCancelar">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="15" height="30"/>
@@ -89,14 +97,6 @@
             <properties>
               <icon value="Imagenes/Logo_Equiz.png"/>
               <text value=""/>
-            </properties>
-          </component>
-          <component id="a011c" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Clave Nueva"/>
             </properties>
           </component>
         </children>
