@@ -231,4 +231,58 @@ public class Service {
         return null;
     }
 
+
+
+    // ================= Pacientes ================= //
+
+
+    public void createPaciente(Paciente paciente) throws Exception {
+        Paciente result = data.getPacientes().stream()
+                .filter(i -> i.getId() == paciente.getId())
+                .findFirst().orElse(null);
+
+        if (result == null) {
+            data.getPacientes().add(paciente);
+        } else {
+            throw new Exception("Paciente ya existe");
+        }
+    }
+
+    public Paciente readPaciente(Paciente paciente) throws Exception {
+        Paciente result = data.getPacientes().stream()
+                .filter(i -> i.getId() == paciente.getId())
+                .findFirst().orElse(null);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Paciente no existe");
+        }
+    }
+
+    public void updatePaciente(Paciente paciente) throws Exception {
+        try {
+            Paciente result = this.readPaciente(paciente);
+            data.getPacientes().remove(result);
+            data.getPacientes().add(paciente);
+        } catch (Exception ex) {
+            throw new Exception("Paciente no existe");
+        }
+    }
+
+    public void deletePaciente(Paciente paciente) throws Exception {
+        Paciente result = this.readPaciente(paciente);
+        data.getFarmaceuticos().remove(result);
+    }
+
+    public List<Paciente> searchPaciente(Paciente filter) {
+        return data.getPacientes().stream()
+                .filter(p -> (filter.getId() == 0 || p.getId() == filter.getId()) &&
+                        (filter.getNombre() == null || p.getNombre().toLowerCase().contains(filter.getNombre().toLowerCase())) &&
+                        (filter.getFechaNacimiento() == null || p.getFechaNacimiento().equals(filter.getFechaNacimiento())) &&
+                        (filter.getTelefono() == null || p.getTelefono().contains(filter.getTelefono())))
+                .sorted(Comparator.comparing(Paciente::getId))
+                .collect(Collectors.toList());
+    }
+
 }
