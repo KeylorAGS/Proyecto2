@@ -7,6 +7,9 @@ public abstract class Usuario {
     protected String nombre;
     protected String clave;
 
+    public Usuario() {
+    }
+
     public Usuario(int id, String nombre, String clave) {
         this.id = id;
         this.nombre = nombre;

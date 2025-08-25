@@ -106,4 +106,7 @@ public class MedicosController {
         model.setMode(Main.MODE_CREATE);
         model.setCurrent(new Medico(0, "", "", ""));
     }
+
+    public void generatePdfReport() {
+        Document document = new Document();
 }
