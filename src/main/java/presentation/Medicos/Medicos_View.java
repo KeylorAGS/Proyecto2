@@ -1,5 +1,6 @@
 package presentation.Medicos;
 
+import com.itextpdf.text.DocumentException;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
 
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 public class Medicos_View implements PropertyChangeListener {
     private JPanel panel;
@@ -73,6 +75,17 @@ public class Medicos_View implements PropertyChangeListener {
                     controller.search(filter);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        report.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    controller.generatePdfReport();
+                    JOptionPane.showMessageDialog(panel, "REPORTE GENERADO", "PDF", JOptionPane.INFORMATION_MESSAGE);
+                } catch (DocumentException | IOException ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error al generar el reporte", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

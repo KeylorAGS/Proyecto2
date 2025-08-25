@@ -4,6 +4,14 @@ import presentation.Logic.Medico;
 import presentation.Logic.Service;
 import presentation.Main;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * Controlador para la gestión de médicos en la aplicación.
  *
@@ -107,6 +115,18 @@ public class MedicosController {
         model.setCurrent(new Medico(0, "", "", ""));
     }
 
-    public void generatePdfReport() {
+    public void generatePdfReport() throws DocumentException, IOException {
         Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("CajerosReporte.pdf"));
+        document.open();
+        document.add(new Paragraph("Reporte de Cajeros"));
+
+        for (Medico medico : model.getList()) {
+            document.add(new Paragraph("ID: " + medico.getId()));
+            document.add(new Paragraph("Nombre: " + medico.getNombre()));
+            document.add(new Paragraph("Especialidad: " + medico.getEspecialidad()));
+            document.add(new Paragraph("--------------------------------------------------"));
+        }
+        document.close();
+    }
 }
