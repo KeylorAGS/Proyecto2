@@ -1,11 +1,18 @@
 package presentation.Pacientes;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import presentation.Farmaceuticos.FarmaceuticosModel;
 import presentation.Farmaceuticos.Farmaceuticos_View;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Paciente;
 import presentation.Logic.Service;
 import presentation.Main;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class PacientesController {
         private Pacientes_View view;
@@ -58,4 +65,22 @@ public class PacientesController {
             model.setMode(Main.MODE_CREATE);
             model.setCurrent(new Paciente());
         }
+
+    public void generatePdfReport() throws DocumentException, IOException {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("PacientesReporte.pdf"));
+        document.open();
+
+        document.add(new Paragraph("Paciente"));
+
+        for (Paciente paciente : model.getList()) {
+            document.add(new Paragraph("ID: " + paciente.getId()));
+            document.add(new Paragraph("Nombre: " + paciente.getNombre()));
+            document.add(new Paragraph("Fecha de Nacmiento: " + paciente.getFechaNacimiento()));
+            document.add(new Paragraph("Telefono: " + paciente.getTelefono()));
+            document.add(new Paragraph("-----"));
+        }
+
+        document.close();
+    }
 }

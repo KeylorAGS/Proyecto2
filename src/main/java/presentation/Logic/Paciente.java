@@ -1,19 +1,25 @@
 package presentation.Logic;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlID;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Paciente {
+    @XmlID
     private String id;
     private String nombre;
-    private LocalDate fechaNacimiento;
+    private String fechaNacimiento;
     private String telefono;
 
     public Paciente() {
-        this("", "", LocalDate.now(), "");
+        this("", "", "", "");
     }
 
-    public Paciente(String id, String nombre, LocalDate fechaNacimiento, String telefono) {
+    public Paciente(String id, String nombre, String fechaNacimiento, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
@@ -37,11 +43,11 @@ public class Paciente {
         this.nombre = nombre;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
