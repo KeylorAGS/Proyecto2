@@ -4,12 +4,16 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Paciente {
-    private int id;
+    private String id;
     private String nombre;
     private LocalDate fechaNacimiento;
     private String telefono;
 
-    public Paciente(int id, String nombre, LocalDate fechaNacimiento, String telefono) {
+    public Paciente() {
+        this("", "", LocalDate.now(), "");
+    }
+
+    public Paciente(String id, String nombre, LocalDate fechaNacimiento, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
@@ -17,11 +21,11 @@ public class Paciente {
     }
 
     // Getters y setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

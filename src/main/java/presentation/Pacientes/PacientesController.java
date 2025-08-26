@@ -12,7 +12,7 @@ public class PacientesController {
         private PacientesModel model;
 
         public PacientesController(Pacientes_View view, PacientesModel model) {
-            model.init(Service.instance().searchPaciente(new Paciente(0, "", null, "")));
+            model.init(Service.instance().searchPaciente(new Paciente()));
             this.view = view;
             this.model = model;
             view.setController(this);
@@ -22,7 +22,7 @@ public class PacientesController {
         public void search(Paciente filter) throws Exception {
             model.setFilter(filter);
             model.setMode(Main.MODE_CREATE);
-            model.setCurrent(new Paciente(0, "", null, ""));
+            model.setCurrent(new Paciente());
             model.setList(Service.instance().searchPaciente(filter));
         }
 
@@ -35,7 +35,7 @@ public class PacientesController {
                     Service.instance().updatePaciente(e);
                     break;
             }
-            model.setFilter(new Paciente(0, "", null, ""));
+            model.setFilter(new Paciente());
             search(model.getFilter());
         }
 
@@ -56,6 +56,6 @@ public class PacientesController {
 
         public void clear() {
             model.setMode(Main.MODE_CREATE);
-            model.setCurrent(new Paciente(0, "", null, ""));
+            model.setCurrent(new Paciente());
         }
 }

@@ -2,7 +2,9 @@ package presentation.Medicos;
 
 import presentation.AbstractModel;
 import presentation.Logic.Medico;
+import presentation.Main;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -45,7 +47,7 @@ public class MedicosModel extends AbstractModel {
      * @param listener Observador de cambios de propiedades.
      */
     @Override
-    public void addPropertyChangeListener(java.beans.PropertyChangeListener listener) {
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         firePropertyChange(LIST);
         firePropertyChange(CURRENT);
@@ -67,9 +69,9 @@ public class MedicosModel extends AbstractModel {
      */
     public void init(List<Medico> list) {
         this.list = list;
-        this.current = new Medico(0, "", "", "");
-        this.filter = new Medico(0, "", "", "");
-        this.mode = 0; // ⚠️ Se recomienda usar Main.MODE_CREATE aquí
+        this.current = new Medico();
+        this.filter = new Medico();
+        this.mode = Main.MODE_CREATE;
     }
 
     /**

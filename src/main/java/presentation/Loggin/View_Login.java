@@ -62,9 +62,9 @@ public class View_Login implements PropertyChangeListener {
         botonInicioSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = 0;
+                String id = "";
                 try {
-                    id = Integer.parseInt(idField.getText());
+                   idField.getText();
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor ingresar un numero de cedula");
                 }

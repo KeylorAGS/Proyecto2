@@ -34,6 +34,7 @@ public class MedicosController {
      * @param model Modelo asociado.
      */
     public MedicosController(Medicos_View view, MedicosModel model) {
+        model.init(Service.instance().searchMedico(new Medico()));
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -51,7 +52,7 @@ public class MedicosController {
     public void search(Medico filter) throws Exception {
         model.setFilter(filter);
         model.setMode(Main.MODE_CREATE);
-        model.setCurrent(new Medico(0, "", "", "")); // reinicia médico actual
+        model.setCurrent(new Medico());
         model.setList(Service.instance().searchMedico(filter));
     }
 
@@ -76,7 +77,7 @@ public class MedicosController {
                 Service.instance().updateMedico(current);
                 break;
         }
-        model.setCurrent(new Medico(0, "", "", ""));
+        model.setCurrent(new Medico());
         search(model.getFilter());
     }
 
@@ -112,12 +113,12 @@ public class MedicosController {
      */
     public void clear() {
         model.setMode(Main.MODE_CREATE);
-        model.setCurrent(new Medico(0, "", "", ""));
+        model.setCurrent(new Medico());
     }
 
     public void generatePdfReport() throws DocumentException, IOException {
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("CajerosReporte.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("MedicosReporte.pdf"));
         document.open();
         document.add(new Paragraph("Reporte de Cajeros"));
 

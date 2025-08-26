@@ -56,8 +56,8 @@ public class PacientesModel extends AbstractModel {
      */
     public void init(List<Paciente> list) {
         this.list = list;
-        this.current = new Paciente(0, "", null, "");
-        this.filter = new Paciente(0, "", null, "");
+        this.current = new Paciente();
+        this.filter = new Paciente();
         this.mode = 0;
     }
 

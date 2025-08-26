@@ -14,7 +14,7 @@ public class LoginController {
         view.setModel(model);
     }
 
-    public void login(int id,String clave){
+    public void login(String id,String clave){
         Usuario tempUser = Service.instance().login(id,clave);
         model.setCurrentUser(tempUser);
     }

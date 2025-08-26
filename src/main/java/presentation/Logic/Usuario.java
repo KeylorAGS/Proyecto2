@@ -1,27 +1,33 @@
 package presentation.Logic;
 
-import java.util.Objects;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlID;
 
+import java.util.Objects;
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Usuario {
-    protected int id;
+    @XmlID
+    protected String id;
     protected String nombre;
     protected String clave;
 
     public Usuario() {
+        this("", "", "");
     }
 
-    public Usuario(int id, String nombre, String clave) {
+    public Usuario(String id, String nombre, String clave) {
         this.id = id;
         this.nombre = nombre;
         this.clave = clave;
     }
 
     // Getters y setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -51,8 +51,8 @@ public class FarmaceuticosModel extends AbstractModel {
      */
     public void init(List<Farmaceutico> list) {
         this.list = list;
-        this.current = new Farmaceutico(0, "", "");
-        this.filter = new Farmaceutico(0, "", "");
+        this.current = new Farmaceutico();
+        this.filter = new Farmaceutico();
         this.mode = Main.MODE_CREATE;
     }
 

@@ -31,7 +31,7 @@ public class FarmaceuticosController {
      * @param model Modelo que gestiona el estado y datos de la vista.
      */
     public FarmaceuticosController(Farmaceuticos_View view, FarmaceuticosModel model) {
-        model.init(Service.instance().searchFarmaceutico(new Farmaceutico(0, "", "")));
+        model.init(Service.instance().searchFarmaceutico(new Farmaceutico()));
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -47,7 +47,7 @@ public class FarmaceuticosController {
     public void search(Farmaceutico filter) throws Exception {
         model.setFilter(filter);
         model.setMode(Main.MODE_CREATE);
-        model.setCurrent(new Farmaceutico(0, "", ""));
+        model.setCurrent(new Farmaceutico());
         model.setList(Service.instance().searchFarmaceutico(filter));
     }
 
@@ -71,7 +71,7 @@ public class FarmaceuticosController {
                 Service.instance().updateFarmaceutico(e);
                 break;
         }
-        model.setFilter(new Farmaceutico(0, "", ""));
+        model.setFilter(new Farmaceutico());
         search(model.getFilter());
     }
 
@@ -106,6 +106,6 @@ public class FarmaceuticosController {
      */
     public void clear() {
         model.setMode(Main.MODE_CREATE);
-        model.setCurrent(new Farmaceutico(0, "", ""));
+        model.setCurrent(new Farmaceutico());
     }
 }

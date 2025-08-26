@@ -2,7 +2,11 @@ package presentation.Logic;
 
 public class Farmaceutico extends Usuario {
 
-    public Farmaceutico(int id, String nombre, String clave) {
+    public Farmaceutico() {
+        this("", "", "");
+    }
+
+    public Farmaceutico(String id, String nombre, String clave) {
         super(id, nombre, clave);
     }
 

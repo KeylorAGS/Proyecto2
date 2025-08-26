@@ -67,15 +67,9 @@ public class Service {
      * @throws Exception si ya existe un médico con el mismo id.
      */
     public void createMedico(Medico medico) throws Exception {
-        Medico result = data.getMedicos().stream()
-                .filter(i -> i.getId() == medico.getId())
-                .findFirst().orElse(null);
-
-        if (result == null) {
-            data.getMedicos().add(medico);
-        } else {
-            throw new Exception("Medico ya existe");
-        }
+        Medico result = data.getMedicos().stream().filter(i->i.getId().equals(medico.getId())).findFirst().orElse(null);
+        if (result==null) data.getMedicos().add(medico);
+        else throw new Exception("Cliente ya existe");
     }
 
     /**
@@ -86,15 +80,9 @@ public class Service {
      * @throws Exception si no existe el médico.
      */
     public Medico readMedico(Medico medico) throws Exception {
-        Medico result = data.getMedicos().stream()
-                .filter(i -> i.getId() == medico.getId())
-                .findFirst().orElse(null);
-
-        if (result != null) {
-            return result;
-        } else {
-            throw new Exception("Medico no existe");
-        }
+        Medico result = data.getMedicos().stream().filter(i->i.getId().equals(medico.getId())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Medico no existe");
     }
 
     /**
@@ -104,11 +92,12 @@ public class Service {
      * @throws Exception si no existe el médico.
      */
     public void updateMedico(Medico medico) throws Exception {
-        try {
-            Medico result = this.readMedico(medico);
+        Medico result;
+        try{
+            result = this.readMedico(medico);
             data.getMedicos().remove(result);
             data.getMedicos().add(medico);
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             throw new Exception("Medico no existe");
         }
     }
@@ -120,22 +109,19 @@ public class Service {
      * @throws Exception si no existe el médico.
      */
     public void deleteMedico(Medico medico) throws Exception {
-        Medico result = this.readMedico(medico);
-        data.getMedicos().remove(result);
+        data.getMedicos().remove(medico);
     }
 
     /**
      * Busca médicos aplicando un filtro opcional por id, nombre o especialidad.
      *
-     * @param filter Objeto {@link Medico} con los criterios de búsqueda.
+     * @param medico Objeto {@link Medico} con los criterios de búsqueda.
      * @return Lista de médicos que cumplen con los criterios.
      */
-    public List<Medico> searchMedico(Medico filter) {
+    public List<Medico> searchMedico(Medico medico) {
         return data.getMedicos().stream()
-                .filter(m -> (filter.getId() == 0 || m.getId() == filter.getId()) &&
-                        (filter.getNombre() == null || m.getNombre().contains(filter.getNombre())) &&
-                        (filter.getEspecialidad() == null || m.getEspecialidad().contains(filter.getEspecialidad())))
-                .sorted(Comparator.comparing(Medico::getId))
+                .filter(i->i.getNombre().contains(medico.getNombre()))
+                .sorted(Comparator.comparing(Medico::getNombre))
                 .collect(Collectors.toList());
     }
 
@@ -148,15 +134,9 @@ public class Service {
      * @throws Exception si ya existe un farmacéutico con el mismo id.
      */
     public void createFarmaceutico(Farmaceutico farmaceutico) throws Exception {
-        Farmaceutico result = data.getFarmaceuticos().stream()
-                .filter(i -> i.getId() == farmaceutico.getId())
-                .findFirst().orElse(null);
-
-        if (result == null) {
-            data.getFarmaceuticos().add(farmaceutico);
-        } else {
-            throw new Exception("Farmaceutico ya existe");
-        }
+      Farmaceutico result = data.getFarmaceuticos().stream().filter(i->i.getId().equals(farmaceutico.getId())).findFirst().orElse(null);
+        if (result==null) data.getFarmaceuticos().add(farmaceutico);
+        else throw new Exception("Farmaceutico ya existe");
     }
 
     /**
@@ -167,15 +147,9 @@ public class Service {
      * @throws Exception si no existe el farmacéutico.
      */
     public Farmaceutico readFarmaceutico(Farmaceutico farmaceutico) throws Exception {
-        Farmaceutico result = data.getFarmaceuticos().stream()
-                .filter(i -> i.getId() == farmaceutico.getId())
-                .findFirst().orElse(null);
-
-        if (result != null) {
-            return result;
-        } else {
-            throw new Exception("Farmaceutico no existe");
-        }
+        Farmaceutico result = data.getFarmaceuticos().stream().filter(i->i.getId().equals(farmaceutico.getId())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Farmaceutico no existe");
     }
 
     /**
@@ -185,11 +159,12 @@ public class Service {
      * @throws Exception si no existe el farmacéutico.
      */
     public void updateFarmaceutico(Farmaceutico farmaceutico) throws Exception {
-        try {
-            Farmaceutico result = this.readFarmaceutico(farmaceutico);
+        Farmaceutico result;
+        try{
+            result = this.readFarmaceutico(farmaceutico);
             data.getFarmaceuticos().remove(result);
             data.getFarmaceuticos().add(farmaceutico);
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             throw new Exception("Farmaceutico no existe");
         }
     }
@@ -201,32 +176,29 @@ public class Service {
      * @throws Exception si no existe el farmacéutico.
      */
     public void deleteFarmaceutico(Farmaceutico farmaceutico) throws Exception {
-        Farmaceutico result = this.readFarmaceutico(farmaceutico);
-        data.getFarmaceuticos().remove(result);
+        data.getFarmaceuticos().remove(farmaceutico);
     }
 
     /**
      * Busca farmacéuticos aplicando un filtro opcional por id, nombre o clave.
      *
-     * @param filter Objeto {@link Farmaceutico} con los criterios de búsqueda.
+     * @param farmaceutico Objeto {@link Farmaceutico} con los criterios de búsqueda.
      * @return Lista de farmacéuticos que cumplen con los criterios.
      */
-    public List<Farmaceutico> searchFarmaceutico(Farmaceutico filter) {
+    public List<Farmaceutico> searchFarmaceutico(Farmaceutico farmaceutico) {
         return data.getFarmaceuticos().stream()
-                .filter(m -> (filter.getId() == 0 || m.getId() == filter.getId()) &&
-                        (filter.getNombre() == null || m.getNombre().contains(filter.getNombre())) &&
-                        (filter.getClave() == null || m.getClave().contains(filter.getClave())))
-                .sorted(Comparator.comparing(Farmaceutico::getId))
+                .filter(i->i.getNombre().contains(farmaceutico.getNombre()))
+                .sorted(Comparator.comparing(Farmaceutico::getNombre))
                 .collect(Collectors.toList());
     }
 
     //Buscar Usuario
-    public Usuario login(int id, String clave) {
+    public Usuario login(String id, String clave) {
         for (Medico medico : data.getMedicos()) {
-            if (medico.getId() == id && medico.getClave().equals(clave)) { return medico; }
+            if (medico.getId().equals(id) && medico.getClave().equals(clave)) { return medico; }
         }
         for (Farmaceutico farmaceutico : data.getFarmaceuticos()) {
-            if (farmaceutico.getId() == id && farmaceutico.getClave().equals(clave)) { return farmaceutico; }
+            if (farmaceutico.getId().equals(id) && farmaceutico.getClave().equals(clave)) { return farmaceutico; }
         }
         return null;
     }
@@ -237,100 +209,72 @@ public class Service {
 
 
     public void createPaciente(Paciente paciente) throws Exception {
-        Paciente result = data.getPacientes().stream()
-                .filter(i -> i.getId() == paciente.getId())
-                .findFirst().orElse(null);
-
-        if (result == null) {
-            data.getPacientes().add(paciente);
-        } else {
-            throw new Exception("Paciente ya existe");
-        }
+        Paciente result = data.getPacientes().stream().filter(i->i.getId().equals(paciente.getId())).findFirst().orElse(null);
+        if (result==null) data.getPacientes().add(paciente);
+        else throw new Exception("Paciente ya existe");
     }
 
     public Paciente readPaciente(Paciente paciente) throws Exception {
-        Paciente result = data.getPacientes().stream()
-                .filter(i -> i.getId() == paciente.getId())
-                .findFirst().orElse(null);
-
-        if (result != null) {
-            return result;
-        } else {
-            throw new Exception("Paciente no existe");
-        }
+        Paciente result = data.getPacientes().stream().filter(i->i.getId().equals(paciente.getId())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Paciente no existe");
     }
 
     public void updatePaciente(Paciente paciente) throws Exception {
-        try {
-            Paciente result = this.readPaciente(paciente);
+        Paciente result;
+        try{
+            result = this.readPaciente(paciente);
             data.getPacientes().remove(result);
             data.getPacientes().add(paciente);
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             throw new Exception("Paciente no existe");
         }
     }
 
     public void deletePaciente(Paciente paciente) throws Exception {
-        Paciente result = this.readPaciente(paciente);
-        data.getFarmaceuticos().remove(result);
+        data.getPacientes().remove(paciente);
     }
 
-    public List<Paciente> searchPaciente(Paciente filter) {
+    public List<Paciente> searchPaciente(Paciente paciente) {
         return data.getPacientes().stream()
-                .filter(p -> (filter.getId() == 0 || p.getId() == filter.getId()) &&
-                        (filter.getNombre() == null || p.getNombre().toLowerCase().contains(filter.getNombre().toLowerCase())) &&
-                        (filter.getFechaNacimiento() == null || p.getFechaNacimiento().equals(filter.getFechaNacimiento())) &&
-                        (filter.getTelefono() == null || p.getTelefono().contains(filter.getTelefono())))
-                .sorted(Comparator.comparing(Paciente::getId))
+                .filter(i->i.getNombre().contains(paciente.getNombre()))
+                .sorted(Comparator.comparing(Paciente::getNombre))
                 .collect(Collectors.toList());
     }
 
     // ================= Medicamentos ================= //
 
     public void createMedicamento(Medicamento medicamento) throws Exception {
-        Medicamento result = data.getMedicamentos().stream()
-                .filter(i -> i.getCodigo() == medicamento.getCodigo())
-                .findFirst().orElse(null);
-
-        if (result == null) {
-            data.getMedicamentos().add(medicamento);
-        } else {
-            throw new Exception("Medicamento ya existe");
-        }
+        Medicamento result = data.getMedicamentos().stream().filter(i->i.getCodigo().equals(medicamento.getCodigo())).findFirst().orElse(null);
+        if (result==null) data.getMedicamentos().add(medicamento);
+        else throw new Exception("Medicamento ya existe");
     }
 
     public Medicamento readMedicamento(Medicamento medicamento) throws Exception {
-        Medicamento result = data.getMedicamentos().stream()
-                .filter(i -> i.getCodigo() == medicamento.getCodigo())
-                .findFirst().orElse(null);
-
-        if (result != null) {
-            return result;
-        } else {
-            throw new Exception("Medicamento no existe");
-        }
+        Medicamento result = data.getMedicamentos().stream().filter(i->i.getCodigo().equals(medicamento.getCodigo())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Medicamento no existe");
     }
 
     public void updateMedicamento(Medicamento medicamento) throws Exception {
-        try {
-            Medicamento result = this.readMedicamento(medicamento);
+        Medicamento result;
+        try{
+            result = this.readMedicamento(medicamento);
             data.getMedicamentos().remove(result);
             data.getMedicamentos().add(medicamento);
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             throw new Exception("Medicamento no existe");
         }
     }
 
     public void deleteMedicamento(Medicamento medicamento) throws Exception {
-        Medicamento result = this.readMedicamento(medicamento);
-        data.getMedicamentos().remove(result);
+        data.getMedicamentos().remove(medicamento);
     }
 
-    public List<Medicamento> searchMedicamento(Medicamento filter) {
+    public List<Medicamento> searchMedicamento(Medicamento medicamento) {
         return data.getMedicamentos().stream()
-                .filter(m -> (filter.getCodigo() == "" || m.getCodigo() == filter.getCodigo()) &&
-                        (filter.getNombre() == null || m.getNombre().contains(filter.getNombre())))
-                .sorted(Comparator.comparing(Medicamento::getCodigo))
+                .filter(i->i.getNombre().contains(medicamento.getNombre()))
+                .sorted(Comparator.comparing(Medicamento::getNombre))
                 .collect(Collectors.toList());
     }
 }

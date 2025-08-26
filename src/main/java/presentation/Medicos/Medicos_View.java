@@ -3,10 +3,14 @@ package presentation.Medicos;
 import com.itextpdf.text.DocumentException;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
+import presentation.Main;
 
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -79,6 +83,15 @@ public class Medicos_View implements PropertyChangeListener {
                 }
             }
         });
+
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = list.getSelectedRow();
+                controller.edit(row);
+            }
+        });
+
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,24 +106,40 @@ public class Medicos_View implements PropertyChangeListener {
     }
 
     public Medico take (){
-        Usuario medico = new Medico();
-        medico.setId(Integer.parseInt(IdJtext.getText()));
+        Medico medico = new Medico();
+        medico.setId(IdJtext.getText());
         medico.setNombre(NombreJtext.getText());
-        ((Medico) medico).setEspecialidad(EspecialidadJtext.getText());
-        return (Medico) medico;
-
+        medico.setEspecialidad(EspecialidadJtext.getText());
+        return medico;
     }
 
     public boolean validate(){
+      boolean valid = true;
+        if (IdJtext.getText().isEmpty()){
+            valid=false;
+            idLbl.setBorder(Main.BORDER_ERROR);
+            idLbl.setToolTipText("ID requerido");
+        } else {
+            idLbl.setBorder(null);
+            idLbl.setToolTipText(null);
+        }
         if (NombreJtext.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "El nombre no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+            valid=false;
+            NombreLbl.setBorder(Main.BORDER_ERROR);
+            NombreLbl.setToolTipText("Nombre requerido");
+        } else {
+            NombreLbl.setBorder(null);
+            NombreLbl.setToolTipText(null);
         }
         if (EspecialidadJtext.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panel, "La especialidad no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+            valid=false;
+            EspecialidadLbl.setBorder(Main.BORDER_ERROR);
+            EspecialidadLbl.setToolTipText("Especialidad requerida");
+        } else {
+            EspecialidadLbl.setBorder(null);
+            EspecialidadLbl.setToolTipText(null);
         }
-        return true;
+        return valid;
     }
 
  // MVC
@@ -127,6 +156,40 @@ public class Medicos_View implements PropertyChangeListener {
     }
      @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case MedicosModel.LIST:
+                int[] cols = {MedicosTableModel.ID, MedicosTableModel.NOMBRE, MedicosTableModel.ESPECIALIDAD};
+                list.setModel(new MedicosTableModel(cols, model.getList()));
+                list.setRowHeight(30);
+                TableColumnModel columnModel = list.getColumnModel();
+                columnModel.getColumn(0).setPreferredWidth(150);
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(2).setPreferredWidth(150);
+                break;
+            case MedicosModel.CURRENT:
+                IdJtext.setText(model.getCurrent().getId());
+                NombreJtext.setText(model.getCurrent().getNombre());
+                EspecialidadJtext.setText(model.getCurrent().getEspecialidad());
+
+                if(model.getMode() == Main.MODE_EDIT){
+                    IdJtext.setEnabled(false);
+                    delete.setEnabled(true);
+                } else {
+                    IdJtext.setEnabled(true);
+                    delete.setEnabled(false);
+                }
+                idLbl.setBorder(null);
+                idLbl.setToolTipText(null);
+                NombreLbl.setBorder(null);
+                NombreLbl.setToolTipText(null);
+                EspecialidadLbl.setBorder(null);
+                EspecialidadLbl.setToolTipText(null);
+                break;
+            case MedicosModel.FILTER:
+                searchNombre.setText(model.getFilter().getNombre());
+                break;
+        }
+        this.panel.revalidate();
     }
 
 }

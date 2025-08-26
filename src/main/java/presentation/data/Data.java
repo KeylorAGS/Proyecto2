@@ -1,10 +1,7 @@
 package presentation.data;
 
 import jakarta.xml.bind.annotation.*;
-import presentation.Logic.Farmaceutico;
-import presentation.Logic.Medico;
-import presentation.Logic.Paciente;
-import presentation.Logic.Medicamento;
+import presentation.Logic.*;
 
 import java.util.ArrayList;
 import java.util.List;
