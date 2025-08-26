@@ -285,4 +285,52 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
+    // ================= Medicamentos ================= //
+
+    public void createMedicamento(Medicamento medicamento) throws Exception {
+        Medicamento result = data.getMedicamentos().stream()
+                .filter(i -> i.getCodigo() == medicamento.getCodigo())
+                .findFirst().orElse(null);
+
+        if (result == null) {
+            data.getMedicamentos().add(medicamento);
+        } else {
+            throw new Exception("Medicamento ya existe");
+        }
+    }
+
+    public Medicamento readMedicamento(Medicamento medicamento) throws Exception {
+        Medicamento result = data.getMedicamentos().stream()
+                .filter(i -> i.getCodigo() == medicamento.getCodigo())
+                .findFirst().orElse(null);
+
+        if (result != null) {
+            return result;
+        } else {
+            throw new Exception("Medicamento no existe");
+        }
+    }
+
+    public void updateMedicamento(Medicamento medicamento) throws Exception {
+        try {
+            Medicamento result = this.readMedicamento(medicamento);
+            data.getMedicamentos().remove(result);
+            data.getMedicamentos().add(medicamento);
+        } catch (Exception ex) {
+            throw new Exception("Medicamento no existe");
+        }
+    }
+
+    public void deleteMedicamento(Medicamento medicamento) throws Exception {
+        Medicamento result = this.readMedicamento(medicamento);
+        data.getMedicamentos().remove(result);
+    }
+
+    public List<Medicamento> searchMedicamento(Medicamento filter) {
+        return data.getMedicamentos().stream()
+                .filter(m -> (filter.getCodigo() == "" || m.getCodigo() == filter.getCodigo()) &&
+                        (filter.getNombre() == null || m.getNombre().contains(filter.getNombre())))
+                .sorted(Comparator.comparing(Medicamento::getCodigo))
+                .collect(Collectors.toList());
+    }
 }

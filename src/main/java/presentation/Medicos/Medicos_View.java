@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+//setController
 
 public class Medicos_View implements PropertyChangeListener {
     private JPanel panel;
@@ -126,7 +127,6 @@ public class Medicos_View implements PropertyChangeListener {
     }
      @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
-     }
+    }
 
 }

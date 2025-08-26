@@ -4,6 +4,7 @@ import jakarta.xml.bind.annotation.*;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medico;
 import presentation.Logic.Paciente;
+import presentation.Logic.Medicamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,10 @@ public class Data {
     @XmlElement(name = "Paciente")
     private List<Paciente> Pacientes;
 
+    @XmlElementWrapper(name = "Medicamentos")
+    @XmlElement(name = "Medicamento")
+    private List<Medicamento> Medicamentos;
+
     /**
      * Constructor por defecto.
      *
@@ -56,6 +61,8 @@ public class Data {
     public Data() {
         Medicos = new ArrayList<>();
         Farmaceuticos = new ArrayList<>();
+        Pacientes = new ArrayList<>();
+        Medicamentos = new ArrayList<>();
     }
 
     /**
@@ -77,4 +84,6 @@ public class Data {
     }
 
     public List<Paciente> getPacientes() { return Pacientes; }
+
+    public List<Medicamento> getMedicamentos() { return Medicamentos; }
 }
