@@ -50,7 +50,7 @@ public class Main {
 //        frame.setVisible(true);
 //        frame.setLocationRelativeTo(null);
 
-        // HOLA
+        // HOLA Xd
 
         window.setSize(900, 450);
         window.setResizable(false);
