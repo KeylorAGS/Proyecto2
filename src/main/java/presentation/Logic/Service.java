@@ -207,7 +207,6 @@ public class Service {
 
     // ================= Pacientes ================= //
 
-
     public void createPaciente(Paciente paciente) throws Exception {
         Paciente result = data.getPacientes().stream().filter(i->i.getId().equals(paciente.getId())).findFirst().orElse(null);
         if (result==null) data.getPacientes().add(paciente);

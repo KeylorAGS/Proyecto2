@@ -54,7 +54,7 @@ public class FarmaceuticosController {
         model.setFilter(filter);
         model.setMode(Main.MODE_CREATE);
         model.setCurrent(new Farmaceutico());
-        model.setList(Service.instance().searchFarmaceutico(filter));
+        model.setList(Service.instance().searchFarmaceutico(model.getFilter()));
     }
 
     /**
@@ -91,9 +91,7 @@ public class FarmaceuticosController {
         try {
             model.setMode(Main.MODE_EDIT);
             model.setCurrent(Service.instance().readFarmaceutico(farmaceutico));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        } catch (Exception ex) {}
     }
 
     /**

@@ -16,16 +16,16 @@ import java.util.List;
 public class FarmaceuticosModel extends AbstractModel {
 
     /** Filtro actual para realizar búsquedas de farmaceutas. */
-    private Farmaceutico filter;
+     Farmaceutico filter;
 
     /** Lista de farmaceutas obtenida de la búsqueda. */
-    private List<Farmaceutico> list;
+     List<Farmaceutico> list;
 
     /** Farmaceuta actualmente seleccionado o en edición. */
-    private Farmaceutico current;
+     Farmaceutico current;
 
     /** Modo actual del modelo (crear o editar). */
-    private int mode;
+     int mode;
 
     /** Constante usada para notificar cambios en la lista. */
     public static final String LIST = "list";

@@ -2,15 +2,16 @@ package presentation.Farmaceuticos;
 
 import presentation.AbstractTableModel;
 import presentation.Logic.Farmaceutico;
-import presentation.Logic.Medico;
+
 
 import javax.swing.table.TableModel;
+import java.util.List;
 
 public class FarmaceuticosTableModel extends AbstractTableModel <Farmaceutico> implements TableModel {
     public static final int ID=0;
     public static final int NOMBRE=1;
 
-    public FarmaceuticosTableModel(int[] cols, java.util.List<Farmaceutico> rows) {
+    public FarmaceuticosTableModel(int[] cols, List<Farmaceutico> rows) {
         super(cols, rows);
     }
 
@@ -25,7 +26,7 @@ public class FarmaceuticosTableModel extends AbstractTableModel <Farmaceutico> i
 
     @Override
     protected void initColNames(){
-        colNames = new String[2];
+        colNames = new String[3];
         colNames[ID]= "Id";
         colNames[NOMBRE]= "Nombre";
     }

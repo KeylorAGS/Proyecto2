@@ -3,7 +3,9 @@ package presentation.Pacientes;
 import presentation.AbstractModel;
 
 import presentation.Logic.Paciente;
+import presentation.Main;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 public class PacientesModel extends AbstractModel {
@@ -34,7 +36,7 @@ public class PacientesModel extends AbstractModel {
      * @param listener Observador de cambios de propiedades.
      */
     @Override
-    public void addPropertyChangeListener(java.beans.PropertyChangeListener listener) {
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
         firePropertyChange(LIST);
         firePropertyChange(CURRENT);
@@ -58,7 +60,7 @@ public class PacientesModel extends AbstractModel {
         this.list = list;
         this.current = new Paciente();
         this.filter = new Paciente();
-        this.mode = 0;
+        this.mode = Main.MODE_CREATE;
     }
 
     /**

@@ -30,7 +30,7 @@ public class PacientesController {
             model.setFilter(filter);
             model.setMode(Main.MODE_CREATE);
             model.setCurrent(new Paciente());
-            model.setList(Service.instance().searchPaciente(filter));
+            model.setList(Service.instance().searchPaciente(model.getFilter()));
         }
 
         public void save(Paciente e) throws Exception {
@@ -51,9 +51,7 @@ public class PacientesController {
             try {
                 model.setMode(Main.MODE_EDIT);
                 model.setCurrent(Service.instance().readPaciente(paciente));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            } catch (Exception ex) {}
         }
 
         public void delete() throws Exception {
@@ -71,7 +69,7 @@ public class PacientesController {
         PdfWriter.getInstance(document, new FileOutputStream("PacientesReporte.pdf"));
         document.open();
 
-        document.add(new Paragraph("Paciente"));
+        document.add(new Paragraph("Reporte de Pacientes"));
 
         for (Paciente paciente : model.getList()) {
             document.add(new Paragraph("ID: " + paciente.getId()));
