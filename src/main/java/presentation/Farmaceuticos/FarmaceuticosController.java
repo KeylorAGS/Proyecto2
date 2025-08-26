@@ -1,9 +1,15 @@
 package presentation.Farmaceuticos;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import presentation.Logic.Farmaceutico;
-import presentation.Logic.Medico;
 import presentation.Logic.Service;
 import presentation.Main;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Controlador para la gestión de Farmacéuticos.
@@ -107,5 +113,23 @@ public class FarmaceuticosController {
     public void clear() {
         model.setMode(Main.MODE_CREATE);
         model.setCurrent(new Farmaceutico());
+    }
+
+    public void generatePdfReport() throws DocumentException, IOException {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("FaramaceuticosReporte.pdf"));
+        document.open();
+
+        // Agregar título
+        document.add(new Paragraph("Reporte de Faramaceuticos"));
+
+        // Agregar datos
+        for (Farmaceutico farmaceutico : model.getList()) {
+            document.add(new Paragraph("ID: " + farmaceutico.getId()));
+            document.add(new Paragraph("Nombre: " + farmaceutico.getNombre()));
+            document.add(new Paragraph("-----"));
+        }
+
+        document.close();
     }
 }

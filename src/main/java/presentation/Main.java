@@ -35,6 +35,12 @@ public class Main {
         Icon medicosIcon = new ImageIcon(Main.class.getResource(""));
         tabbedPane.addTab("Medicos", medicosIcon, medicosView.getPanel());
 
+        presentation.Farmaceuticos.FarmaceuticosModel farmaceuticosModel = new presentation.Farmaceuticos.FarmaceuticosModel();
+        presentation.Farmaceuticos.Farmaceuticos_View farmaceuticosView = new presentation.Farmaceuticos.Farmaceuticos_View();
+        farmaceuticosController = new presentation.Farmaceuticos.FarmaceuticosController(farmaceuticosView, farmaceuticosModel);
+        Icon farmaceuticosIcon = new ImageIcon(Main.class.getResource(""));
+        tabbedPane.addTab("Farmaceuticos", farmaceuticosIcon, farmaceuticosView.getPanel());
+
 //        View_Login view =  new View_Login();
 //        LoginModel model = new LoginModel();
 //        LoginController controller = new LoginController(model,view);
@@ -62,6 +68,7 @@ public class Main {
 
     public static JFrame window;
     public static presentation.Medicos.MedicosController medicosController;
+    public static presentation.Farmaceuticos.FarmaceuticosController farmaceuticosController;
 
     public final static int MODE_CREATE = 1;
     public final static int MODE_EDIT = 2;
