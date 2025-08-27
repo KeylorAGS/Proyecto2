@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data>
-    <Medicos/>
+    <Medicos>
+        <Medico>
+            <id>12345</id>
+            <nombre>Keylor</nombre>
+            <clave>12345</clave>
+            <especialidad>Vaginologo</especialidad>
+        </Medico>
+    </Medicos>
     <Farmaceuticos/>
     <Pacientes/>
     <Medicamentos/>

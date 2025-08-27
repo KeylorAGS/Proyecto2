@@ -110,6 +110,7 @@ public class Medicos_View implements PropertyChangeListener {
         medico.setId(IdJtext.getText());
         medico.setNombre(NombreJtext.getText());
         medico.setEspecialidad(EspecialidadJtext.getText());
+        medico.setClave(IdJtext.getText());
         return medico;
     }
 
