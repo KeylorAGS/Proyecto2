@@ -3,6 +3,7 @@ package presentation.Farmaceuticos;
 import presentation.AbstractModel;
 import presentation.Logic.Farmaceutico;
 import presentation.Main;
+import presentation.Medicos.InterfazMedicos;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class FarmaceuticosModel extends AbstractModel {
         this.list = list;
         this.current = new Farmaceutico();
         this.filter = new Farmaceutico();
-        this.mode = Main.MODE_CREATE;
+        this.mode = InterfazMedicos.MODE_CREATE;
     }
 
     public List<Farmaceutico> getList() {

@@ -8,7 +8,13 @@
             <especialidad>Vaginologo</especialidad>
         </Medico>
     </Medicos>
-    <Farmaceuticos/>
+    <Farmaceuticos>
+        <Farmaceutico>
+            <id>222</id>
+            <nombre>Keylor</nombre>
+            <clave>111</clave>
+        </Farmaceutico>
+    </Farmaceuticos>
     <Pacientes/>
     <Medicamentos/>
 </data>

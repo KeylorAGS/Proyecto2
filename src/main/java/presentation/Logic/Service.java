@@ -42,9 +42,37 @@ public class Service {
     private Service() {
         try {
             data = XmlPersister.instance().load();
+
+            // Si el XML existe pero está vacío, precargar datos de ejemplo
+            if (data.getMedicos().isEmpty() && data.getFarmaceuticos().isEmpty()
+                    && data.getPacientes().isEmpty() && data.getMedicamentos().isEmpty()) {
+                System.out.println("Hospital.xml está vacío. Precargando datos de ejemplo...");
+                precargarDatos();
+                stop(); // Guardar de inmediato en XML
+            }
         } catch (Exception e) {
+            System.out.println("No se pudo cargar Hospital.xml. Creando datos iniciales...");
             data = new Data();
+            precargarDatos();
+            stop();
         }
+    }
+
+    private void precargarDatos() { //Este metodo sirve para darle datos al xml en caso de estar vacio, porque sino como lo probamos
+
+        Medico medico = new Medico();
+        medico.setId("M001");
+        medico.setNombre("Dr. Gregory House");
+        medico.setEspecialidad("Diagnóstico");
+        medico.setClave("M001");
+
+        Farmaceutico farmaceutico = new Farmaceutico();
+        farmaceutico.setId("F001");
+        farmaceutico.setNombre("Dra. Gray");
+        farmaceutico.setClave("F001");
+
+        data.getMedicos().add(medico);
+        data.getFarmaceuticos().add(farmaceutico);
     }
 
     /**
@@ -192,7 +220,7 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-    //Buscar Usuario
+    //Buscar Usuario para iniciar sesion
     public Usuario login(String id, String clave) {
         for (Medico medico : data.getMedicos()) {
             if (medico.getId().equals(id) && medico.getClave().equals(clave)) { return medico; }
@@ -201,6 +229,31 @@ public class Service {
             if (farmaceutico.getId().equals(id) && farmaceutico.getClave().equals(clave)) { return farmaceutico; }
         }
         return null;
+    }
+
+    //Buscar usuario para luego cambiarle la clave (la idea sería intentar usar el de arriba para las dos cosas)
+    public Usuario buscarUsuario(String id) {
+        for (Medico medico : data.getMedicos()) {
+            if (medico.getId().equals(id)) { return medico; }
+        }
+        for (Farmaceutico farmaceutico : data.getFarmaceuticos()) {
+            if (farmaceutico.getId().equals(id)) { return farmaceutico; }
+        }
+        return null;
+    }
+
+    //Se actualiza la clave del usuario
+    public void actualizarUsuario(Usuario usuario) {
+        try {
+            if (usuario instanceof Medico) {
+                this.updateMedico((Medico) usuario);
+            } else if (usuario instanceof Farmaceutico) {
+                this.updateFarmaceutico((Farmaceutico) usuario);
+            }
+            stop();
+        } catch (Exception e) {
+            System.out.println("Error al actualizar usuario: " + e.getMessage());
+        }
     }
 
 

@@ -5,6 +5,7 @@ import presentation.Logic.Medicamento;
 import presentation.Logic.Medico;
 import presentation.Logic.Service;
 import presentation.Main;
+import presentation.Medicos.InterfazMedicos;
 import presentation.Medicos.MedicosModel;
 import presentation.Medicos.Medicos_View;
 
@@ -21,17 +22,17 @@ public class PrescripcionController {
 
     public void search(Medicamento filter) throws Exception {
         model.setFilter(filter);
-        model.setMode(Main.MODE_CREATE);
+        model.setMode(InterfazMedicos.MODE_CREATE);
         model.setCurrent(new Medicamento("", "", ""));
         model.setList(Service.instance().searchMedicamento(filter));
     }
 
     public void save(Medicamento e) throws Exception {
         switch (model.getMode()) {
-            case Main.MODE_CREATE:
+            case InterfazMedicos.MODE_CREATE:
                 Service.instance().createMedicamento(e);
                 break;
-            case Main.MODE_EDIT:
+            case InterfazMedicos.MODE_EDIT:
                 Service.instance().updateMedicamento(e);
                 break;
         }
@@ -42,7 +43,7 @@ public class PrescripcionController {
     public void edit(int row) {
         Medicamento medicamento = model.getList().get(row);
         try {
-            model.setMode(Main.MODE_EDIT);
+            model.setMode(InterfazMedicos.MODE_EDIT);
             model.setCurrent(Service.instance().readMedicamento(medicamento));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -55,7 +56,7 @@ public class PrescripcionController {
     }
 
     public void clear() {
-        model.setMode(Main.MODE_CREATE);
+        model.setMode(InterfazMedicos.MODE_CREATE);
         model.setCurrent(new Medicamento("", "", ""));
     }
 }

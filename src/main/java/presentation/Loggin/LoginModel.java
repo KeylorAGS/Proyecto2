@@ -16,6 +16,29 @@ public class LoginModel extends AbstractModel {
         firePropertyChange("currentUser",tempUser,this.currentUser);
     }
 
+
+    public boolean cambiarClaveUsuario(String claveActual, String claveNueva, String claveConfirmacion) {
+        if (currentUser == null) {
+            return false;
+        }
+
+        if (!currentUser.getClave().equals(claveActual)) {
+            firePropertyChange("claveError", null, "La clave actual no es correcta");
+            return false;
+        }
+
+        if (!claveNueva.equals(claveConfirmacion)) {
+            firePropertyChange("claveError", null, "La nueva clave y su confirmación no coinciden");
+            return false;
+        }
+
+        String oldClave = currentUser.getClave();
+        currentUser.setClave(claveNueva);
+        firePropertyChange("claveUsuario", oldClave, claveNueva);
+
+        return true;
+    }
+
     public LoginModel() {}
 
 

@@ -71,7 +71,7 @@ public class MedicosModel extends AbstractModel {
         this.list = list;
         this.current = new Medico();
         this.filter = new Medico();
-        this.mode = Main.MODE_CREATE;
+        this.mode = InterfazMedicos.MODE_CREATE;
     }
 
     /**

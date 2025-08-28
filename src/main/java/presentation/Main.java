@@ -13,72 +13,27 @@ import java.awt.event.WindowEvent;
 
 public class Main {
     public static void main(String[] args) {
-        try{
+        try {
+            // Look and Feel más moderno
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        }catch (Exception e){};
+        } catch (Exception e) {}
 
-        window = new JFrame();
-        JTabbedPane tabbedPane = new JTabbedPane();
-        window.setContentPane(tabbedPane);
+        // Crear MVC del Login
+        View_Login view = new View_Login();
+        LoginModel model = new LoginModel();
+        LoginController controller = new LoginController(model, view);
 
-        window.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                Service.instance().stop();
-            }
-        });
+        view.setModel(model);
+        view.setController(controller);
 
-        presentation.Medicos.MedicosModel medicosModel = new presentation.Medicos.MedicosModel();
-        presentation.Medicos.Medicos_View medicosView = new presentation.Medicos.Medicos_View();
-        medicosController = new presentation.Medicos.MedicosController(medicosView, medicosModel);
-        Icon medicosIcon = new ImageIcon(Main.class.getResource(""));
-        tabbedPane.addTab("Medicos", medicosIcon, medicosView.getPanel());
-
-        presentation.Farmaceuticos.FarmaceuticosModel farmaceuticosModel = new presentation.Farmaceuticos.FarmaceuticosModel();
-        presentation.Farmaceuticos.Farmaceuticos_View farmaceuticosView = new presentation.Farmaceuticos.Farmaceuticos_View();
-        farmaceuticosController = new presentation.Farmaceuticos.FarmaceuticosController(farmaceuticosView, farmaceuticosModel);
-        Icon farmaceuticosIcon = new ImageIcon(Main.class.getResource(""));
-        tabbedPane.addTab("Farmaceuticos", farmaceuticosIcon, farmaceuticosView.getPanel());
-
-        presentation.Pacientes.PacientesModel pacientesModel = new presentation.Pacientes.PacientesModel();
-        presentation.Pacientes.Pacientes_View pacientesView = new presentation.Pacientes.Pacientes_View();
-        pacientesController = new presentation.Pacientes.PacientesController(pacientesView, pacientesModel);
-        Icon pacientesIcon = new ImageIcon(Main.class.getResource(""));
-        tabbedPane.addTab("Pacientes", pacientesIcon, pacientesView.getPanel());
-
-//        View_Login view =  new View_Login();
-//        LoginModel model = new LoginModel();
-//        LoginController controller = new LoginController(model,view);
-//
-//        view.setModel(model);
-//        view.setController(controller);
-//
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(600,300);
-//        frame.setTitle("Clinica");
-//        frame.setContentPane(view.getPanelLogin());
-//        frame.setVisible(true);
-//        frame.setLocationRelativeTo(null);
-
-        // HOLA Xd
-
-        window.setSize(900, 450);
-        window.setResizable(false);
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setIconImage((new ImageIcon(Main.class.getResource(""))).getImage());
-        window.setTitle("Hospital");
-        window.setVisible(true);
+        // Crear la ventana principal del login
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 300);
+        frame.setTitle("Clinica - Login");
+        frame.setContentPane(view.getPanelLogin());
+        frame.setLocationRelativeTo(null); // Centra la ventana
+        frame.setVisible(true);
     }
-
-    public static JFrame window;
-    public static presentation.Medicos.MedicosController medicosController;
-    public static presentation.Farmaceuticos.FarmaceuticosController farmaceuticosController;
-    public static presentation.Pacientes.PacientesController pacientesController;
-
-    public final static int MODE_CREATE = 1;
-    public final static int MODE_EDIT = 2;
-    public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
 
 }

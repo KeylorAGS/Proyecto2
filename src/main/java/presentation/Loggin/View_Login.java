@@ -3,7 +3,7 @@ package presentation.Loggin;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
-
+import presentation.Medicos.InterfazMedicos;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +23,7 @@ public class View_Login implements PropertyChangeListener {
 
     LoginModel model;
     LoginController controller;
+    View_CambiarClave view_CambiarClave;
 
     public void setModel(LoginModel model){
         if(this.model != null) {
@@ -40,18 +41,31 @@ public class View_Login implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                String id = idField.getText().trim();
+                if (id.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Por favor digite el ID del usuario");
+                    return;
+                }
+
+                View_CambiarClave cambiarClaveView = new View_CambiarClave();
+                LoginModel cambiarClaveModel = new LoginModel();
+                CambiarClaveController cambiarClaveController = new CambiarClaveController(cambiarClaveModel, cambiarClaveView);
+
+                cambiarClaveView.setIdUsuario(id);
+                cambiarClaveController.login(id);
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
 
                 JFrame frame = new JFrame("Cambiar Clave");
-                frame.setSize(600,300);
-                frame.setContentPane(new View_CambiarClave().getPanelCambiarClave());
+                frame.setSize(600, 300);
+                frame.setContentPane(cambiarClaveView.getPanelCambiarClave());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
         });
+
         botonCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,14 +76,14 @@ public class View_Login implements PropertyChangeListener {
         botonInicioSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = "";
-                try {
-                   idField.getText();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Por favor ingresar un numero de cedula");
-                }
+                String id = idField.getText().trim();
                 String clave = new String(claveField.getPassword());
-                controller.login(id,clave);
+
+                if (id.isEmpty() || clave.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");
+                    return;
+                }
+                controller.login(id, clave);
             }
         });
     }
@@ -83,12 +97,18 @@ public class View_Login implements PropertyChangeListener {
         if (evt.getPropertyName().equals("currentUser")) {
             Usuario usuario = (Usuario) evt.getNewValue();
             if (usuario instanceof Medico) {
-                System.out.println("Se abre la ventana de medico");
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
+                topFrame.dispose();
+                InterfazMedicos.ventanaMedicos();
             } else if (usuario instanceof Farmaceutico) {
                 System.out.println("Se abre la ventana de farmacéutico");
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
+                topFrame.dispose();
+
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró al usuario");
             }
         }
     }
+
 }

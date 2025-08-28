@@ -10,6 +10,7 @@ import presentation.Logic.Farmaceutico;
 import presentation.Logic.Paciente;
 import presentation.Logic.Service;
 import presentation.Main;
+import presentation.Medicos.InterfazMedicos;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,17 +29,17 @@ public class PacientesController {
 
         public void search(Paciente filter) throws Exception {
             model.setFilter(filter);
-            model.setMode(Main.MODE_CREATE);
+            model.setMode(InterfazMedicos.MODE_CREATE);
             model.setCurrent(new Paciente());
             model.setList(Service.instance().searchPaciente(model.getFilter()));
         }
 
         public void save(Paciente e) throws Exception {
             switch (model.getMode()) {
-                case Main.MODE_CREATE:
+                case InterfazMedicos.MODE_CREATE:
                     Service.instance().createPaciente(e);
                     break;
-                case Main.MODE_EDIT:
+                case InterfazMedicos.MODE_EDIT:
                     Service.instance().updatePaciente(e);
                     break;
             }
@@ -49,7 +50,7 @@ public class PacientesController {
         public void edit(int row) {
             Paciente paciente = model.getList().get(row);
             try {
-                model.setMode(Main.MODE_EDIT);
+                model.setMode(InterfazMedicos.MODE_EDIT);
                 model.setCurrent(Service.instance().readPaciente(paciente));
             } catch (Exception ex) {}
         }
@@ -60,7 +61,7 @@ public class PacientesController {
         }
 
         public void clear() {
-            model.setMode(Main.MODE_CREATE);
+            model.setMode(InterfazMedicos.MODE_CREATE);
             model.setCurrent(new Paciente());
         }
 

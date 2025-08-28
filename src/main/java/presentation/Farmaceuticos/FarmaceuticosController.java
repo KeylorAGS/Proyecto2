@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Service;
 import presentation.Main;
+import presentation.Medicos.InterfazMedicos;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class FarmaceuticosController {
      */
     public void search(Farmaceutico filter) throws Exception {
         model.setFilter(filter);
-        model.setMode(Main.MODE_CREATE);
+        model.setMode(InterfazMedicos.MODE_CREATE);
         model.setCurrent(new Farmaceutico());
         model.setList(Service.instance().searchFarmaceutico(model.getFilter()));
     }
@@ -70,10 +71,10 @@ public class FarmaceuticosController {
      */
     public void save(Farmaceutico e) throws Exception {
         switch (model.getMode()) {
-            case Main.MODE_CREATE:
+            case InterfazMedicos.MODE_CREATE:
                 Service.instance().createFarmaceutico(e);
                 break;
-            case Main.MODE_EDIT:
+            case InterfazMedicos.MODE_EDIT:
                 Service.instance().updateFarmaceutico(e);
                 break;
         }
@@ -89,7 +90,7 @@ public class FarmaceuticosController {
     public void edit(int row) {
         Farmaceutico farmaceutico = model.getList().get(row);
         try {
-            model.setMode(Main.MODE_EDIT);
+            model.setMode(InterfazMedicos.MODE_EDIT);
             model.setCurrent(Service.instance().readFarmaceutico(farmaceutico));
         } catch (Exception ex) {}
     }
@@ -109,7 +110,7 @@ public class FarmaceuticosController {
      * restableciendo el modo a "CREAR" y el farmaceuta actual a uno vacío.
      */
     public void clear() {
-        model.setMode(Main.MODE_CREATE);
+        model.setMode(InterfazMedicos.MODE_CREATE);
         model.setCurrent(new Farmaceutico());
     }
 

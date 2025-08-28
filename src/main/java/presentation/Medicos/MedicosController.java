@@ -51,7 +51,7 @@ public class MedicosController {
      */
     public void search(Medico filter) throws Exception {
         model.setFilter(filter);
-        model.setMode(Main.MODE_CREATE);
+        model.setMode(InterfazMedicos.MODE_CREATE);
         model.setCurrent(new Medico());
         model.setList(Service.instance().searchMedico(filter));
     }
@@ -60,8 +60,8 @@ public class MedicosController {
      * Guarda un médico en el sistema.
      *
      * Dependiendo del modo en el que esté el modelo:
-     * - {@link Main#MODE_CREATE}: crea un nuevo médico.
-     * - {@link Main#MODE_EDIT}: actualiza un médico existente.
+     * - {@link InterfazMedicos#MODE_CREATE}: crea un nuevo médico.
+     * - {@link InterfazMedicos#MODE_EDIT}: actualiza un médico existente.
      *
      * Al finalizar, reinicia el médico actual y vuelve a ejecutar la búsqueda.
      *
@@ -70,10 +70,10 @@ public class MedicosController {
      */
     public void save(Medico current) throws Exception {
         switch (model.getMode()) {
-            case Main.MODE_CREATE:
+            case InterfazMedicos.MODE_CREATE:
                 Service.instance().createMedico(current);
                 break;
-            case Main.MODE_EDIT:
+            case InterfazMedicos.MODE_EDIT:
                 Service.instance().updateMedico(current);
                 break;
         }
@@ -89,7 +89,7 @@ public class MedicosController {
     public void edit(int row) {
         Medico medico = model.getList().get(row);
         try {
-            model.setMode(Main.MODE_EDIT);
+            model.setMode(InterfazMedicos.MODE_EDIT);
             model.setCurrent(Service.instance().readMedico(medico));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -112,7 +112,7 @@ public class MedicosController {
      * Prepara la vista para ingresar un nuevo médico.
      */
     public void clear() {
-        model.setMode(Main.MODE_CREATE);
+        model.setMode(InterfazMedicos.MODE_CREATE);
         model.setCurrent(new Medico());
     }
 

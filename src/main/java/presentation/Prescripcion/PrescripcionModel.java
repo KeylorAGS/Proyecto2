@@ -4,6 +4,7 @@ import presentation.AbstractModel;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medicamento;
 import presentation.Main;
+import presentation.Medicos.InterfazMedicos;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PrescripcionModel extends AbstractModel {
         this.list = list;
         this.current = new Medicamento("", "", "");
         this.filter = new Medicamento("", "", "");
-        this.mode = Main.MODE_CREATE;
+        this.mode = InterfazMedicos.MODE_CREATE;
     }
 
     public List<Medicamento> getList() {
