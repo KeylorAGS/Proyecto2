@@ -5,6 +5,7 @@ import presentation.Logic.Farmaceutico;
 import presentation.Main;
 import presentation.Medicos.InterfazMedicos;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -36,6 +37,14 @@ public class FarmaceuticosModel extends AbstractModel {
 
     /** Constante usada para notificar cambios en el filtro. */
     public static final String FILTER = "filter";
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
+        firePropertyChange(LIST);
+        firePropertyChange(CURRENT);
+        firePropertyChange(FILTER);
+    }
 
     /**
      * Constructor por defecto.
