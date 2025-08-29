@@ -37,6 +37,7 @@ public class View_Prescripcion implements PropertyChangeListener {
                 ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 ventana.setLocationRelativeTo(null);
                 ventana.setVisible(true);
+
             }
         });
         agregarMedicamento.addActionListener(new ActionListener() {
