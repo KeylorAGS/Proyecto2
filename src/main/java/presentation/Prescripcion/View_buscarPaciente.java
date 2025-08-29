@@ -12,4 +12,7 @@ public class View_buscarPaciente {
     private JLabel Filtrar;
     private JScrollPane listaPacientes;
     private JPanel panel;
+
+
+    public JPanel getPanelBuscarPaciente() { return panel1; }
 }

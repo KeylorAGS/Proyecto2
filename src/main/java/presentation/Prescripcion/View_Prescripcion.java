@@ -2,6 +2,8 @@ package presentation.Prescripcion;
 
 import javax.swing.*;
 import javax.swing.text.View;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -23,6 +25,34 @@ public class View_Prescripcion implements PropertyChangeListener {
     private JButton limpiarButton;
 
 
+    public View_Prescripcion() {
+        buscarPaciente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                View_buscarPaciente view = new View_buscarPaciente();
+
+                JFrame ventana = new JFrame("Buscar Paciente");
+                ventana.setContentPane(view.getPanelBuscarPaciente());
+                ventana.setSize(500, 400);
+                ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ventana.setLocationRelativeTo(null);
+                ventana.setVisible(true);
+            }
+        });
+        agregarMedicamento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                View_agregarMedicamento view = new View_agregarMedicamento();
+
+                JFrame ventana = new JFrame("Agregar Medicamento");
+                ventana.setContentPane(view.getPanelAgregarMedicamento());
+                ventana.setSize(500, 400);
+                ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                ventana.setLocationRelativeTo(null);
+                ventana.setVisible(true);
+            }
+        });
+    }
 
     public JPanel getPanelPrescripcion(){
         return panel1;

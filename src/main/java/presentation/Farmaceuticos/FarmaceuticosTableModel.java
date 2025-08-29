@@ -3,7 +3,6 @@ package presentation.Farmaceuticos;
 import presentation.AbstractTableModel;
 import presentation.Logic.Farmaceutico;
 
-
 import javax.swing.table.TableModel;
 import java.util.List;
 

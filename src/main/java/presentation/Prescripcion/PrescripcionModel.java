@@ -6,6 +6,8 @@ import presentation.Logic.Medicamento;
 import presentation.Main;
 import presentation.Medicos.InterfazMedicos;
 
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PrescripcionModel extends AbstractModel {
@@ -27,12 +29,21 @@ public class PrescripcionModel extends AbstractModel {
     public PrescripcionModel() {
     }
 
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
+        firePropertyChange(LIST);
+        firePropertyChange(CURRENT);
+        firePropertyChange(FILTER);
+    }
+
     public void init(List<Medicamento> list) {
-        this.list = list;
+        this.list = new ArrayList<>();
         this.current = new Medicamento("", "", "");
         this.filter = new Medicamento("", "", "");
         this.mode = InterfazMedicos.MODE_CREATE;
     }
+
 
     public List<Medicamento> getList() {
         return list;
