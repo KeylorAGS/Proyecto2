@@ -8,6 +8,13 @@
             <especialidad>Vaginologo</especialidad>
         </Medico>
     </Medicos>
+    <Administradores>
+        <Administrador>
+            <id>555</id>
+            <nombre>Andrey</nombre>
+            <clave>777</clave>
+        </Administrador>
+    </Administradores>
     <Farmaceuticos>
         <Farmaceutico>
             <id>222</id>
@@ -21,6 +28,12 @@
             <nombre>Keneth</nombre>
             <fechaNacimiento>3 de septiembre de 2025</fechaNacimiento>
             <telefono>123</telefono>
+        </Paciente>
+        <Paciente>
+            <id>789</id>
+            <nombre>Keylor</nombre>
+            <fechaNacimiento>17 de septiembre de 2025</fechaNacimiento>
+            <telefono>72682583</telefono>
         </Paciente>
     </Pacientes>
 </data>

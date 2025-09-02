@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Implementa el patrón Singleton para asegurar una única instancia en toda la aplicación.
  *
  * Funcionalidades principales:
- * - Gestiona los objetos de negocio {@link Medico} y {@link Farmaceutico}.
+ * - Gestiona los objetos de negocio {@link Medico} y {@link Farmaceutico} {@link Administrador}.
  * - Realiza operaciones CRUD (crear, leer, actualizar, borrar).
  * - Permite búsquedas filtradas por distintos criterios.
  * - Administra la persistencia de los datos mediante {@link XmlPersister}.
@@ -45,7 +45,7 @@ public class Service {
 
             // Si el XML existe pero está vacío, precargar datos de ejemplo
             if (data.getMedicos().isEmpty() && data.getFarmaceuticos().isEmpty()
-                    && data.getPacientes().isEmpty()) {
+                    && data.getPacientes().isEmpty() && data.getAdministradores().isEmpty()) {
                 System.out.println("Hospital.xml está vacío. Precargando datos de ejemplo...");
                 precargarDatos();
                 stop(); // Guardar de inmediato en XML
@@ -71,8 +71,14 @@ public class Service {
         farmaceutico.setNombre("Dra. Gray");
         farmaceutico.setClave("F001");
 
+        Administrador admistrador = new Administrador();
+        admistrador.setId("A001");
+        admistrador.setNombre("Jose Sanchez");
+        admistrador.setClave("A001");
+
         data.getMedicos().add(medico);
         data.getFarmaceuticos().add(farmaceutico);
+        data.getAdministradores().add(admistrador);
     }
 
     /**
@@ -220,6 +226,40 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
+    // ================= Administradores ================= //
+
+    /**
+     * Busca un administrador por su id.
+     *
+     * @param administrador Objeto con el id del administrador a buscar.
+     * @return El administrador encontrado.
+     * @throws Exception si no existe el administrador.
+     */
+    public Administrador readAdministrador(Administrador administrador) throws Exception {
+        Administrador result = data.getAdministradores().stream().filter(i->i.getId().equals(administrador.getId())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Administrador no existe");
+    }
+
+    /**
+     * Actualiza los datos de un administrador.
+     *
+     * @param administrador Administrador con la información actualizada.
+     * @throws Exception si no existe el administrador.
+     */
+    public void updateAdministrador(Administrador administrador) throws Exception {
+        Administrador result;
+        try{
+            result = this.readAdministrador(administrador);
+            data.getAdministradores().remove(result);
+            data.getAdministradores().add(administrador);
+        }catch (Exception ex) {
+            throw new Exception("Administrador no existe");
+        }
+    }
+
+    // ================= Login ================= //
+
     //Buscar Usuario para iniciar sesion
     public Usuario login(String id, String clave) {
         for (Medico medico : data.getMedicos()) {
@@ -227,6 +267,9 @@ public class Service {
         }
         for (Farmaceutico farmaceutico : data.getFarmaceuticos()) {
             if (farmaceutico.getId().equals(id) && farmaceutico.getClave().equals(clave)) { return farmaceutico; }
+        }
+        for (Administrador administrador : data.getAdministradores()) {
+            if (administrador.getId().equals(id) && administrador.getClave().equals(clave)) { return administrador; }
         }
         return null;
     }
@@ -239,6 +282,9 @@ public class Service {
         for (Farmaceutico farmaceutico : data.getFarmaceuticos()) {
             if (farmaceutico.getId().equals(id)) { return farmaceutico; }
         }
+        for (Administrador administrador : data.getAdministradores()) {
+            if (administrador.getId().equals(id)) { return administrador; }
+        }
         return null;
     }
 
@@ -249,14 +295,14 @@ public class Service {
                 this.updateMedico((Medico) usuario);
             } else if (usuario instanceof Farmaceutico) {
                 this.updateFarmaceutico((Farmaceutico) usuario);
+            } else if (usuario instanceof Administrador) {
+                this.updateAdministrador((Administrador) usuario);
             }
             stop();
         } catch (Exception e) {
             System.out.println("Error al actualizar usuario: " + e.getMessage());
         }
     }
-
-
 
     // ================= Pacientes ================= //
 

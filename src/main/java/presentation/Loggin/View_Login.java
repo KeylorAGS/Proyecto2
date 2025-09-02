@@ -1,5 +1,6 @@
 package presentation.Loggin;
 
+import presentation.Logic.Administrador;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
@@ -104,7 +105,10 @@ public class View_Login implements PropertyChangeListener {
                 System.out.println("Se abre la ventana de farmacéutico");
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
-
+            } else if (usuario instanceof Administrador) {
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
+                topFrame.dispose();
+                InterfazMedicos.ventanaMedicos();
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró al usuario");
             }

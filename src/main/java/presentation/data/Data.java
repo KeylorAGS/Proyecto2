@@ -11,7 +11,7 @@ import java.util.List;
  *
  * Esta clase sirve como raíz para la serialización y deserialización de datos
  * (XML en este caso, usando JAXB). Permite almacenar y recuperar listas de
- * {@link Medico} y {@link Farmaceutico}.
+ * {@link Medico} y {@link Farmaceutico}. {@link Administrador}
  *
  * Está anotada con {@link XmlRootElement} y {@link XmlAccessorType} para indicar
  * cómo se deben mapear los elementos a XML.
@@ -29,6 +29,16 @@ public class Data {
     @XmlElementWrapper(name = "Medicos")
     @XmlElement(name = "Medico")
     private List<Medico> Medicos;
+
+    /**
+     * Lista de administradores registrados en el sistema.
+     *
+     * Se serializa en XML dentro de una etiqueta <Administradores>,
+     * y cada administrador individual dentro de una etiqueta <Administrador>.
+     */
+    @XmlElementWrapper(name = "Administradores")
+    @XmlElement(name = "Administrador")
+    private List<Administrador> administradores;
 
     /**
      * Lista de farmaceutas registrados en el sistema.
@@ -56,6 +66,7 @@ public class Data {
         Farmaceuticos = new ArrayList<>();
         Pacientes = new ArrayList<>();
         medicamentos = new ArrayList<>();
+        administradores = new ArrayList<>();
     }
 
     /**
@@ -67,6 +78,12 @@ public class Data {
         return Medicos;
     }
 
+    /**
+     * Obtiene la lista de administradores registrados en el sistema.
+     *
+     * @return Lista de objetos {@link Administrador}.
+     */
+    public List<Administrador> getAdministradores() { return administradores; }
     /**
      * Obtiene la lista de farmaceutas.
      *
