@@ -1,30 +1,42 @@
 package presentation.Logic;
 
+import java.util.Objects;
+
 public class Medicamento {
-    private String codigo;
+    private String id;
     private String nombre;
     private String presentacion;
 
-    public  Medicamento(String codigo, String nombre, String presentacion) {
-        this.codigo = codigo;
+    public Medicamento(String id, String nombre, String presentacion) {
+        this.id = id;
         this.nombre = nombre;
         this.presentacion = presentacion;
     }
 
-    public String getCodigo() {return codigo;}
-    public String getNombre() {return nombre;}
-    public String getPresentacion() {return presentacion;}
+    public Medicamento(){this("", "", "");}
 
-    public void setCodigo(String codigo) {this.codigo = codigo;}
-    public void setNombre(String nombre) {this.nombre = nombre;}
-    public void setPresentacion(String presentacion) {this.presentacion = presentacion;}
-
-    @Override
-    public String toString() {
-        return "Medicamento{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", presentacion='" + presentacion + '\'' +
-                '}';
+    public String getId() {
+        return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPresentacion() {
+        return presentacion;
+    }
+
+    public void setPresentacion(String presentacion) {
+        this.presentacion = presentacion;
+    }
+
 }

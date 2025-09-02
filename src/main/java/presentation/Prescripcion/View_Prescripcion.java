@@ -1,74 +1,65 @@
 package presentation.Prescripcion;
 
+import presentation.Prescripcion.Main;
+import presentation.Logic.Medicamento;
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class View_Prescripcion implements PropertyChangeListener {
-    private JPanel panel1;
+    private JTable table1;
+    private JButton Guardar;
     private JPanel panel;
-    private JPanel control;
-    private JButton buscarPaciente;
-    private JButton agregarMedicamento;
-    private JTextField fechaRetiroT;
-    private JButton fechaRetiroB;
-    private JLabel paciente;
-    private JLabel fechaRetiro;
-    private JTable listaMedicamentos;
-    private JPanel ajustarPrescripcion;
-    private JButton guardar;
-    private JButton descartarMedicamentoButton;
-    private JButton detallesButton;
-    private JButton limpiarButton;
-
 
     public View_Prescripcion() {
-        buscarPaciente.addActionListener(new ActionListener() {
+        Guardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller != null) {
-                    controller.abrirBuscarPaciente();
+                Medicamento n = take();
+                try {
+                    controller.create(n);
+                    JOptionPane.showMessageDialog(panel, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-            }
-        });
-        agregarMedicamento.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                View_agregarMedicamento view = new View_agregarMedicamento();
-
-                JFrame ventana = new JFrame("Agregar Medicamento");
-                ventana.setContentPane(view.getPanelAgregarMedicamento());
-                ventana.setSize(500, 400);
-                ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                ventana.setLocationRelativeTo(null);
-                ventana.setVisible(true);
             }
         });
     }
 
-    public JPanel getPanelPrescripcion(){
-        return panel1;
+    public JPanel getPanel() {
+        return panel;
     }
 
-
-    // MVC
-    PrescripcionModel model;
     PrescripcionController controller;
+    PrescripcionModel model;
 
-    public void setModel(PrescripcionModel model){
+    public void setController(PrescripcionController controller) {
+        this.controller = controller;
+    }
+
+    public void setModel(PrescripcionModel model) {
         this.model = model;
         model.addPropertyChangeListener(this);
     }
 
-    public void setController(PrescripcionController controller){
-        this.controller = controller;
+    public Medicamento take() {
+        Medicamento e = new Medicamento();
+        e.setId("123");
+        e.setNombre("coca");
+        e.setPresentacion("500mg");
+        return e;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case PrescripcionModel.LIST:
+                int[] cols = {PrescripcionTableModel.ID,PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
+                table1.setModel(new PrescripcionTableModel(cols,model.getList()));
+                break;
+        }
+        this.panel.revalidate();
     }
 }

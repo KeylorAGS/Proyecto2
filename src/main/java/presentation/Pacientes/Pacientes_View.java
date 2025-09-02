@@ -43,15 +43,7 @@ public class Pacientes_View implements PropertyChangeListener {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (validate()) {
-                    Paciente paciente = take();
-                    try {
-                        controller.save(paciente);
-                        JOptionPane.showMessageDialog(panel, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
+
             }
         });
 

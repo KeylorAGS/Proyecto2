@@ -45,10 +45,6 @@ public class Data {
     @XmlElement(name = "Paciente")
     private List<Paciente> Pacientes;
 
-    @XmlElementWrapper(name = "Medicamentos")
-    @XmlElement(name = "Medicamento")
-    private List<Medicamento> Medicamentos;
-
     /**
      * Constructor por defecto.
      *
@@ -59,7 +55,7 @@ public class Data {
         Medicos = new ArrayList<>();
         Farmaceuticos = new ArrayList<>();
         Pacientes = new ArrayList<>();
-        Medicamentos = new ArrayList<>();
+        medicamentos = new ArrayList<>();
     }
 
     /**
@@ -82,5 +78,8 @@ public class Data {
 
     public List<Paciente> getPacientes() { return Pacientes; }
 
-    public List<Medicamento> getMedicamentos() { return Medicamentos; }
+    //----------------------------Medicamento--------------------------
+    private List<Medicamento> medicamentos;
+
+    public List<Medicamento> getMedicamentos() {return medicamentos;}
 }
