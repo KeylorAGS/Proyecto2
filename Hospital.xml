@@ -15,5 +15,12 @@
             <clave>111</clave>
         </Farmaceutico>
     </Farmaceuticos>
-    <Pacientes/>
+    <Pacientes>
+        <Paciente>
+            <id>123</id>
+            <nombre>Keneth</nombre>
+            <fechaNacimiento>3 de septiembre de 2025</fechaNacimiento>
+            <telefono>123</telefono>
+        </Paciente>
+    </Pacientes>
 </data>

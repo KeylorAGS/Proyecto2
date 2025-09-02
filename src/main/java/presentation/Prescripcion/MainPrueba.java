@@ -28,7 +28,7 @@ public class MainPrueba {
         window.setSize(600,400);
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("Pruebas");
-        window.setContentPane(view.getPanel());
+        window.setContentPane(view3.getPanel());
         window.setVisible(true);
     }
 
