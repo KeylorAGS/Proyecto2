@@ -1,6 +1,6 @@
 package presentation.Prescripcion;
 
-import presentation.Prescripcion.Main;
+import com.github.lgooddatepicker.components.DatePicker;
 import presentation.Logic.Medicamento;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -9,12 +9,20 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class View_Prescripcion implements PropertyChangeListener {
-    private JTable table1;
-    private JButton Guardar;
     private JPanel panel;
+    private JButton buscarPaciente;
+    private JButton agregarMedicamento;
+    private JTable table;
+    private JLabel FechaRetiro;
+    private DatePicker elegirFecha;
+    private JLabel verPaciente;
+    private JButton guardar;
+    private JButton detalles;
+    private JButton descartarMedicamento;
+    private JButton limpiar;
 
     public View_Prescripcion() {
-        Guardar.addActionListener(new ActionListener() {
+        guardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Medicamento n = take();
@@ -57,9 +65,10 @@ public class View_Prescripcion implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case PrescripcionModel.LIST:
                 int[] cols = {PrescripcionTableModel.ID,PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
-                table1.setModel(new PrescripcionTableModel(cols,model.getList()));
+                table.setModel(new PrescripcionTableModel(cols,model.getList()));
                 break;
         }
         this.panel.revalidate();
     }
+
 }

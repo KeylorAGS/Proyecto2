@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main { //Puto
+public class Main {
     public static void main(String[] args) {
         try {
             // Look and Feel más moderno
