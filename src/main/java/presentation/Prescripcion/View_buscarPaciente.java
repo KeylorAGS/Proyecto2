@@ -17,8 +17,6 @@ public class View_buscarPaciente {
     private JPanel panel;
 
 
-
-
     public View_buscarPaciente() {
         cancelar.addActionListener(new ActionListener() {
             @Override
@@ -30,8 +28,6 @@ public class View_buscarPaciente {
             }
         });
     }
-
-
 
     public JPanel getPanelBuscarPaciente() { return panel1; }
 }

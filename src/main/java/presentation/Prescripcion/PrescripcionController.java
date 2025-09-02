@@ -9,16 +9,37 @@ import presentation.Medicos.InterfazMedicos;
 import presentation.Medicos.MedicosModel;
 import presentation.Medicos.Medicos_View;
 
+import javax.swing.*;
+
 public class PrescripcionController {
     PrescripcionModel model;
     View_Prescripcion view;
+    View_buscarPaciente buscarPacienteView;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
         this.view = view;
         this.model = model;
         view.setController(this);
         view.setModel(model);
+
+        buscarPacienteView = new View_buscarPaciente();
+        JFrame ventana = new JFrame("Buscar Paciente");
+        ventana.setContentPane(buscarPacienteView.getPanelBuscarPaciente());
+        ventana.setSize(500, 400);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ventana.setLocationRelativeTo(null);
+
+        // Guardamos la referencia para mostrarla luego
+        this.buscarPacienteWindow = ventana;
     }
+
+    public void abrirBuscarPaciente() {
+        if (buscarPacienteWindow != null) {
+            buscarPacienteWindow.setVisible(true);
+        }
+    }
+
+    private JFrame buscarPacienteWindow;
 
     public void search(Medicamento filter) throws Exception {
         model.setFilter(filter);
