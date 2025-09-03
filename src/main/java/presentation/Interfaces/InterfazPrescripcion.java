@@ -1,5 +1,6 @@
 package presentation.Interfaces;
 
+import presentation.Acerca_De;
 import presentation.Logic.Service;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
@@ -50,12 +51,14 @@ public class InterfazPrescripcion {
         PacientesModel pacientesModel = new PacientesModel();
         Pacientes_View pacientesView = new Pacientes_View();
         pacientesController = new PacientesController(pacientesView, pacientesModel);
-
         View_buscarPaciente buscarPacienteView = new View_buscarPaciente();
         buscarPacienteView.setModel(pacientesModel);
         buscarPacienteView.setController(pacientesController);
-
         tabbedPane.addTab("Buscar Paciente", null, buscarPacienteView.getPanel());
+
+        //Acerca de
+        Acerca_De acercaDe = new Acerca_De();
+        tabbedPane.addTab("Acerca de...", null, acercaDe.getPanel());
 
         // Ventana principal
         window.setSize(900, 450);
