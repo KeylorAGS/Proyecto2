@@ -2,8 +2,7 @@ package presentation.Farmaceuticos;
 
 import presentation.AbstractModel;
 import presentation.Logic.Farmaceutico;
-import presentation.Main;
-import presentation.Medicos.InterfazMedicos;
+import presentation.Interfaces.InterfazAdministrador;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -63,7 +62,7 @@ public class FarmaceuticosModel extends AbstractModel {
         this.list = list;
         this.current = new Farmaceutico();
         this.filter = new Farmaceutico();
-        this.mode = InterfazMedicos.MODE_CREATE;
+        this.mode = InterfazAdministrador.MODE_CREATE;
     }
 
     public List<Farmaceutico> getList() {

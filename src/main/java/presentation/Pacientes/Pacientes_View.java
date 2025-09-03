@@ -3,8 +3,7 @@ package presentation.Pacientes;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.itextpdf.text.DocumentException;
 import presentation.Logic.Paciente;
-import presentation.Main;
-import presentation.Medicos.InterfazMedicos;
+import presentation.Interfaces.InterfazAdministrador;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -112,7 +111,7 @@ public class Pacientes_View implements PropertyChangeListener {
         boolean valid = true;
         if(IdJtext.getText().isEmpty()){
             valid = false;
-            idLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            idLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             idLbl.setToolTipText("Id requerido");
         } else {
             idLbl.setBorder(null);
@@ -120,7 +119,7 @@ public class Pacientes_View implements PropertyChangeListener {
         }
         if(NombreJtext.getText().isEmpty()){
             valid = false;
-            NombreLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            NombreLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             NombreLbl.setToolTipText("Nombre requerido");
         } else {
             NombreLbl.setBorder(null);
@@ -128,7 +127,7 @@ public class Pacientes_View implements PropertyChangeListener {
         }
         if(NacimientoPicker.getText().isEmpty()){
             valid = false;
-            NacimientoLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            NacimientoLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             NacimientoLbl.setToolTipText("Fecha de nacimiento requerida");
         } else {
             NacimientoLbl.setBorder(null);
@@ -136,7 +135,7 @@ public class Pacientes_View implements PropertyChangeListener {
         }
         if(TelefenoJText.getText().isEmpty()){
             valid = false;
-            TelefonoLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            TelefonoLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             TelefonoLbl.setToolTipText("Teléfono requerido");
         } else {
             TelefonoLbl.setBorder(null);
@@ -185,7 +184,7 @@ public class Pacientes_View implements PropertyChangeListener {
                 NacimientoPicker.setText(model.getCurrent().getFechaNacimiento());
                 TelefenoJText.setText(model.getCurrent().getTelefono());
 
-                if (model.getMode() == InterfazMedicos.MODE_EDIT){
+                if (model.getMode() == InterfazAdministrador.MODE_EDIT){
                     IdJtext.setEnabled(false);
                     delete.setEnabled(true);
                 } else {

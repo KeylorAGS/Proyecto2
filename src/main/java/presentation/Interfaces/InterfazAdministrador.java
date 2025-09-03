@@ -1,4 +1,4 @@
-package presentation.Medicos;
+package presentation.Interfaces;
 
 import presentation.Logic.Service;
 
@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class InterfazMedicos {
+public class InterfazAdministrador {
     public static JFrame window;
     public static presentation.Medicos.MedicosController medicosController;
     public static presentation.Farmaceuticos.FarmaceuticosController farmaceuticosController;

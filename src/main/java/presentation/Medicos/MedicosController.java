@@ -1,8 +1,8 @@
 package presentation.Medicos;
 
+import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Medico;
 import presentation.Logic.Service;
-import presentation.Main;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -51,7 +51,7 @@ public class MedicosController {
      */
     public void search(Medico filter) throws Exception {
         model.setFilter(filter);
-        model.setMode(InterfazMedicos.MODE_CREATE);
+        model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Medico());
         model.setList(Service.instance().searchMedico(filter));
     }
@@ -60,8 +60,8 @@ public class MedicosController {
      * Guarda un médico en el sistema.
      *
      * Dependiendo del modo en el que esté el modelo:
-     * - {@link InterfazMedicos#MODE_CREATE}: crea un nuevo médico.
-     * - {@link InterfazMedicos#MODE_EDIT}: actualiza un médico existente.
+     * - {@link InterfazAdministrador#MODE_CREATE}: crea un nuevo médico.
+     * - {@link InterfazAdministrador#MODE_EDIT}: actualiza un médico existente.
      *
      * Al finalizar, reinicia el médico actual y vuelve a ejecutar la búsqueda.
      *
@@ -70,10 +70,10 @@ public class MedicosController {
      */
     public void save(Medico current) throws Exception {
         switch (model.getMode()) {
-            case InterfazMedicos.MODE_CREATE:
+            case InterfazAdministrador.MODE_CREATE:
                 Service.instance().createMedico(current);
                 break;
-            case InterfazMedicos.MODE_EDIT:
+            case InterfazAdministrador.MODE_EDIT:
                 Service.instance().updateMedico(current);
                 break;
         }
@@ -89,7 +89,7 @@ public class MedicosController {
     public void edit(int row) {
         Medico medico = model.getList().get(row);
         try {
-            model.setMode(InterfazMedicos.MODE_EDIT);
+            model.setMode(InterfazAdministrador.MODE_EDIT);
             model.setCurrent(Service.instance().readMedico(medico));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -112,7 +112,7 @@ public class MedicosController {
      * Prepara la vista para ingresar un nuevo médico.
      */
     public void clear() {
-        model.setMode(InterfazMedicos.MODE_CREATE);
+        model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Medico());
     }
 

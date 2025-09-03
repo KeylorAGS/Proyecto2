@@ -1,8 +1,8 @@
 package presentation.Medicos;
 
 import presentation.AbstractModel;
+import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Medico;
-import presentation.Main;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -71,7 +71,7 @@ public class MedicosModel extends AbstractModel {
         this.list = list;
         this.current = new Medico();
         this.filter = new Medico();
-        this.mode = InterfazMedicos.MODE_CREATE;
+        this.mode = InterfazAdministrador.MODE_CREATE;
     }
 
     /**

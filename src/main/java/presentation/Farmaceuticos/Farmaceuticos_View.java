@@ -2,12 +2,10 @@ package presentation.Farmaceuticos;
 
 import com.itextpdf.text.DocumentException;
 import presentation.Logic.Farmaceutico;
-import presentation.Main;
-import presentation.Medicos.InterfazMedicos;
+import presentation.Interfaces.InterfazAdministrador;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -105,7 +103,7 @@ public class Farmaceuticos_View  implements PropertyChangeListener {
     private boolean validate(){
         boolean valid = true;
         if(IdJtext.getText().isEmpty()){
-            idLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            idLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             idLbl.setToolTipText("Id requerido");
             valid = false;
         } else {
@@ -113,7 +111,7 @@ public class Farmaceuticos_View  implements PropertyChangeListener {
             idLbl.setToolTipText(null);
         }
         if(NombreJtext.getText().isEmpty()){
-            NombreLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            NombreLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             NombreLbl.setToolTipText("Nombre requerido");
             valid = false;
         } else {
@@ -158,7 +156,7 @@ public class Farmaceuticos_View  implements PropertyChangeListener {
                 IdJtext.setText(model.getCurrent().getId());
                 NombreJtext.setText(model.getCurrent().getNombre());
 
-                if(model.getMode() == InterfazMedicos.MODE_EDIT){
+                if(model.getMode() == InterfazAdministrador.MODE_EDIT){
                     IdJtext.setEnabled(false);
                     delete.setEnabled(true);
                 } else {

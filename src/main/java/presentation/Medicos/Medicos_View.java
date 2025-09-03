@@ -1,9 +1,8 @@
 package presentation.Medicos;
 
 import com.itextpdf.text.DocumentException;
+import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Medico;
-import presentation.Logic.Usuario;
-import presentation.Main;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -118,7 +117,7 @@ public class Medicos_View implements PropertyChangeListener {
       boolean valid = true;
         if (IdJtext.getText().isEmpty()){
             valid=false;
-            idLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            idLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             idLbl.setToolTipText("ID requerido");
         } else {
             idLbl.setBorder(null);
@@ -126,7 +125,7 @@ public class Medicos_View implements PropertyChangeListener {
         }
         if (NombreJtext.getText().isEmpty()){
             valid=false;
-            NombreLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            NombreLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             NombreLbl.setToolTipText("Nombre requerido");
         } else {
             NombreLbl.setBorder(null);
@@ -134,7 +133,7 @@ public class Medicos_View implements PropertyChangeListener {
         }
         if (EspecialidadJtext.getText().isEmpty()){
             valid=false;
-            EspecialidadLbl.setBorder(InterfazMedicos.BORDER_ERROR);
+            EspecialidadLbl.setBorder(InterfazAdministrador.BORDER_ERROR);
             EspecialidadLbl.setToolTipText("Especialidad requerida");
         } else {
             EspecialidadLbl.setBorder(null);
@@ -172,7 +171,7 @@ public class Medicos_View implements PropertyChangeListener {
                 NombreJtext.setText(model.getCurrent().getNombre());
                 EspecialidadJtext.setText(model.getCurrent().getEspecialidad());
 
-                if(model.getMode() == InterfazMedicos.MODE_EDIT){
+                if(model.getMode() == InterfazAdministrador.MODE_EDIT){
                     IdJtext.setEnabled(false);
                     delete.setEnabled(true);
                 } else {

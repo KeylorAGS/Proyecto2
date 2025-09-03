@@ -3,8 +3,7 @@ package presentation.Pacientes;
 import presentation.AbstractModel;
 
 import presentation.Logic.Paciente;
-import presentation.Main;
-import presentation.Medicos.InterfazMedicos;
+import presentation.Interfaces.InterfazAdministrador;
 
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -61,7 +60,7 @@ public class PacientesModel extends AbstractModel {
         this.list = list;
         this.current = new Paciente();
         this.filter = new Paciente();
-        this.mode = InterfazMedicos.MODE_CREATE;
+        this.mode = InterfazAdministrador.MODE_CREATE;
     }
 
     /**

@@ -1,10 +1,11 @@
 package presentation.Loggin;
 
+import presentation.Interfaces.InterfazPrescripcion;
 import presentation.Logic.Administrador;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
-import presentation.Medicos.InterfazMedicos;
+import presentation.Interfaces.InterfazAdministrador;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,7 +101,7 @@ public class View_Login implements PropertyChangeListener {
             if (usuario instanceof Medico) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
-                InterfazMedicos.ventanaMedicos();
+                InterfazPrescripcion.ventanaPrescripcion();
             } else if (usuario instanceof Farmaceutico) {
                 System.out.println("Se abre la ventana de farmacéutico");
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
@@ -108,7 +109,7 @@ public class View_Login implements PropertyChangeListener {
             } else if (usuario instanceof Administrador) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
-                InterfazMedicos.ventanaMedicos();
+                InterfazAdministrador.ventanaMedicos();
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró al usuario");
             }
