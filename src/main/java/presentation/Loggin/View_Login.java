@@ -49,15 +49,22 @@ public class View_Login implements PropertyChangeListener {
                     return;
                 }
 
+                // Crear vista de cambiar clave
                 View_CambiarClave cambiarClaveView = new View_CambiarClave();
-                LoginModel cambiarClaveModel = new LoginModel();
-                CambiarClaveController cambiarClaveController = new CambiarClaveController(cambiarClaveModel, cambiarClaveView);
 
+                // Usar el mismo modelo y controlador del login
+                LoginModel cambiarClaveModel = new LoginModel();
+                LoginController cambiarClaveController = new LoginController(cambiarClaveModel, cambiarClaveView);
+
+                // Pasar el usuario al controlador/modelo
                 cambiarClaveView.setIdUsuario(id);
-                cambiarClaveController.login(id);
+                cambiarClaveController.buscarUsuario(id);
+
+                // Cerrar ventana actual (login)
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
 
+                // Nueva ventana de cambiar clave
                 JFrame frame = new JFrame("Cambiar Clave");
                 frame.setSize(600, 300);
                 frame.setContentPane(cambiarClaveView.getPanelCambiarClave());

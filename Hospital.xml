@@ -4,7 +4,7 @@
         <Medico>
             <id>12345</id>
             <nombre>Keylor</nombre>
-            <clave>12345</clave>
+            <clave>000</clave>
             <especialidad>Vaginologo</especialidad>
         </Medico>
     </Medicos>
@@ -12,14 +12,14 @@
         <Administrador>
             <id>555</id>
             <nombre>Andrey</nombre>
-            <clave>777</clave>
+            <clave>999</clave>
         </Administrador>
     </Administradores>
     <Farmaceuticos>
         <Farmaceutico>
             <id>222</id>
             <nombre>Keylor</nombre>
-            <clave>111</clave>
+            <clave>444</clave>
         </Farmaceutico>
     </Farmaceuticos>
     <Pacientes>

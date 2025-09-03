@@ -1,5 +1,7 @@
 package presentation.Loggin;
 
+import presentation.Interfaces.InterfazLogin;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +20,7 @@ public class View_CambiarClave implements PropertyChangeListener {
     private JLabel labelClaveActual_Confirmacion;
 
     LoginModel model;
-    CambiarClaveController controller;
+    LoginController controller;
     String idUsuario;
 
     public View_CambiarClave() {
@@ -46,7 +48,7 @@ public class View_CambiarClave implements PropertyChangeListener {
 
     public String getIdUsuario() {return this.idUsuario;}
 
-    public void setController(CambiarClaveController controller) {
+    public void setController(LoginController controller) {
         this.controller = controller;
     }
 
@@ -61,6 +63,9 @@ public class View_CambiarClave implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case "claveUsuario":
                 JOptionPane.showMessageDialog(null,"Clave cambiada con éxito");
+                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelCambiarCleve);
+                topFrame.dispose();
+                InterfazLogin.ventanaLogin();
                 break;
             case "claveError":
                 JOptionPane.showMessageDialog(null, evt.getNewValue(), "Error", JOptionPane.ERROR_MESSAGE);
