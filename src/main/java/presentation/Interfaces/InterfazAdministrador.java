@@ -54,6 +54,12 @@ public class InterfazAdministrador {
         pacientesController = new presentation.Pacientes.PacientesController(pacientesView, pacientesModel);
         tabbedPane.addTab("Pacientes", null, pacientesView.getPanel());
 
+        // --- Medicamentos
+        presentation.Medicamentos.Model medicamentosModel = new presentation.Medicamentos.Model();
+        presentation.Medicamentos.Medicamentos_View medicamentosView = new presentation.Medicamentos.Medicamentos_View();
+        presentation.Medicamentos.Controller medicamentosController = new presentation.Medicamentos.Controller(medicamentosView, medicamentosModel);
+        tabbedPane.addTab("Medicamentos", null, medicamentosView.getPanel());
+
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
         tabbedPane.addTab("Acerca de...", null, acercaDe.getPanel());

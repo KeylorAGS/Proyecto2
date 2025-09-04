@@ -15,7 +15,7 @@ public class PrescripcionController {
     }
 
     public void create(Medicamento e) throws  Exception{
-        Service.instance().create(e);
+        Service.instance().createMedicamento(e);
         model.setCurrent(new Medicamento());
         model.setList(Service.instance().findAll());
     }
@@ -24,7 +24,7 @@ public class PrescripcionController {
         Medicamento e = new Medicamento();
         e.setId(id);
         try {
-            model.setCurrent(Service.instance().read(e));
+            model.setCurrent(Service.instance().readMedicamento(e));
         } catch (Exception ex) {
             Medicamento b = new Medicamento();
             b.setId(id);

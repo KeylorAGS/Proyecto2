@@ -341,28 +341,38 @@ public class Service {
     }
 
     // =============== MEDICAMENTOS ===============
-    public void create(Medicamento e) throws Exception {
-        Medicamento result = data.getMedicamentos().stream()
-                .filter(i -> i.getId().equals(e.getId()))
-                .findFirst()
-                .orElse(null);
-        if (result == null) {
-            data.getMedicamentos().add(e);
-        } else {
-            throw new Exception("Medicamento ya existe");
+    public void createMedicamento(Medicamento medicamento) throws Exception {
+        Medicamento result = data.getMedicamentos().stream().filter(i->i.getId().equals(medicamento.getId())).findFirst().orElse(null);
+        if (result==null) data.getMedicamentos().add(medicamento);
+        else throw new Exception("Medicamento ya existe");
+    }
+
+    public Medicamento readMedicamento(Medicamento medicamento) throws Exception {
+        Medicamento result = data.getMedicamentos().stream().filter(i->i.getId().equals(medicamento.getId())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Paciente no existe");
+    }
+
+    public void updateMedicamento(Medicamento medicamento) throws Exception {
+        Medicamento result;
+        try{
+            result = this.readMedicamento(medicamento);
+            data.getMedicamentos().remove(result);
+            data.getMedicamentos().add(medicamento);
+        }catch (Exception ex) {
+            throw new Exception("Paciente no existe");
         }
     }
 
-    public Medicamento read(Medicamento e) throws Exception {
-        Medicamento result = data.getMedicamentos().stream()
-                .filter(i -> i.getId().equals(e.getId()))
-                .findFirst()
-                .orElse(null);
-        if (result != null) {
-            return result;
-        } else {
-            throw new Exception("Medicamento no existe");
-        }
+    public void deleteMedicamento(Medicamento medicamento) throws Exception {
+        data.getMedicamentos().remove(medicamento);
+    }
+
+    public List<Medicamento> searchPaciente(Medicamento medicamento) {
+        return data.getMedicamentos().stream()
+                .filter(i->i.getNombre().contains(medicamento.getNombre()))
+                .sorted(Comparator.comparing(Medicamento::getNombre))
+                .collect(Collectors.toList());
     }
 
     public List<Medicamento> findAll() {
