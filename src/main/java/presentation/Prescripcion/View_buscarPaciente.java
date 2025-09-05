@@ -1,10 +1,12 @@
 package presentation.Prescripcion;
 
+import presentation.Pacientes.PacientesTableModel;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
-import presentation.Pacientes.PacientesTableModel;
-
+import presentation.Prescripcion.PrescripcionController;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -17,12 +19,26 @@ public class View_buscarPaciente implements PropertyChangeListener {
     private JButton cancelar;
     private JLabel filtrar;
 
+    public View_buscarPaciente() {
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controllerPr.cerrarventanabuscarPaciente();
+            }
+        });
+    }
+
     public JPanel getPanel() {
         return panel;
     }
 
     PacientesModel model;
     PacientesController controller;
+    PrescripcionController controllerPr;
+
+    public void setControllerPr(PrescripcionController controllerPr) {
+        this.controllerPr = controllerPr;
+    }
 
     public void setModel(PacientesModel model) {
         this.model = model;
