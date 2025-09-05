@@ -37,7 +37,7 @@ public class PacientesTableModel extends AbstractTableModel<Paciente> implements
         colNames = new String[4];
         colNames[ID] = "Id";
         colNames[NOMBRE] = "Nombre";
-        colNames[FECHA_NACIMIENTO] = "Fecha Nacimiento";
+        colNames[FECHA_NACIMIENTO] = "Fecha De Nacimiento";
         colNames[TELEFONO] = "Teléfono";
     }
 }

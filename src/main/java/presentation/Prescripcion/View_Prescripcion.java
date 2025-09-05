@@ -71,10 +71,27 @@ public class View_Prescripcion implements PropertyChangeListener {
         switch (evt.getPropertyName()) {
             case PrescripcionModel.LIST:
                 int[] cols = {PrescripcionTableModel.ID,PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
-                table.setModel(new PrescripcionTableModel(cols,model.getList()));
+                table.setModel(new PrescripcionTableModel(cols, model.getList()));
+                break;
+
+            // Cuando cambia el medicamento actual
+            case PrescripcionModel.CURRENT:
+                // Aquí puedes actualizar campos de tu UI si los tienes
+                // Por ejemplo:
+                // nombreField.setText(model.getCurrent().getNombre());
+                break;
+
+            // Cuando cambia el paciente seleccionado
+            case PrescripcionModel.PACIENTE:
+                if (model.getCurrentPaciente() != null) {
+                    verPaciente.setText(model.getCurrentPaciente().getNombre());
+                } else {
+                    verPaciente.setText("");
+                }
                 break;
         }
         this.panel.revalidate();
     }
+
 
 }

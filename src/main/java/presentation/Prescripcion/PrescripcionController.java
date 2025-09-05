@@ -1,6 +1,7 @@
 package presentation.Prescripcion;
 
 import presentation.Logic.Medicamento;
+import presentation.Logic.Paciente;
 import presentation.Logic.Service;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
@@ -18,6 +19,10 @@ public class PrescripcionController {
         this.model = model;
         view.setController(this);
         view.setModel(model);
+    }
+
+    public void seleccionarPaciente(Paciente p) {
+        model.setCurrentPaciente(p);
     }
 
     public void create(Medicamento e) throws  Exception{

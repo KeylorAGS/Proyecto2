@@ -1,10 +1,14 @@
 package presentation.Prescripcion;
 
+import presentation.Interfaces.InterfazAdministrador;
+import presentation.Logic.Paciente;
 import presentation.Pacientes.PacientesTableModel;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
 import presentation.Prescripcion.PrescripcionController;
+import java.awt.event.MouseAdapter;
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -26,6 +30,25 @@ public class View_buscarPaciente implements PropertyChangeListener {
                 controllerPr.cerrarventanabuscarPaciente();
             }
         });
+
+        OK.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row != -1) {
+                Paciente p = model.getList().get(row);
+                controllerPr.seleccionarPaciente(p);
+                controllerPr.cerrarventanabuscarPaciente();
+            } else {
+                JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        table.addMouseListener((new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int row = table.getSelectedRow();
+                controller.edit(row);
+            }
+        }));
     }
 
     public JPanel getPanel() {
@@ -50,8 +73,18 @@ public class View_buscarPaciente implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        int[] cols={PacientesTableModel.ID, PacientesTableModel.NOMBRE, PacientesTableModel.FECHA_NACIMIENTO, PacientesTableModel.TELEFONO};
-        table.setModel(new PacientesTableModel(cols,model.getList()));
+        switch (evt.getPropertyName()) {
+            case PacientesModel.LIST:
+                int[] cols = {PacientesTableModel.ID, PacientesTableModel.NOMBRE, PacientesTableModel.FECHA_NACIMIENTO, PacientesTableModel.TELEFONO};
+                table.setModel(new PacientesTableModel(cols, model.getList()));
+                table.setRowHeight(30);
+                TableColumnModel columnModel = table.getColumnModel();
+                columnModel.getColumn(0).setPreferredWidth(150);
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(2).setPreferredWidth(150);
+                columnModel.getColumn(3).setPreferredWidth(150);
+                break;
+        }
         this.panel.revalidate();
     }
 

@@ -5,10 +5,23 @@ import presentation.AbstractModel;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import presentation.Logic.Paciente;
 
 public class PrescripcionModel extends AbstractModel {
     Medicamento current;
     List<Medicamento> list;
+
+    private Paciente currentPaciente;
+    public static final String PACIENTE = "paciente";
+
+    public Paciente getCurrentPaciente() {
+        return currentPaciente;
+    }
+
+    public void setCurrentPaciente(Paciente currentPaciente) {
+        this.currentPaciente = currentPaciente;
+        firePropertyChange(PACIENTE);
+    }
 
     public static final String CURRENT = "current";
     public static final String LIST = "list";
