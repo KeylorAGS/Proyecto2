@@ -49,19 +49,19 @@ public class View_buscarPaciente implements PropertyChangeListener {
                 controller.edit(row);
             }
         }));
-        buscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedIndex = filtrarOpciones.getSelectedIndex();
-                try {
-                    Paciente filter = new Paciente();
-                    if (selectedIndex == 1) {
-                        filter.setNombre(filtrarTexto.getText());
-                        controller.search(filter);
-                    }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+        buscar.addActionListener(e -> {
+            int selectedIndex = filtrarOpciones.getSelectedIndex();
+            try {
+                Paciente filter = new Paciente();
+                switch (selectedIndex) {
+                    case 0: filter.setId(filtrarTexto.getText()); break;
+                    case 1: filter.setNombre(filtrarTexto.getText()); break;
+                    case 2: filter.setFechaNacimiento(filtrarTexto.getText()); break;
+                    case 3: filter.setTelefono(filtrarTexto.getText()); break;
                 }
+                controller.search(filter);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
@@ -88,22 +88,16 @@ public class View_buscarPaciente implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        switch (evt.getPropertyName()) {
-            case PacientesModel.LIST:
-                int[] cols = {PacientesTableModel.ID, PacientesTableModel.NOMBRE, PacientesTableModel.FECHA_NACIMIENTO, PacientesTableModel.TELEFONO};
-                table.setModel(new PacientesTableModel(cols, model.getList()));
-                table.setRowHeight(30);
-                TableColumnModel columnModel = table.getColumnModel();
-                columnModel.getColumn(0).setPreferredWidth(150);
-                columnModel.getColumn(1).setPreferredWidth(150);
-                columnModel.getColumn(2).setPreferredWidth(150);
-                columnModel.getColumn(3).setPreferredWidth(150);
-                break;
-            case PacientesModel.FILTER:
-                filtrarTexto.setText(model.getFilter().getNombre());
-                break;
+        if (PacientesModel.LIST.equals(evt.getPropertyName())) {
+            int[] cols = {PacientesTableModel.ID, PacientesTableModel.NOMBRE, PacientesTableModel.FECHA_NACIMIENTO, PacientesTableModel.TELEFONO};
+            table.setModel(new PacientesTableModel(cols, model.getList()));
+            table.setRowHeight(30);
+            TableColumnModel columnModel = table.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(100);
+            columnModel.getColumn(1).setPreferredWidth(150);
+            columnModel.getColumn(2).setPreferredWidth(120);
+            columnModel.getColumn(3).setPreferredWidth(120);
         }
         this.panel.revalidate();
     }
-
 }
