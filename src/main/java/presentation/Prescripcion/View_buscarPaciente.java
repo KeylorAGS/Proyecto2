@@ -1,11 +1,10 @@
 package presentation.Prescripcion;
 
-import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Paciente;
 import presentation.Pacientes.PacientesTableModel;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
-import presentation.Prescripcion.PrescripcionController;
+
 import java.awt.event.MouseAdapter;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -22,6 +21,7 @@ public class View_buscarPaciente implements PropertyChangeListener {
     private JButton OK;
     private JButton cancelar;
     private JLabel filtrar;
+    private JButton buscar;
 
     public View_buscarPaciente() {
         cancelar.addActionListener(new ActionListener() {
@@ -49,6 +49,21 @@ public class View_buscarPaciente implements PropertyChangeListener {
                 controller.edit(row);
             }
         }));
+        buscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = filtrarOpciones.getSelectedIndex();
+                try {
+                    Paciente filter = new Paciente();
+                    if (selectedIndex == 1) {
+                        filter.setNombre(filtrarTexto.getText());
+                        controller.search(filter);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
     }
 
     public JPanel getPanel() {
@@ -83,6 +98,9 @@ public class View_buscarPaciente implements PropertyChangeListener {
                 columnModel.getColumn(1).setPreferredWidth(150);
                 columnModel.getColumn(2).setPreferredWidth(150);
                 columnModel.getColumn(3).setPreferredWidth(150);
+                break;
+            case PacientesModel.FILTER:
+                filtrarTexto.setText(model.getFilter().getNombre());
                 break;
         }
         this.panel.revalidate();

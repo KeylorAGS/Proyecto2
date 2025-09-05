@@ -70,9 +70,6 @@ public class View_Prescripcion implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case PrescripcionModel.LIST:
-                int[] cols = {PrescripcionTableModel.ID,PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
-                table.setModel(new PrescripcionTableModel(cols, model.getList()));
-                break;
 
             // Cuando cambia el medicamento actual
             case PrescripcionModel.CURRENT:
