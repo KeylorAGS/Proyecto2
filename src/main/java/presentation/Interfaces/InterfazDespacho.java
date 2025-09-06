@@ -9,6 +9,7 @@ import presentation.Logic.Service;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 public class InterfazDespacho {
 
@@ -36,17 +37,17 @@ public class InterfazDespacho {
         Model model = new Model();
         View_despacho view = new View_despacho();
         Controller = new Controller(view,model);
-        tabbedPane.addTab("Despacho",null, view.getPanel());
+        tabbedPane.addTab("Despacho",new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Despacho.png"))), view.getPanel());
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
-        tabbedPane.addTab("Acerca de...", null, acercaDe.getPanel());
+        tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Receta.png"))), acercaDe.getPanel());
 
         // Ventana principal
         window.setSize(900, 450);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Gestión de Despacho");
+        window.setTitle("Recetas");
         window.setVisible(true);
     }
 

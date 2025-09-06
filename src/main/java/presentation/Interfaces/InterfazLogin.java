@@ -5,6 +5,7 @@ import presentation.Loggin.LoginModel;
 import presentation.Loggin.View_Login;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class InterfazLogin {
 
@@ -24,7 +25,11 @@ public class InterfazLogin {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 300);
-        frame.setTitle("Clinica - Login");
+        frame.setTitle("Recetas");
+        Image icon = Toolkit.getDefaultToolkit().getImage(
+                InterfazLogin.class.getResource("/Imagenes/Receta.png")
+        );
+        frame.setIconImage(icon);
         frame.setContentPane(view.getPanelLogin());
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

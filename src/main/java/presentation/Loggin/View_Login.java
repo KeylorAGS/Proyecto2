@@ -8,6 +8,7 @@ import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
 import presentation.Interfaces.InterfazAdministrador;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -67,7 +68,11 @@ public class View_Login implements PropertyChangeListener {
 
                 // Nueva ventana de cambiar clave
                 JFrame frame = new JFrame("Cambiar Clave");
-                frame.setSize(600, 300);
+                Image icon = Toolkit.getDefaultToolkit().getImage(
+                        getClass().getResource("/Imagenes/Logo_Cambiar_Contrasena.png")
+                );
+                frame.setIconImage(icon);
+                frame.setSize(1000, 800);
                 frame.setContentPane(cambiarClaveView.getPanelCambiarClave());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();

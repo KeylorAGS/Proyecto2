@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 public class InterfazAdministrador {
     public static JFrame window;
@@ -42,35 +43,45 @@ public class InterfazAdministrador {
         presentation.Medicos.MedicosModel medicosModel = new presentation.Medicos.MedicosModel();
         presentation.Medicos.Medicos_View medicosView = new presentation.Medicos.Medicos_View();
         medicosController = new presentation.Medicos.MedicosController(medicosView, medicosModel);
-        tabbedPane.addTab("Medicos", null, medicosView.getPanel());
+        tabbedPane.addTab("Medicos", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Medicos.png"))), medicosView.getPanel());
 
         // --- Farmacéuticos
         presentation.Farmaceuticos.FarmaceuticosModel farmaceuticosModel = new presentation.Farmaceuticos.FarmaceuticosModel();
         presentation.Farmaceuticos.Farmaceuticos_View farmaceuticosView = new presentation.Farmaceuticos.Farmaceuticos_View();
         farmaceuticosController = new presentation.Farmaceuticos.FarmaceuticosController(farmaceuticosView, farmaceuticosModel);
-        tabbedPane.addTab("Farmaceuticos", null, farmaceuticosView.getPanel());
+        tabbedPane.addTab("Farmaceuticos",new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Farmaceuticos.png"))), farmaceuticosView.getPanel());
 
         // --- Pacientes
         presentation.Pacientes.PacientesModel pacientesModel = new presentation.Pacientes.PacientesModel();
         presentation.Pacientes.Pacientes_View pacientesView = new presentation.Pacientes.Pacientes_View();
         pacientesController = new presentation.Pacientes.PacientesController(pacientesView, pacientesModel);
-        tabbedPane.addTab("Pacientes", null, pacientesView.getPanel());
+        tabbedPane.addTab("Pacientes", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Pacientes.png"))), pacientesView.getPanel());
 
         // --- Medicamentos
         MedicamentosModel medicamentosModel = new MedicamentosModel();
         presentation.Medicamentos.Medicamentos_View medicamentosView = new presentation.Medicamentos.Medicamentos_View();
         MedicamentosController medicamentosController = new MedicamentosController(medicamentosView, medicamentosModel);
-        tabbedPane.addTab("Medicamentos", null, medicamentosView.getPanel());
+        tabbedPane.addTab("Medicamentos", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Medicamentos.png"))), medicamentosView.getPanel());
+
+        /// --- Dashboard
+        tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , null);
+
+        /// --- Historico
+        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Historico.png"))) , null);
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
-        tabbedPane.addTab("Acerca de...", null, acercaDe.getPanel());
+        tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Receta.png"))) , acercaDe.getPanel());
 
         // Ventana principal
         window.setSize(900, 450);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Hospital");
+        window.setTitle("Recetas");
+        Image icon = Toolkit.getDefaultToolkit().getImage(
+                InterfazAdministrador.class.getResource("/Imagenes/Receta.png")
+        );
+        window.setIconImage(icon);
         window.setVisible(true);
     }
 }
