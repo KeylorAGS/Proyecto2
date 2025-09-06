@@ -1,5 +1,6 @@
 package presentation.Loggin;
 
+import presentation.Interfaces.InterfazDespacho;
 import presentation.Interfaces.InterfazPrescripcion;
 import presentation.Logic.Administrador;
 import presentation.Logic.Farmaceutico;
@@ -110,9 +111,9 @@ public class View_Login implements PropertyChangeListener {
                 topFrame.dispose();
                 InterfazPrescripcion.ventanaPrescripcion();
             } else if (usuario instanceof Farmaceutico) {
-                System.out.println("Se abre la ventana de farmacéutico");
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
+                InterfazDespacho.ventanaDespacho();
             } else if (usuario instanceof Administrador) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();

@@ -1,27 +1,22 @@
 package presentation.Interfaces;
 
 import presentation.Acerca_De;
+import presentation.Despacho.Controller;
+import presentation.Despacho.Model;
+import presentation.Despacho.View_despacho;
 import presentation.Logic.Service;
-import presentation.Pacientes.PacientesController;
-import presentation.Prescripcion.PrescripcionController;
-import presentation.Prescripcion.PrescripcionModel;
-import presentation.Prescripcion.View_Prescripcion;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class InterfazPrescripcion {
+public class InterfazDespacho {
+
     public static JFrame window;
-    public static PrescripcionController prescripcionController;
-    public static PacientesController pacientesController;
+    public static Controller Controller;
 
-    public final static int MODE_CREATE = 1;
-    public final static int MODE_EDIT = 2;
-    public static final Color BACKGROUND_ERROR = new Color(255, 102, 102);
+    public static void ventanaDespacho() {
 
-    public static void ventanaPrescripcion() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {}
@@ -38,11 +33,10 @@ public class InterfazPrescripcion {
             }
         });
 
-        // --- Prescripción
-        PrescripcionModel prescripcionModel = new PrescripcionModel();
-        View_Prescripcion prescripcionView = new View_Prescripcion();
-        prescripcionController = new PrescripcionController(prescripcionView, prescripcionModel);
-        tabbedPane.addTab("Prescripción", null, prescripcionView.getPanel());
+        Model model = new Model();
+        View_despacho view = new View_despacho();
+        Controller = new Controller(view,model);
+        tabbedPane.addTab("Despacho",null, view.getPanel());
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
@@ -52,7 +46,8 @@ public class InterfazPrescripcion {
         window.setSize(900, 450);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Gestión de Prescripción");
+        window.setTitle("Gestión de Despacho");
         window.setVisible(true);
     }
+
 }
