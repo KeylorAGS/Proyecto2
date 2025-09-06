@@ -2,7 +2,7 @@ package presentation.Prescripcion;
 
 import javax.swing.*;
 
-public class buscarMedicamento {
+public class View_buscarMedicamento {
     private JPanel panel;
     private JTable tabla;
     private JLabel filtrar;
