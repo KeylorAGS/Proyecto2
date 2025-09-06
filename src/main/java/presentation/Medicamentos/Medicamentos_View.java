@@ -41,7 +41,7 @@ public class Medicamentos_View implements PropertyChangeListener {
                 if(validate()){
                     Medicamento n = take();
                     try {
-                        controller.save(n);
+                        medicamentosController.save(n);
                         JOptionPane.showMessageDialog(panel, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -53,7 +53,7 @@ public class Medicamentos_View implements PropertyChangeListener {
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.clear();
+                medicamentosController.clear();
             }
         });
 
@@ -61,7 +61,7 @@ public class Medicamentos_View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.delete();
+                    medicamentosController.delete();
                     JOptionPane.showMessageDialog(panel, "REGISTRO ELIMINADO", "", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -73,7 +73,7 @@ public class Medicamentos_View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.search(new Medicamento("", searchNombre.getText(), ""));
+                    medicamentosController.search(new Medicamento("", searchNombre.getText(), ""));
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -84,7 +84,7 @@ public class Medicamentos_View implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    controller.generatePdfReport();
+                    medicamentosController.generatePdfReport();
                     JOptionPane.showMessageDialog(panel, "REPORTE GENERADO", "", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -96,7 +96,7 @@ public class Medicamentos_View implements PropertyChangeListener {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 int row = list.getSelectedRow();
-                controller.edit(row);
+                medicamentosController.edit(row);
             }
         }));
     }
@@ -134,40 +134,41 @@ public class Medicamentos_View implements PropertyChangeListener {
         Medicamento medicamento = new Medicamento();
         medicamento.setId(IdJtext.getText());
         medicamento.setNombre(NombreJtext.getText());
+        medicamento.setPresentacion(PresentacionJtext.getText());
 
         return medicamento;
     }
 
     // MVC
-    Model model;
-    Controller controller;
+    MedicamentosModel medicamentosModel;
+    MedicamentosController medicamentosController;
 
-    public void setModel(Model model){
-        this.model = model;
-        model.addPropertyChangeListener(this);
+    public void setModel(MedicamentosModel medicamentosModel){
+        this.medicamentosModel = medicamentosModel;
+        medicamentosModel.addPropertyChangeListener(this);
     }
 
-    public void setController(Controller controller){
-        this.controller = controller;
+    public void setController(MedicamentosController medicamentosController){
+        this.medicamentosController = medicamentosController;
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()){
-            case Model.LIST:
-                int[] cols={TableModel.ID, TableModel.NOMBRE, TableModel.PRESENTACION};
-                list.setModel(new TableModel(cols, model.getList()));
+            case MedicamentosModel.LIST:
+                int[] cols={MedicamentosTableModel.ID, MedicamentosTableModel.NOMBRE, MedicamentosTableModel.PRESENTACION};
+                list.setModel(new MedicamentosTableModel(cols, medicamentosModel.getList()));
                 list.setRowHeight(30);
                 TableColumnModel columnModel = list.getColumnModel();
                 columnModel.getColumn(0).setPreferredWidth(150);
                 columnModel.getColumn(1).setPreferredWidth(150);
                 columnModel.getColumn(2).setPreferredWidth(150);
                 break;
-            case Model.CURRENT:
-                IdJtext.setText(model.getCurrent().getId());
-                NombreJtext.setText(model.getCurrent().getNombre());
-                PresentacionJtext.setText(model.getCurrent().getPresentacion());
+            case MedicamentosModel.CURRENT:
+                IdJtext.setText(medicamentosModel.getCurrent().getId());
+                NombreJtext.setText(medicamentosModel.getCurrent().getNombre());
+                PresentacionJtext.setText(medicamentosModel.getCurrent().getPresentacion());
 
-                if (model.getMode() == InterfazAdministrador.MODE_EDIT){
+                if (medicamentosModel.getMode() == InterfazAdministrador.MODE_EDIT){
                     IdJtext.setEnabled(false);
                     delete.setEnabled(true);
                 } else {
@@ -182,8 +183,8 @@ public class Medicamentos_View implements PropertyChangeListener {
                 PresentacionLbl.setBorder(null);
                 PresentacionLbl.setToolTipText(null);
                 break;
-            case Model.FILTER:
-                searchNombre.setText(model.getFilter().getNombre());
+            case MedicamentosModel.FILTER:
+                searchNombre.setText(medicamentosModel.getFilter().getNombre());
                 break;
         }
         this.panel.revalidate();

@@ -36,4 +36,9 @@
             <telefono>72682583</telefono>
         </Paciente>
     </Pacientes>
+    <medicamentos>
+        <id>123</id>
+        <nombre>Jarabe de Mirriflote</nombre>
+        <presentacion>100ml</presentacion>
+    </medicamentos>
 </data>

@@ -1,25 +1,18 @@
-package presentation.Prescripcion;
+package presentation.Medicamentos;
 
-import presentation.Logic.Medicamento;
 import presentation.AbstractTableModel;
+import presentation.Logic.Medicamento;
 import java.util.List;
 
-public class PrescripcionTableModel extends AbstractTableModel<Medicamento> implements javax.swing.table.TableModel {
-    public PrescripcionTableModel(int[] cols, List<Medicamento> rows) {
-        super(cols, rows);
-    }
-
+public class MedicamentosTableModel extends AbstractTableModel<Medicamento> implements javax.swing.table.TableModel {
     public static final int ID = 0;
     public static final int NOMBRE = 1;
     public static final int PRESENTACION = 2;
 
-    @Override
-    protected void initColNames() {
-        colNames = new String[4];
-        colNames[ID] = "Id";
-        colNames[NOMBRE] = "Nombre";
-        colNames[PRESENTACION] = "Presentacion";
+    public MedicamentosTableModel(int[] cols, List<Medicamento> rows) {
+        super(cols, rows);
     }
+
     @Override
     protected Object getPropetyAt(Medicamento e, int col) {
         switch (cols[col]) {
@@ -32,5 +25,13 @@ public class PrescripcionTableModel extends AbstractTableModel<Medicamento> impl
             default:
                 return "";
         }
+    }
+
+    @Override
+    protected void initColNames() {
+        colNames = new String[3];
+        colNames[ID] = "Id";
+        colNames[NOMBRE] = "Nombre";
+        colNames[PRESENTACION] = "Presentación";
     }
 }

@@ -8,7 +8,7 @@ import presentation.Logic.Medicamento;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-public class Model extends AbstractModel {
+public class MedicamentosModel extends AbstractModel {
 
     Medicamento filter;
     List<Medicamento> list;
@@ -27,7 +27,7 @@ public class Model extends AbstractModel {
         firePropertyChange(FILTER);
     }
 
-    public Model() {
+    public MedicamentosModel() {
     }
 
     public void init(List<Medicamento> list) {

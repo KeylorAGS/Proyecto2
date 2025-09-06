@@ -2,6 +2,8 @@ package presentation.Interfaces;
 
 import presentation.Acerca_De;
 import presentation.Logic.Service;
+import presentation.Medicamentos.MedicamentosController;
+import presentation.Medicamentos.MedicamentosModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -55,9 +57,9 @@ public class InterfazAdministrador {
         tabbedPane.addTab("Pacientes", null, pacientesView.getPanel());
 
         // --- Medicamentos
-        presentation.Medicamentos.Model medicamentosModel = new presentation.Medicamentos.Model();
+        MedicamentosModel medicamentosModel = new MedicamentosModel();
         presentation.Medicamentos.Medicamentos_View medicamentosView = new presentation.Medicamentos.Medicamentos_View();
-        presentation.Medicamentos.Controller medicamentosController = new presentation.Medicamentos.Controller(medicamentosView, medicamentosModel);
+        MedicamentosController medicamentosController = new MedicamentosController(medicamentosView, medicamentosModel);
         tabbedPane.addTab("Medicamentos", null, medicamentosView.getPanel());
 
         //Acerca de

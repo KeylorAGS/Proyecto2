@@ -3,6 +3,9 @@ package presentation.Prescripcion;
 import presentation.Logic.Medicamento;
 import presentation.Logic.Paciente;
 import presentation.Logic.Service;
+import presentation.Medicamentos.MedicamentosController;
+import presentation.Medicamentos.Medicamentos_View;
+import presentation.Medicamentos.MedicamentosModel;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
 import presentation.Pacientes.Pacientes_View;
@@ -13,6 +16,7 @@ public class PrescripcionController {
     View_Prescripcion view;
     PrescripcionModel model;
     private JFrame buscarPacienteFrame;
+    private JFrame buscarMedicamentoFrame;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
         this.view = view;
@@ -66,6 +70,24 @@ public class PrescripcionController {
             buscarPacienteFrame.setContentPane(buscarView.getPanel());
         }
         buscarPacienteFrame.setVisible(true);
+    }
+
+    public void ventanaBuscarMedicamento() {
+        if (buscarMedicamentoFrame == null) {
+            View_buscarMedicamento View = new View_buscarMedicamento();
+            Medicamentos_View ViewP = new Medicamentos_View();
+            MedicamentosModel medicamentosModel = new MedicamentosModel();
+            MedicamentosController controller = new MedicamentosController(ViewP, medicamentosModel);
+            View.setController(controller);
+            View.setModel(medicamentosModel);
+
+            buscarMedicamentoFrame = new JFrame("Agregar Medicamento");
+            buscarMedicamentoFrame.setSize(900, 450);
+            buscarMedicamentoFrame.setResizable(false);
+            buscarMedicamentoFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            buscarMedicamentoFrame.setContentPane(View.getPanel());
+        }
+        buscarMedicamentoFrame.setVisible(true);
     }
 
     public void cerrarventanabuscarPaciente() {
