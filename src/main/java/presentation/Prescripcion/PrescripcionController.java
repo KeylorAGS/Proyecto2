@@ -75,6 +75,8 @@ public class PrescripcionController {
     public void ventanaBuscarMedicamento() {
         if (buscarMedicamentoFrame == null) {
             View_buscarMedicamento View = new View_buscarMedicamento();
+            View.setControllerPr(this);
+
             Medicamentos_View ViewP = new Medicamentos_View();
             MedicamentosModel medicamentosModel = new MedicamentosModel();
             MedicamentosController controller = new MedicamentosController(ViewP, medicamentosModel);
@@ -92,6 +94,9 @@ public class PrescripcionController {
 
     public void cerrarventanabuscarPaciente() {
         buscarPacienteFrame.dispose();
+    }
+    public void cerrarventanabuscarMedicamento() {
+        buscarMedicamentoFrame.dispose();
     }
 
 }

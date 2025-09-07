@@ -368,7 +368,7 @@ public class Service {
         data.getMedicamentos().remove(medicamento);
     }
 
-    public List<Medicamento> searchPaciente(Medicamento medicamento) {
+    public List<Medicamento> searchMedicamento(Medicamento medicamento) {
         return data.getMedicamentos().stream()
                 .filter(i->i.getNombre().contains(medicamento.getNombre()))
                 .sorted(Comparator.comparing(Medicamento::getNombre))

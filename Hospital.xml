@@ -41,4 +41,9 @@
         <nombre>Jarabe de Mirriflote</nombre>
         <presentacion>100ml</presentacion>
     </medicamentos>
+    <medicamentos>
+        <id>321</id>
+        <nombre>vergapirina</nombre>
+        <presentacion>10tb</presentacion>
+    </medicamentos>
 </data>

@@ -6,17 +6,20 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Medicamento;
+import presentation.Logic.Paciente;
 import presentation.Logic.Service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MedicamentosController {
     private Medicamentos_View view;
     private MedicamentosModel medicamentosModel;
 
     public MedicamentosController(Medicamentos_View view, MedicamentosModel medicamentosModel) {
-        medicamentosModel.init(Service.instance().searchPaciente(new Medicamento()));
+        medicamentosModel.init(Service.instance().searchMedicamento(new Medicamento()));
         this.view = view;
         this.medicamentosModel = medicamentosModel;
         view.setController(this);
@@ -27,7 +30,13 @@ public class MedicamentosController {
         medicamentosModel.setFilter(filter);
         medicamentosModel.setMode(InterfazAdministrador.MODE_CREATE);
         medicamentosModel.setCurrent(new Medicamento());
-        medicamentosModel.setList(Service.instance().searchPaciente(medicamentosModel.getFilter()));
+        List<Medicamento> result = Service.instance().searchMedicamento(new Medicamento()).stream()
+                .filter(p -> filter.getId() == null || filter.getId().isEmpty() || p.getId().equalsIgnoreCase(filter.getId()))
+                .filter(p -> filter.getNombre() == null || filter.getNombre().isEmpty() || p.getNombre().toLowerCase().contains(filter.getNombre().toLowerCase()))
+                .filter(p -> filter.getPresentacion() == null || filter.getPresentacion().isEmpty() || p.getPresentacion().equals(filter.getPresentacion()))
+                .collect(Collectors.toList());
+
+        medicamentosModel.setList(result);
     }
 
     public void save(Medicamento e) throws Exception {

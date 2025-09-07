@@ -20,6 +20,8 @@ public class View_Prescripcion implements PropertyChangeListener {
     private JButton detalles;
     private JButton descartarMedicamento;
     private JButton limpiar;
+    private String IdPaciente;
+    private Medicamento medicamento;
 
     public View_Prescripcion() {
         guardar.addActionListener(new ActionListener() {
@@ -88,7 +90,9 @@ public class View_Prescripcion implements PropertyChangeListener {
             case PrescripcionModel.PACIENTE:
                 if (model.getCurrentPaciente() != null) {
                     verPaciente.setText(model.getCurrentPaciente().getNombre());
+                    IdPaciente = model.getCurrentPaciente().getId();
                 } else {
+                    IdPaciente = "N/A";
                     verPaciente.setText("");
                 }
                 break;

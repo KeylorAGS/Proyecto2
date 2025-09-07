@@ -1,11 +1,15 @@
 package presentation.Prescripcion;
 
+import presentation.Logic.Medicamento;
+import presentation.Logic.Paciente;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
 import presentation.Medicamentos.MedicamentosTableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -19,12 +23,39 @@ public class View_buscarMedicamento implements PropertyChangeListener {
     private JButton OK;
     private JButton cancelar;
 
+    public View_buscarMedicamento() {
+        buscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = filtrarOpciones.getSelectedIndex();
+                try {
+                    Medicamento filter = new Medicamento();
+                    switch (selectedIndex) {
+                        case 0: filter.setId(filtrarTexto.getText()); break;
+                        case 1: filter.setNombre(filtrarTexto.getText()); break;
+                        case 2: filter.setPresentacion(filtrarTexto.getText()); break;
+                    }
+                    medicamentosController.search(filter);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                prescripcionController.cerrarventanabuscarMedicamento();
+            }
+        });
+    }
+
     public JPanel getPanel() {
         return panel;
     }
 
     MedicamentosModel medicamentosModel;
     MedicamentosController medicamentosController;
+    PrescripcionController prescripcionController;
 
     public void setModel(MedicamentosModel medicamentosModel){
         this.medicamentosModel = medicamentosModel;
@@ -33,6 +64,10 @@ public class View_buscarMedicamento implements PropertyChangeListener {
 
     public void setController(MedicamentosController medicamentosController){
         this.medicamentosController = medicamentosController;
+    }
+
+    public void setControllerPr(PrescripcionController controllerPr) {
+        this.prescripcionController = controllerPr;
     }
 
     @Override
