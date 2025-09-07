@@ -9,19 +9,24 @@ import presentation.Medicamentos.MedicamentosModel;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
 import presentation.Pacientes.Pacientes_View;
+import presentation.Recetas.RecetasModel;
 
 import javax.swing.*;
 
 public class PrescripcionController {
     View_Prescripcion view;
     PrescripcionModel model;
+    RecetasModel recetasModel;
     private JFrame buscarPacienteFrame;
     private JFrame buscarMedicamentoFrame;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
         this.view = view;
         this.model = model;
+        this.recetasModel = new RecetasModel();
+
         view.setController(this);
+        view.setRecetasModel(recetasModel);
         view.setModel(model);
     }
 

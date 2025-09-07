@@ -1,20 +1,18 @@
-package presentation.Pacientes;
+package presentation.Recetas;
 
 import presentation.AbstractModel;
-
-import presentation.Logic.Paciente;
+import presentation.Logic.Receta;
 import presentation.Interfaces.InterfazAdministrador;
-
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PacientesModel extends AbstractModel {
+public class RecetasModel extends AbstractModel {
+    Receta filter;
 
-    Paciente filter;
+    List<Receta> list;
 
-    List<Paciente> list;
-
-    Paciente current;
+    Receta current;
 
     int mode;
 
@@ -30,38 +28,43 @@ public class PacientesModel extends AbstractModel {
         firePropertyChange(FILTER);
     }
 
-    public PacientesModel() {}
-
-    public void init(List<Paciente> list) {
-        this.list = list;
-        this.current = new Paciente();
-        this.filter = new Paciente();
+    public RecetasModel() {
+        this.list = new ArrayList<>();
+        this.current = new Receta();
+        this.filter = new Receta();
         this.mode = InterfazAdministrador.MODE_CREATE;
     }
 
-    public List<Paciente> getList() {
+    public void init(List<Receta> list) {
+        this.list = list;
+        this.current = new Receta();
+        this.filter = new Receta();
+        this.mode = InterfazAdministrador.MODE_CREATE;
+    }
+
+    public List<Receta> getList() {
         return list;
     }
 
-    public void setList(List<Paciente> list) {
+    public void setList(List<Receta> list) {
         this.list = list;
         firePropertyChange(LIST);
     }
 
-    public Paciente getCurrent() {
+    public Receta getCurrent() {
         return current;
     }
 
-    public void setCurrent(Paciente current) {
+    public void setCurrent(Receta current) {
         this.current = current;
         firePropertyChange(CURRENT);
     }
 
-    public Paciente getFilter() {
+    public Receta getFilter() {
         return filter;
     }
 
-    public void setFilter(Paciente filter) {
+    public void setFilter(Receta filter) {
         this.filter = filter;
         firePropertyChange(FILTER);
     }
@@ -74,4 +77,3 @@ public class PacientesModel extends AbstractModel {
         this.mode = mode;
     }
 }
-

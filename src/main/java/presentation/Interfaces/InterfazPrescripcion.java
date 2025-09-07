@@ -6,6 +6,7 @@ import presentation.Pacientes.PacientesController;
 import presentation.Prescripcion.PrescripcionController;
 import presentation.Prescripcion.PrescripcionModel;
 import presentation.Prescripcion.View_Prescripcion;
+import presentation.Recetas.RecetasModel;
 
 import javax.swing.*;
 import java.awt.*;

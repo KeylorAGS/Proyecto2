@@ -2,7 +2,13 @@ package presentation.Prescripcion;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import presentation.Logic.Medicamento;
+import presentation.Pacientes.PacientesModel;
+import presentation.Pacientes.PacientesTableModel;
+import presentation.Recetas.RecetasModel;
+import presentation.Recetas.RecetasTableModel;
+
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -27,13 +33,7 @@ public class View_Prescripcion implements PropertyChangeListener {
         guardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Medicamento n = take();
-                try {
-                    controller.create(n);
-                    JOptionPane.showMessageDialog(panel, "REGISTRO APLICADO", "", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+
             }
         });
         buscarPaciente.addActionListener(new ActionListener() {
@@ -56,6 +56,7 @@ public class View_Prescripcion implements PropertyChangeListener {
 
     PrescripcionController controller;
     PrescripcionModel model;
+    RecetasModel recetasModel;
 
     public void setController(PrescripcionController controller) {
         this.controller = controller;
@@ -66,20 +67,24 @@ public class View_Prescripcion implements PropertyChangeListener {
         model.addPropertyChangeListener(this);
     }
 
-    public Medicamento take() {
-        Medicamento e = new Medicamento();
-        e.setId("123");
-        e.setNombre("coca");
-        e.setPresentacion("500mg");
-        return e;
+    public void setRecetasModel(RecetasModel recetasModel) {
+        this.recetasModel = recetasModel;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case PrescripcionModel.LIST:
-
-            // Cuando cambia el medicamento actual
+                int[] cols={RecetasTableModel.NOMBRE, RecetasTableModel.PRESENTACION, RecetasTableModel.CANTIDAD, RecetasTableModel.INDICACIONES, RecetasTableModel.DURACION};
+                table.setModel(new RecetasTableModel(cols, recetasModel.getList()));
+                table.setRowHeight(30);
+                TableColumnModel columnModel = table.getColumnModel();
+                columnModel.getColumn(0).setPreferredWidth(150);
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(2).setPreferredWidth(150);
+                columnModel.getColumn(3).setPreferredWidth(150);
+                columnModel.getColumn(4).setPreferredWidth(150);
+                break;
             case PrescripcionModel.CURRENT:
                 // Aquí puedes actualizar campos de tu UI si los tienes
                 // Por ejemplo:

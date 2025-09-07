@@ -378,4 +378,43 @@ public class Service {
     public List<Medicamento> findAll() {
         return data.getMedicamentos();
     }
+
+    // =============== RECETAS ===============
+    public void createReceta(Receta receta) throws Exception {
+        Receta result = data.getRecetas().stream().filter(i->i.getNombre().equals(receta.getNombre())).findFirst().orElse(null);
+        if (result==null) data.getRecetas().add(receta);
+        else throw new Exception("Receta ya existe");
+    }
+
+    public Receta readReceta(Receta receta) throws Exception {
+        Receta result = data.getRecetas().stream().filter(i->i.getNombre().equals(receta.getNombre())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Receta no existe");
+    }
+
+    public void updateReceta(Receta receta) throws Exception {
+        Receta result;
+        try{
+            result = this.readReceta(receta);
+            data.getRecetas().remove(result);
+            data.getRecetas().add(receta);
+        }catch (Exception ex) {
+            throw new Exception("Receta no existe");
+        }
+    }
+
+    public void deleteReceta(Receta receta) throws Exception {
+        data.getRecetas().remove(receta);
+    }
+
+    public List<Receta> searchReceta(Receta receta) {
+        return data.getRecetas().stream()
+                .filter(i->i.getNombre().contains(receta.getNombre()))
+                .sorted(Comparator.comparing(Receta::getNombre))
+                .collect(Collectors.toList());
+    }
+
+    public List<Receta> findAllRecetas() {
+        return data.getRecetas();
+    }
 }
