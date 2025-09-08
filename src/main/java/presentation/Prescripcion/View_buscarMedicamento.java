@@ -55,9 +55,9 @@ public class View_buscarMedicamento implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 int row = tabla.getSelectedRow();
                 if (row != -1) {
-                    Medicamento m = medicamentosModel.getList().get(row);
+                    //Medicamento m = medicamentosModel.getList().get(row);
+                    //medicamentosController.seleccionarMedicamento(m);
                     Prescripcion p = prescripcionModel.getList().get(row);
-                    medicamentosController.seleccionarMedicamento(m);
                     prescripcionController.seleccionarPrescripcion(p);
                     prescripcionController.cerrarventanabuscarMedicamento();
 
