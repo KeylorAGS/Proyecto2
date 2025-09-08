@@ -57,6 +57,7 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                     Medicamento m = medicamentosModel.getList().get(row);
                     medicamentosController.seleccionarMedicamento(m);
                     prescripcionController.cerrarventanabuscarMedicamento();
+
                 } else {
                     JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 }

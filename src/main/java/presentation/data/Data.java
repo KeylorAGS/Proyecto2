@@ -104,4 +104,9 @@ public class Data {
     private List<Receta> recetas;
 
     public List<Receta> getRecetas() {return recetas;}
+
+    //----------------------------Prescripcion--------------------------
+    private List<Prescripcion> prescripcion;
+
+    public List<Prescripcion> getPrescripcion() {return prescripcion;}
 }

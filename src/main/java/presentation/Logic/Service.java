@@ -379,6 +379,45 @@ public class Service {
         return data.getMedicamentos();
     }
 
+    // =============== Prescripcion ===============
+    public void createPrescripcion(Prescripcion prescripcion) throws Exception {
+        Prescripcion result = data.getPrescripcion().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
+        if (result==null) data.getPrescripcion().add(prescripcion);
+        else throw new Exception("Prescripcion ya existe");
+    }
+
+    public Prescripcion readPrescripcion(Prescripcion prescripcion) throws Exception {
+        Prescripcion result = data.getPrescripcion().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
+        if (result!=null) return result;
+        else throw new Exception("Prescripcion no existe");
+    }
+
+    public void updatePrescripcion(Prescripcion prescripcion) throws Exception {
+        Prescripcion result;
+        try{
+            result = this.readPrescripcion(prescripcion);
+            data.getPrescripcion().remove(result);
+            data.getPrescripcion().add(prescripcion);
+        }catch (Exception ex) {
+            throw new Exception("Prescripcion no existe");
+        }
+    }
+
+    public void deletePrescripcion(Prescripcion prescripcion) throws Exception {
+        data.getPrescripcion().remove(prescripcion);
+    }
+
+    public List<Prescripcion> searchPrescripcion(Prescripcion prescripcion) {
+        return data.getPrescripcion().stream()
+                .filter(i->i.getNombre().contains(prescripcion.getNombre()))
+                .sorted(Comparator.comparing(Prescripcion::getNombre))
+                .collect(Collectors.toList());
+    }
+
+    public List<Prescripcion> findAllPrescripcion() {
+        return data.getPrescripcion();
+    }
+
     // =============== RECETAS ===============
     public void createReceta(Receta receta) throws Exception {
         Receta result = data.getRecetas().stream().filter(i->i.getNombre().equals(receta.getNombre())).findFirst().orElse(null);
