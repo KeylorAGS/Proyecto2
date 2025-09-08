@@ -2,6 +2,7 @@ package presentation.Prescripcion;
 
 import presentation.Logic.Medicamento;
 import presentation.Logic.Paciente;
+import presentation.Logic.Receta;
 import presentation.Logic.Service;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.Medicamentos_View;
@@ -15,6 +16,7 @@ import javax.swing.*;
 
 public class PrescripcionController {
     View_Prescripcion view;
+    View_buscarMedicamento viewBuscarMedicamento;
     PrescripcionModel model;
     RecetasModel recetasModel;
     private JFrame buscarPacienteFrame;
@@ -104,4 +106,8 @@ public class PrescripcionController {
         buscarMedicamentoFrame.dispose();
     }
 
+    public void crearReceta(){
+        //kelor, agragar ambos id, los 3 ultimos se van en vacio⬇️
+        Receta r = new Receta(viewBuscarMedicamento.getAuxNombre(), viewBuscarMedicamento.getAuxPresentacion(), " ", " ", " ", " ", " ");
+    }
 }

@@ -15,7 +15,8 @@ public class Receta {
     private String idPaciente;
     private String idDoctor;
 
-    public Receta(String cantidad, String nombre, String indicaciones, String duracion, String idPaciente, String idDoctor, String presentacion) {
+
+    public Receta(String nombre, String presentacion, String idPaciente, String idDoctor, String cantidad, String indicaciones, String duracion) {
         this.nombre = nombre;
         this.presentacion = presentacion;
         this.cantidad = cantidad;

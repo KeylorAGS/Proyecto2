@@ -48,6 +48,12 @@ public class View_Prescripcion implements PropertyChangeListener {
                 controller.ventanaBuscarMedicamento();
             }
         });
+        guardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     public JPanel getPanel() {
