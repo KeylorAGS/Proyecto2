@@ -6,10 +6,11 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import presentation.Logic.Paciente;
+import presentation.Logic.Prescripcion;
 
 public class PrescripcionModel extends AbstractModel {
-    Medicamento current;
-    List<Medicamento> list;
+    Prescripcion current;
+    List<Prescripcion> list;
 
     private Paciente currentPaciente;
     public static final String PACIENTE = "paciente";
@@ -27,8 +28,8 @@ public class PrescripcionModel extends AbstractModel {
     public static final String LIST = "list";
 
     public PrescripcionModel() {
-        current = new Medicamento();
-        list = new ArrayList<Medicamento>();
+        current = new Prescripcion();
+        list = new ArrayList<Prescripcion>();
     }
 
     @Override
@@ -38,20 +39,20 @@ public class PrescripcionModel extends AbstractModel {
         firePropertyChange(LIST);
     }
 
-    public Medicamento getCurrent() {
+    public Prescripcion getCurrent() {
         return current;
     }
 
-    public void setCurrent(Medicamento current) {
+    public void setCurrent(Prescripcion current) {
         this.current = current;
         firePropertyChange(CURRENT);
     }
 
-    public List<Medicamento> getList() {
+    public List<Prescripcion> getList() {
         return list;
     }
 
-    public void setList(List<Medicamento> list) {
+    public void setList(List<Prescripcion> list) {
         this.list = list;
         firePropertyChange(LIST);
     }

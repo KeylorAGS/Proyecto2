@@ -1,9 +1,6 @@
 package presentation.Prescripcion;
 
-import presentation.Logic.Medicamento;
-import presentation.Logic.Paciente;
-import presentation.Logic.Receta;
-import presentation.Logic.Service;
+import presentation.Logic.*;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.Medicamentos_View;
 import presentation.Medicamentos.MedicamentosModel;
@@ -32,23 +29,27 @@ public class PrescripcionController {
         view.setModel(model);
     }
 
+    public void seleccionarPrescripcion(Prescripcion m) {
+        model.setCurrent(m);
+    }
+
     public void seleccionarPaciente(Paciente p) {
         model.setCurrentPaciente(p);
     }
 
-    public void create(Medicamento e) throws  Exception{
-        Service.instance().createMedicamento(e);
-        model.setCurrent(new Medicamento());
-        model.setList(Service.instance().findAll());
+    public void create(Prescripcion e) throws  Exception{
+        Service.instance().createPrescripcion(e);
+        model.setCurrent(new Prescripcion());
+        model.setList(Service.instance().findAllPrescripcion());
     }
 
     public void read(String id) throws Exception {
-        Medicamento e = new Medicamento();
+        Prescripcion e = new Prescripcion();
         e.setId(id);
         try {
-            model.setCurrent(Service.instance().readMedicamento(e));
+            model.setCurrent(Service.instance().readPrescripcion(e));
         } catch (Exception ex) {
-            Medicamento b = new Medicamento();
+            Prescripcion b = new Prescripcion();
             b.setId(id);
             model.setCurrent(b);
             throw ex;
@@ -56,7 +57,7 @@ public class PrescripcionController {
     }
 
     public void clear() {
-        model.setCurrent(new Medicamento());
+        model.setCurrent(new Prescripcion());
     }
 
     public void ventanaBuscarPaciente() {

@@ -2,6 +2,7 @@ package presentation.Prescripcion;
 
 import presentation.Logic.Medicamento;
 import presentation.Logic.Paciente;
+import presentation.Logic.Prescripcion;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
 import presentation.Medicamentos.MedicamentosTableModel;
@@ -55,7 +56,9 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 int row = tabla.getSelectedRow();
                 if (row != -1) {
                     Medicamento m = medicamentosModel.getList().get(row);
+                    Prescripcion p = prescripcionModel.getList().get(row);
                     medicamentosController.seleccionarMedicamento(m);
+                    prescripcionController.seleccionarPrescripcion(p);
                     prescripcionController.cerrarventanabuscarMedicamento();
 
                 } else {
@@ -70,6 +73,7 @@ public class View_buscarMedicamento implements PropertyChangeListener {
     }
 
     MedicamentosModel medicamentosModel;
+    PrescripcionModel prescripcionModel;
     MedicamentosController medicamentosController;
     PrescripcionController prescripcionController;
 
