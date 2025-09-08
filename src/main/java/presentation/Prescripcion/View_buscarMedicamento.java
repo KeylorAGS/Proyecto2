@@ -5,6 +5,7 @@ import presentation.Logic.Paciente;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
 import presentation.Medicamentos.MedicamentosTableModel;
+import presentation.Recetas.RecetasTableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -47,6 +48,20 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 prescripcionController.cerrarventanabuscarMedicamento();
             }
         });
+
+        OK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = tabla.getSelectedRow();
+                if (row != -1) {
+                    Medicamento m = medicamentosModel.getList().get(row);
+                    medicamentosController.seleccionarMedicamento(m);
+                    prescripcionController.cerrarventanabuscarMedicamento();
+                } else {
+                    JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
     }
 
     public JPanel getPanel() {
@@ -66,21 +81,54 @@ public class View_buscarMedicamento implements PropertyChangeListener {
         this.medicamentosController = medicamentosController;
     }
 
+    public String getAuxNombre() {
+        return auxNombre;
+    }
+
+    public String getAuxPresentacion() {
+        return auxPresentacion;
+    }
+
+    public void setAuxNombre(String auxNombre) {
+        this.auxNombre = auxNombre;
+    }
+
+    private String auxNombre;
+
+    public void setAuxPresentacion(String auxPresentacion) {
+        this.auxPresentacion = auxPresentacion;
+    }
+
+    private String auxPresentacion;
+
     public void setControllerPr(PrescripcionController controllerPr) {
         this.prescripcionController = controllerPr;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (MedicamentosModel.LIST.equals(evt.getPropertyName())) {
-            int[] cols = {MedicamentosTableModel.ID, MedicamentosTableModel.NOMBRE, MedicamentosTableModel.PRESENTACION};
-            tabla.setModel(new MedicamentosTableModel(cols, medicamentosModel.getList()));
-            tabla.setRowHeight(30);
-            TableColumnModel columnModel = tabla.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(100);
-            columnModel.getColumn(1).setPreferredWidth(150);
-            columnModel.getColumn(2).setPreferredWidth(120);
+        switch (evt.getPropertyName()) {
+            case MedicamentosModel.LIST:
+                int[] cols = {MedicamentosTableModel.ID, MedicamentosTableModel.NOMBRE, MedicamentosTableModel.PRESENTACION};
+                tabla.setModel(new MedicamentosTableModel(cols, medicamentosModel.getList()));
+                tabla.setRowHeight(30);
+                TableColumnModel columnModel = tabla.getColumnModel();
+                columnModel.getColumn(0).setPreferredWidth(100);
+                columnModel.getColumn(1).setPreferredWidth(150);
+                columnModel.getColumn(2).setPreferredWidth(120);
+                break;
+            // Cuando cambia el paciente seleccionado
+            case MedicamentosModel.CURRENT:
+                if (medicamentosModel.getCurrentMedicamento() != null) {
+                    setAuxNombre(medicamentosModel.getCurrentMedicamento().getNombre());
+                    setAuxPresentacion(medicamentosModel.getCurrentMedicamento().getPresentacion());
+                } else {
+                    auxNombre = "N/A";
+                    auxPresentacion = "N/A";
+                }
+                break;
         }
+
         this.panel.revalidate();
     }
 }

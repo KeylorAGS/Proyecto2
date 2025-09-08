@@ -3,6 +3,7 @@ package presentation.Medicamentos;
 import presentation.AbstractModel;
 import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Medicamento;
+import presentation.Logic.Paciente;
 
 
 import java.beans.PropertyChangeListener;
@@ -18,6 +19,7 @@ public class MedicamentosModel extends AbstractModel {
     public static final String LIST = "list";
     public static final String CURRENT = "current";
     public static final String FILTER = "filter";
+    private Medicamento currentMedicamento;
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -25,6 +27,15 @@ public class MedicamentosModel extends AbstractModel {
         firePropertyChange(LIST);
         firePropertyChange(CURRENT);
         firePropertyChange(FILTER);
+    }
+
+    public Medicamento getCurrentMedicamento() {
+        return currentMedicamento;
+    }
+
+    public void setCurrentMedicamento(Medicamento currentMedicamento) {
+        this.currentMedicamento = currentMedicamento;
+        firePropertyChange(CURRENT);
     }
 
     public MedicamentosModel() {

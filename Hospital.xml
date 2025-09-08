@@ -7,6 +7,12 @@
             <clave>000</clave>
             <especialidad>Vaginologo</especialidad>
         </Medico>
+        <Medico>
+            <id>888</id>
+            <nombre>Dave</nombre>
+            <clave>777</clave>
+            <especialidad>Inyectador</especialidad>
+        </Medico>
     </Medicos>
     <Administradores>
         <Administrador>
