@@ -37,9 +37,11 @@ public class PrescripcionController {
         model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Prescripcion());
         List<Prescripcion> result = Service.instance().searchPrescripcion(new Prescripcion()).stream()
-                .filter(p -> filter.getId() == null || filter.getId().isEmpty() || p.getId().equalsIgnoreCase(filter.getId()))
                 .filter(p -> filter.getNombre() == null || filter.getNombre().isEmpty() || p.getNombre().toLowerCase().contains(filter.getNombre().toLowerCase()))
                 .filter(p -> filter.getPresentacion() == null || filter.getPresentacion().isEmpty() || p.getPresentacion().equals(filter.getPresentacion()))
+                .filter(p -> filter.getCantidad() == null || filter.getCantidad().isEmpty() || p.getCantidad().equalsIgnoreCase(filter.getCantidad()))
+                .filter(p -> filter.getIndicaciones() == null || filter.getIndicaciones().isEmpty() || p.getIndicaciones().equalsIgnoreCase(filter.getIndicaciones()))
+                .filter(p -> filter.getDuracion() == null || filter.getDuracion().isEmpty() || p.getDuracion().equalsIgnoreCase(filter.getDuracion()))
                 .collect(Collectors.toList());
 
         model.setList(result);

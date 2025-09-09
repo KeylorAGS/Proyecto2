@@ -79,13 +79,15 @@ public class View_Prescripcion implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
             switch (evt.getPropertyName()){
                 case PrescripcionModel.LIST:
-                    int[] cols={PrescripcionTableModel.ID, PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
+                    int[] cols={PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION, PrescripcionTableModel.CANTIDAD, PrescripcionTableModel.INDICACIONES, PrescripcionTableModel.DURACION};
                     table.setModel(new PrescripcionTableModel(cols, model.getList()));
                     table.setRowHeight(30);
                     TableColumnModel columnModel = table.getColumnModel();
                     columnModel.getColumn(0).setPreferredWidth(150);
                     columnModel.getColumn(1).setPreferredWidth(150);
                     columnModel.getColumn(2).setPreferredWidth(150);
+                    columnModel.getColumn(3).setPreferredWidth(150);
+                    columnModel.getColumn(4).setPreferredWidth(150);
                     break;
                 case PrescripcionModel.PACIENTE:
                     if (model.getCurrentPaciente() != null) {

@@ -7,25 +7,21 @@ import jakarta.xml.bind.annotation.XmlID;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Prescripcion {
     @XmlID
-    private String id;
     private String nombre;
     private String presentacion;
+    private String cantidad;
+    private String indicaciones;
+    private String duracion;
 
-    public Prescripcion(String id, String nombre, String presentacion) {
-        this.id = id;
+    public Prescripcion(String nombre, String presentacion, String cantidad, String indicaciones, String duracion) {
         this.nombre = nombre;
         this.presentacion = presentacion;
+        this.cantidad = cantidad;
+        this.indicaciones = indicaciones;
+        this.duracion = duracion;
     }
 
-    public Prescripcion(){this("", "", "");}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    public Prescripcion(){this("", "", "", "", "");}
 
     public String getNombre() {
         return nombre;
@@ -41,6 +37,30 @@ public class Prescripcion {
 
     public void setPresentacion(String presentacion) {
         this.presentacion = presentacion;
+    }
+
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getIndicaciones() {
+        return indicaciones;
+    }
+
+    public void setIndicaciones(String indicaciones) {
+        this.indicaciones = indicaciones;
+    }
+
+    public String getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
     }
 
 }

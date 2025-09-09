@@ -381,13 +381,13 @@ public class Service {
 
     // =============== Prescripcion ===============
     public void createPrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
+        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getNombre().equals(prescripcion.getNombre())).findFirst().orElse(null);
         if (result==null) data.getPrescripciones().add(prescripcion);
         else throw new Exception("Prescripcion ya existe");
     }
 
     public Prescripcion readPrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
+        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getNombre().equals(prescripcion.getNombre())).findFirst().orElse(null);
         if (result!=null) return result;
         else throw new Exception("Prescripcion no existe");
     }
