@@ -381,13 +381,13 @@ public class Service {
 
     // =============== Prescripcion ===============
     public void createPrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result = data.getPrescripcion().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
-        if (result==null) data.getPrescripcion().add(prescripcion);
+        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
+        if (result==null) data.getPrescripciones().add(prescripcion);
         else throw new Exception("Prescripcion ya existe");
     }
 
     public Prescripcion readPrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result = data.getPrescripcion().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
+        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getId().equals(prescripcion.getId())).findFirst().orElse(null);
         if (result!=null) return result;
         else throw new Exception("Prescripcion no existe");
     }
@@ -396,26 +396,26 @@ public class Service {
         Prescripcion result;
         try{
             result = this.readPrescripcion(prescripcion);
-            data.getPrescripcion().remove(result);
-            data.getPrescripcion().add(prescripcion);
+            data.getPrescripciones().remove(result);
+            data.getPrescripciones().add(prescripcion);
         }catch (Exception ex) {
             throw new Exception("Prescripcion no existe");
         }
     }
 
     public void deletePrescripcion(Prescripcion prescripcion) throws Exception {
-        data.getPrescripcion().remove(prescripcion);
+        data.getPrescripciones().remove(prescripcion);
     }
 
     public List<Prescripcion> searchPrescripcion(Prescripcion prescripcion) {
-        return data.getPrescripcion().stream()
+        return data.getPrescripciones().stream()
                 .filter(i->i.getNombre().contains(prescripcion.getNombre()))
                 .sorted(Comparator.comparing(Prescripcion::getNombre))
                 .collect(Collectors.toList());
     }
 
-    public List<Prescripcion> findAllPrescripcion() {
-        return data.getPrescripcion();
+    public List<Prescripcion> findAllPrescripciones() {
+        return data.getPrescripciones();
     }
 
     // =============== RECETAS ===============

@@ -106,7 +106,7 @@ public class Data {
     public List<Receta> getRecetas() {return recetas;}
 
     //----------------------------Prescripcion--------------------------
-    private List<Prescripcion> prescripcion = new ArrayList<>();
+    private List<Prescripcion> prescripciones;
 
-    public List<Prescripcion> getPrescripcion() {return prescripcion;}
+    public List<Prescripcion> getPrescripciones() {return prescripciones;}
 }

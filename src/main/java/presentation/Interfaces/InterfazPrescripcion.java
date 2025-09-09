@@ -2,11 +2,9 @@ package presentation.Interfaces;
 
 import presentation.Acerca_De;
 import presentation.Logic.Service;
-import presentation.Pacientes.PacientesController;
 import presentation.Prescripcion.PrescripcionController;
 import presentation.Prescripcion.PrescripcionModel;
 import presentation.Prescripcion.View_Prescripcion;
-import presentation.Recetas.RecetasModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +15,6 @@ import java.util.Objects;
 public class InterfazPrescripcion {
     public static JFrame window;
     public static PrescripcionController prescripcionController;
-    public static PacientesController pacientesController;
 
     public final static int MODE_CREATE = 1;
     public final static int MODE_EDIT = 2;
