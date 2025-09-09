@@ -11,6 +11,8 @@ public class View_despacho {
     private JTable list;
     private JButton verMedicamentosButton;
     private JPanel panel;
+    private JButton entregarButton;
+    private JButton avanzarEstadoButton;
 
     public Component getPanel() {
         return panel;
