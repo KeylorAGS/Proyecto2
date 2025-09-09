@@ -1,6 +1,8 @@
 package presentation.Prescripcion;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import presentation.Interfaces.InterfazAdministrador;
+import presentation.Logic.Prescripcion;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -37,6 +39,27 @@ public class View_Prescripcion implements PropertyChangeListener {
                 controller.ventanaBuscarMedicamento();
             }
         });
+        detalles.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Prescripcion prescripcion = new Prescripcion("si", "si", "si");
+                try {
+                    controller.save(prescripcion);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        descartarMedicamento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controller.delete();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
     public JPanel getPanel() {
@@ -57,6 +80,17 @@ public class View_Prescripcion implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+            switch (evt.getPropertyName()){
+                case PrescripcionModel.LIST:
+                    int[] cols={PrescripcionTableModel.ID, PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
+                    table.setModel(new PrescripcionTableModel(cols, model.getList()));
+                    table.setRowHeight(30);
+                    TableColumnModel columnModel = table.getColumnModel();
+                    columnModel.getColumn(0).setPreferredWidth(150);
+                    columnModel.getColumn(1).setPreferredWidth(150);
+                    columnModel.getColumn(2).setPreferredWidth(150);
+                    break;
+        }
+        this.panel.revalidate();
     }
 }

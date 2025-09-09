@@ -67,6 +67,7 @@ public class Data {
         Pacientes = new ArrayList<>();
         medicamentos = new ArrayList<>();
         administradores = new ArrayList<>();
+        prescripciones = new ArrayList<>();
     }
 
     /**

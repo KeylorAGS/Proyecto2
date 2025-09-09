@@ -21,7 +21,7 @@ public class PrescripcionController {
     private JFrame buscarMedicamentoFrame;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
-        //model.init(Service.instance().searchPrescripcion(new Prescripcion()));
+        model.init(Service.instance().searchPrescripcion(new Prescripcion()));
         this.view = view;
         this.model = model;
         view.setController(this);
