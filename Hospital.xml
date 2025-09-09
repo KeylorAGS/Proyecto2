@@ -13,6 +13,12 @@
             <clave>777</clave>
             <especialidad>Inyectador</especialidad>
         </Medico>
+        <Medico>
+            <id>5202</id>
+            <nombre>Keneth</nombre>
+            <clave>5202</clave>
+            <especialidad>Inspector de pechos</especialidad>
+        </Medico>
     </Medicos>
     <Administradores>
         <Administrador>
