@@ -49,7 +49,6 @@ public class View_Prescripcion implements PropertyChangeListener {
                 }
             }
         });
-
         table.addMouseListener((new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -57,6 +56,12 @@ public class View_Prescripcion implements PropertyChangeListener {
                 controller.edit(row);
             }
         }));
+        detalles.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.ventanaModificarMedicamento();
+            }
+        });
     }
 
     public JPanel getPanel() {

@@ -19,6 +19,7 @@ public class PrescripcionController {
     private PrescripcionModel model;
     private JFrame buscarPacienteFrame;
     private JFrame buscarMedicamentoFrame;
+    private JFrame ModificarMedicamentoFrame;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
         model.init(Service.instance().searchPrescripcion(new Prescripcion()));
@@ -118,8 +119,31 @@ public class PrescripcionController {
         buscarMedicamentoFrame.setVisible(true);
     }
 
+    public void ventanaModificarMedicamento() {
+        if (ModificarMedicamentoFrame == null) {
+            View_modificarMedicamento modificarView = new View_modificarMedicamento();
+            View_Prescripcion view = new View_Prescripcion();
+            PrescripcionModel prescripcionModel = new PrescripcionModel();
+            PrescripcionController prescripcionController = new PrescripcionController(view, prescripcionModel);
+
+            modificarView.setModel(prescripcionModel);
+            modificarView.setController(prescripcionController);
+
+            ModificarMedicamentoFrame = new JFrame("Agregar Medicamento");
+            ModificarMedicamentoFrame.setSize(400, 250);
+            ModificarMedicamentoFrame.setResizable(false);
+            ModificarMedicamentoFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            ModificarMedicamentoFrame.setContentPane(modificarView.getPanel());
+        }
+        ModificarMedicamentoFrame.setVisible(true);
+    }
+
     public void cerrarventanabuscarPaciente() {
         buscarPacienteFrame.dispose();
+    }
+
+    public void cerrarventanaModificarMedicamento() {
+        ModificarMedicamentoFrame.dispose();
     }
 
     public void cerrarventanabuscarMedicamento() {
