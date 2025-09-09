@@ -60,6 +60,14 @@ public class View_Prescripcion implements PropertyChangeListener {
                 }
             }
         });
+
+        table.addMouseListener((new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int row = table.getSelectedRow();
+                controller.edit(row);
+            }
+        }));
     }
 
     public JPanel getPanel() {
