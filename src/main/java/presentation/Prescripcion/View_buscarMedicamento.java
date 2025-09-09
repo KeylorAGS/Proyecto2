@@ -1,6 +1,7 @@
 package presentation.Prescripcion;
 
 import presentation.Logic.Medicamento;
+import presentation.Logic.Prescripcion;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
 import presentation.Medicamentos.MedicamentosTableModel;
@@ -56,6 +57,19 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 medicamentosController.edit(row);
             }
         }));
+        OK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = tabla.getSelectedRow();
+                Medicamento m = medicamentosModel.getList().get(row);
+                Prescripcion p = new Prescripcion(m.getId(), m.getNombre(), m.getPresentacion());
+                try {
+                    prescripcionController.save(p);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
     public JPanel getPanel() {

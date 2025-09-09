@@ -55,10 +55,6 @@ public class Data {
     @XmlElement(name = "Paciente")
     private List<Paciente> Pacientes;
 
-    @XmlElementWrapper(name = "Prescripciones")
-    @XmlElement(name = "Prescripcion")
-    private List<Prescripcion> Prescripcion;
-
     /**
      * Constructor por defecto.
      *

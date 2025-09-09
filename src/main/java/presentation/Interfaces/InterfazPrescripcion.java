@@ -54,7 +54,7 @@ public class InterfazPrescripcion {
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Receta.png"))), acercaDe.getPanel());
 
         // Ventana principal
-        window.setSize(900, 450);
+        window.setSize(900, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("Recetas");

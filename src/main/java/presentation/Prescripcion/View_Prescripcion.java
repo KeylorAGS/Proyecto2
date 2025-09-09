@@ -39,17 +39,6 @@ public class View_Prescripcion implements PropertyChangeListener {
                 controller.ventanaBuscarMedicamento();
             }
         });
-        detalles.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Prescripcion prescripcion = new Prescripcion("si", "si", "si");
-                try {
-                    controller.save(prescripcion);
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
         descartarMedicamento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
