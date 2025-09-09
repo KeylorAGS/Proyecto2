@@ -68,6 +68,7 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
+                prescripcionController.cerrarventanabuscarMedicamento();
             }
         });
     }
