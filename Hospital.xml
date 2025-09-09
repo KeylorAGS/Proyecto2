@@ -53,13 +53,23 @@
         <presentacion>10tb</presentacion>
     </medicamentos>
     <prescripcion>
-        <id>321</id>
-        <nombre>vergapirina</nombre>
-        <presentacion>10tb</presentacion>
+        <id></id>
+        <nombre></nombre>
+        <presentacion></presentacion>
     </prescripcion>
     <prescripcion>
         <id>123</id>
         <nombre>Jarabe de Mirriflote</nombre>
         <presentacion>100ml</presentacion>
+    </prescripcion>
+    <prescripcion>
+        <id>123</id>
+        <nombre>Jarabe de Mirriflote</nombre>
+        <presentacion>100ml</presentacion>
+    </prescripcion>
+    <prescripcion>
+        <id>321</id>
+        <nombre>vergapirina</nombre>
+        <presentacion>10tb</presentacion>
     </prescripcion>
 </data>

@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -43,6 +44,7 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 }
             }
         });
+
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +75,19 @@ public class View_buscarMedicamento implements PropertyChangeListener {
             }
         });
 
+        // Agregar funcionalidad de doble clic similar a buscar paciente
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) { // Doble clic
+                    int row = tabla.getSelectedRow();
+                    if (row != -1) {
+                        // Simular clic en OK
+                        OK.doClick();
+                    }
+                }
+            }
+        });
     }
 
     public JPanel getPanel() {
@@ -93,26 +108,6 @@ public class View_buscarMedicamento implements PropertyChangeListener {
         this.medicamentosController = medicamentosController;
     }
 
-    public String getAuxNombre() {
-        return auxNombre;
-    }
-
-    public String getAuxPresentacion() {
-        return auxPresentacion;
-    }
-
-    public void setAuxNombre(String auxNombre) {
-        this.auxNombre = auxNombre;
-    }
-
-    private String auxNombre;
-
-    public void setAuxPresentacion(String auxPresentacion) {
-        this.auxPresentacion = auxPresentacion;
-    }
-
-    private String auxPresentacion;
-
     public void setControllerPr(PrescripcionController controllerPr) {
         this.prescripcionController = controllerPr;
     }
@@ -129,18 +124,7 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 columnModel.getColumn(1).setPreferredWidth(150);
                 columnModel.getColumn(2).setPreferredWidth(120);
                 break;
-            // Cuando cambia el paciente seleccionado
-            case MedicamentosModel.CURRENT:
-                if (medicamentosModel.getCurrentMedicamento() != null) {
-                    setAuxNombre(medicamentosModel.getCurrentMedicamento().getNombre());
-                    setAuxPresentacion(medicamentosModel.getCurrentMedicamento().getPresentacion());
-                } else {
-                    auxNombre = "N/A";
-                    auxPresentacion = "N/A";
-                }
-                break;
         }
-
         this.panel.revalidate();
     }
 }
