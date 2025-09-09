@@ -35,7 +35,7 @@ public class View_buscarPaciente implements PropertyChangeListener {
             int row = table.getSelectedRow();
             if (row != -1) {
                 Paciente p = model.getList().get(row);
-                controllerPr.seleccionarPaciente(p);
+                controller.seleccionarPaciente(p);
                 controllerPr.cerrarventanabuscarPaciente();
             } else {
                 JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -49,6 +49,7 @@ public class View_buscarPaciente implements PropertyChangeListener {
                 controller.edit(row);
             }
         }));
+
         buscar.addActionListener(e -> {
             int selectedIndex = filtrarOpciones.getSelectedIndex();
             try {

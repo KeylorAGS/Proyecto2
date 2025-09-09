@@ -39,16 +39,12 @@ public class PrescripcionController {
         model.setCurrent(m);
     }
 
-    public void seleccionarPaciente(Paciente p) {
-        model.setCurrentPaciente(p);
-    }
-
     public void create(Prescripcion e) throws Exception {
         // Si hay un servicio, usarlo; si no, agregar directamente a la lista local
         try {
             if (Service.instance() != null) {
                 Service.instance().createPrescripcion(e);
-                model.setList(Service.instance().findAllPrescripcion());
+                model.setList(Service.instance().findAllPrescripciones());
             } else {
                 // Modo local - agregar a la lista actual
                 model.getList().add(e);

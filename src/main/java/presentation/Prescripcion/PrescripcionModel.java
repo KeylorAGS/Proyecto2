@@ -1,6 +1,5 @@
 package presentation.Prescripcion;
 
-import presentation.Logic.Medicamento;
 import presentation.AbstractModel;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

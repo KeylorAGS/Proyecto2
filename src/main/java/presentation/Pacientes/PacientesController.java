@@ -45,6 +45,10 @@ public class PacientesController {
         model.setList(result);
     }
 
+    public void seleccionarPaciente(Paciente p) {
+        model.setCurrent(p);
+    }
+
     public void save(Paciente e) throws Exception {
         switch (model.getMode()) {
             case InterfazAdministrador.MODE_CREATE:
