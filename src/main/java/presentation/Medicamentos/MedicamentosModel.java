@@ -3,8 +3,6 @@ package presentation.Medicamentos;
 import presentation.AbstractModel;
 import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Medicamento;
-import presentation.Logic.Paciente;
-
 
 import java.beans.PropertyChangeListener;
 import java.util.List;

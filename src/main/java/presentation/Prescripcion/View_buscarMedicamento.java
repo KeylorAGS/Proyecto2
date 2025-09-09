@@ -1,12 +1,9 @@
 package presentation.Prescripcion;
 
 import presentation.Logic.Medicamento;
-import presentation.Logic.Paciente;
-import presentation.Logic.Prescripcion;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
 import presentation.Medicamentos.MedicamentosTableModel;
-import presentation.Recetas.RecetasTableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -52,42 +49,13 @@ public class View_buscarMedicamento implements PropertyChangeListener {
             }
         });
 
-        OK.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = tabla.getSelectedRow();
-                if (row != -1) {
-                    Medicamento m = medicamentosModel.getList().get(row);
-
-                    // Crear prescripción a partir del medicamento seleccionado
-                    Prescripcion p = new Prescripcion(m.getId(), m.getNombre(), m.getPresentacion());
-
-                    try {
-                        prescripcionController.create(p); // guarda y actualiza tabla automáticamente
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                    prescripcionController.cerrarventanabuscarMedicamento();
-                } else {
-                    JOptionPane.showMessageDialog(panel, "Seleccione un medicamento.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        });
-
-        // Agregar funcionalidad de doble clic similar a buscar paciente
-        tabla.addMouseListener(new MouseAdapter() {
+        tabla.addMouseListener((new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                if (e.getClickCount() == 2) { // Doble clic
-                    int row = tabla.getSelectedRow();
-                    if (row != -1) {
-                        // Simular clic en OK
-                        OK.doClick();
-                    }
-                }
+                int row = tabla.getSelectedRow();
+                medicamentosController.edit(row);
             }
-        });
+        }));
     }
 
     public JPanel getPanel() {
@@ -95,7 +63,6 @@ public class View_buscarMedicamento implements PropertyChangeListener {
     }
 
     MedicamentosModel medicamentosModel;
-    PrescripcionModel prescripcionModel;
     MedicamentosController medicamentosController;
     PrescripcionController prescripcionController;
 

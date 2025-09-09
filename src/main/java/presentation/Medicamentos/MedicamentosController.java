@@ -26,10 +26,6 @@ public class MedicamentosController {
         view.setModel(medicamentosModel);
     }
 
-    public void seleccionarMedicamento(Medicamento m) {
-        medicamentosModel.setCurrent(m);
-    }
-
     public void search(Medicamento filter) throws Exception {
         medicamentosModel.setFilter(filter);
         medicamentosModel.setMode(InterfazAdministrador.MODE_CREATE);

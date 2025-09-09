@@ -1,55 +1,48 @@
 package presentation.Prescripcion;
 
 import presentation.AbstractModel;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
-import presentation.Logic.Paciente;
+import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Prescripcion;
 
+import java.beans.PropertyChangeListener;
+import java.util.List;
+
 public class PrescripcionModel extends AbstractModel {
-    Prescripcion current;
-    List<Prescripcion> list;
     Prescripcion filter;
+    List<Prescripcion> list;
+    Prescripcion current;
     int mode;
 
-    private Paciente currentPaciente;
-    public static final String PACIENTE = "paciente";
-
-
-    public Paciente getCurrentPaciente() {
-        return currentPaciente;
-    }
-
-    public void setCurrentPaciente(Paciente currentPaciente) {
-        this.currentPaciente = currentPaciente;
-        firePropertyChange(PACIENTE);
-    }
-
-    public static final String CURRENT = "current";
     public static final String LIST = "list";
+    public static final String CURRENT = "current";
     public static final String FILTER = "filter";
-
-    public PrescripcionModel() {
-        current = new Prescripcion();
-        list = new ArrayList<Prescripcion>();
-    }
+    private Prescripcion currentPrescripcion;
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
-        firePropertyChange(CURRENT);
         firePropertyChange(LIST);
+        firePropertyChange(CURRENT);
         firePropertyChange(FILTER);
     }
 
-    public Prescripcion getCurrent() {
-        return current;
+    public Prescripcion getCurrentPrescripcion() {
+        return currentPrescripcion;
     }
 
-    public void setCurrent(Prescripcion current) {
-        this.current = current;
+    public void setCurrentPrescripcion(Prescripcion currentPrescripcion) {
+        this.currentPrescripcion = currentPrescripcion;
         firePropertyChange(CURRENT);
+    }
+
+    public PrescripcionModel() {
+    }
+
+    public void init(List<Prescripcion> list) {
+        this.list = list;
+        this.current = new Prescripcion();
+        this.filter = new Prescripcion();
+        this.mode = InterfazAdministrador.MODE_CREATE;
     }
 
     public List<Prescripcion> getList() {
@@ -61,6 +54,15 @@ public class PrescripcionModel extends AbstractModel {
         firePropertyChange(LIST);
     }
 
+    public Prescripcion getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Prescripcion current) {
+        this.current = current;
+        firePropertyChange(CURRENT);
+    }
+
     public Prescripcion getFilter() {
         return filter;
     }
@@ -69,7 +71,6 @@ public class PrescripcionModel extends AbstractModel {
         this.filter = filter;
         firePropertyChange(FILTER);
     }
-
     public int getMode() {
         return mode;
     }
