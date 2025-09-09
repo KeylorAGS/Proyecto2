@@ -28,6 +28,10 @@ public class PrescripcionController {
         view.setModel(model);
     }
 
+    public void seleccionarPaciente(Paciente p) {
+        model.setCurrentPaciente(p);
+    }
+
     public void search(Prescripcion filter) throws Exception {
         model.setFilter(filter);
         model.setMode(InterfazAdministrador.MODE_CREATE);

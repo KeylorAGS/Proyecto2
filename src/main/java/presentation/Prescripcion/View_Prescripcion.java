@@ -87,6 +87,13 @@ public class View_Prescripcion implements PropertyChangeListener {
                     columnModel.getColumn(1).setPreferredWidth(150);
                     columnModel.getColumn(2).setPreferredWidth(150);
                     break;
+                case PrescripcionModel.PACIENTE:
+                    if (model.getCurrentPaciente() != null) {
+                        verPaciente.setText(model.getCurrentPaciente().getNombre());
+                    } else {
+                        verPaciente.setText("");
+                    }
+                    break;
         }
         this.panel.revalidate();
     }

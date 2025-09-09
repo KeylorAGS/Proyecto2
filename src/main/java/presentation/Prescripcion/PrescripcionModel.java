@@ -2,6 +2,7 @@ package presentation.Prescripcion;
 
 import presentation.AbstractModel;
 import presentation.Interfaces.InterfazAdministrador;
+import presentation.Logic.Paciente;
 import presentation.Logic.Prescripcion;
 
 import java.beans.PropertyChangeListener;
@@ -12,6 +13,17 @@ public class PrescripcionModel extends AbstractModel {
     List<Prescripcion> list;
     Prescripcion current;
     int mode;
+    private Paciente currentPaciente;
+    public static final String PACIENTE = "paciente";
+
+    public Paciente getCurrentPaciente() {
+        return currentPaciente;
+    }
+
+    public void setCurrentPaciente(Paciente currentPaciente) {
+        this.currentPaciente = currentPaciente;
+        firePropertyChange(PACIENTE);
+    }
 
     public static final String LIST = "list";
     public static final String CURRENT = "current";
