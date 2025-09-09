@@ -82,23 +82,25 @@ public class PrescripcionController {
 
     public void ventanaBuscarMedicamento() {
         if (buscarMedicamentoFrame == null) {
-            View_buscarMedicamento View = new View_buscarMedicamento();
-            View.setControllerPr(this);
+            View_buscarMedicamento view = new View_buscarMedicamento();
+            view.setControllerPr(this);  // conecta con el controlador de prescripción
 
-            Medicamentos_View ViewP = new Medicamentos_View();
+            Medicamentos_View viewMed = new Medicamentos_View();
             MedicamentosModel medicamentosModel = new MedicamentosModel();
-            MedicamentosController controller = new MedicamentosController(ViewP, medicamentosModel);
-            View.setController(controller);
-            View.setModel(medicamentosModel);
+            MedicamentosController controllerMed = new MedicamentosController(viewMed, medicamentosModel);
+
+            view.setController(controllerMed);
+            view.setModel(medicamentosModel);
 
             buscarMedicamentoFrame = new JFrame("Agregar Medicamento");
             buscarMedicamentoFrame.setSize(900, 450);
             buscarMedicamentoFrame.setResizable(false);
             buscarMedicamentoFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            buscarMedicamentoFrame.setContentPane(View.getPanel());
+            buscarMedicamentoFrame.setContentPane(view.getPanel());
         }
         buscarMedicamentoFrame.setVisible(true);
     }
+
 
     public void cerrarventanabuscarPaciente() {
         buscarPacienteFrame.dispose();

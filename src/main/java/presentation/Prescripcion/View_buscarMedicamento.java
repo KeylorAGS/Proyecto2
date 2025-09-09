@@ -55,17 +55,24 @@ public class View_buscarMedicamento implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 int row = tabla.getSelectedRow();
                 if (row != -1) {
-                    //Medicamento m = medicamentosModel.getList().get(row);
-                    //medicamentosController.seleccionarMedicamento(m);
-                    Prescripcion p = prescripcionModel.getList().get(row);
-                    prescripcionController.seleccionarPrescripcion(p);
-                    prescripcionController.cerrarventanabuscarMedicamento();
+                    Medicamento m = medicamentosModel.getList().get(row);
 
+                    // Crear prescripción a partir del medicamento seleccionado
+                    Prescripcion p = new Prescripcion(m.getId(), m.getNombre(), m.getPresentacion());
+
+                    try {
+                        prescripcionController.create(p); // guarda y actualiza tabla automáticamente
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    prescripcionController.cerrarventanabuscarMedicamento();
                 } else {
-                    JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Seleccione un medicamento.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
+
     }
 
     public JPanel getPanel() {

@@ -81,15 +81,14 @@ public class View_Prescripcion implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case PrescripcionModel.LIST:
-                int[] cols={RecetasTableModel.NOMBRE, RecetasTableModel.PRESENTACION, RecetasTableModel.CANTIDAD, RecetasTableModel.INDICACIONES, RecetasTableModel.DURACION};
-                table.setModel(new RecetasTableModel(cols, recetasModel.getList()));
+                int[] cols={PrescripcionTableModel.ID, PrescripcionTableModel.NOMBRE, PrescripcionTableModel.PRESENTACION};
+                table.setModel(new PrescripcionTableModel(cols, model.getList()));
+                table.repaint();
                 table.setRowHeight(30);
                 TableColumnModel columnModel = table.getColumnModel();
                 columnModel.getColumn(0).setPreferredWidth(150);
                 columnModel.getColumn(1).setPreferredWidth(150);
                 columnModel.getColumn(2).setPreferredWidth(150);
-                columnModel.getColumn(3).setPreferredWidth(150);
-                columnModel.getColumn(4).setPreferredWidth(150);
                 break;
             case PrescripcionModel.CURRENT:
                 // Aquí puedes actualizar campos de tu UI si los tienes

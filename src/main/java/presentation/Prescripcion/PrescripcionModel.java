@@ -11,9 +11,12 @@ import presentation.Logic.Prescripcion;
 public class PrescripcionModel extends AbstractModel {
     Prescripcion current;
     List<Prescripcion> list;
+    Prescripcion filter;
+    int mode;
 
     private Paciente currentPaciente;
     public static final String PACIENTE = "paciente";
+
 
     public Paciente getCurrentPaciente() {
         return currentPaciente;
@@ -26,6 +29,7 @@ public class PrescripcionModel extends AbstractModel {
 
     public static final String CURRENT = "current";
     public static final String LIST = "list";
+    public static final String FILTER = "filter";
 
     public PrescripcionModel() {
         current = new Prescripcion();
@@ -37,6 +41,7 @@ public class PrescripcionModel extends AbstractModel {
         super.addPropertyChangeListener(listener);
         firePropertyChange(CURRENT);
         firePropertyChange(LIST);
+        firePropertyChange(FILTER);
     }
 
     public Prescripcion getCurrent() {
@@ -55,5 +60,22 @@ public class PrescripcionModel extends AbstractModel {
     public void setList(List<Prescripcion> list) {
         this.list = list;
         firePropertyChange(LIST);
+    }
+
+    public Prescripcion getFilter() {
+        return filter;
+    }
+
+    public void setFilter(Prescripcion filter) {
+        this.filter = filter;
+        firePropertyChange(FILTER);
+    }
+
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 }
