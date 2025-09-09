@@ -1,5 +1,5 @@
 package presentation.Logic;
-
+//como que no
 public class Prescripcion {
     private String id;
     private String nombre;
