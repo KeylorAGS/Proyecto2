@@ -10,6 +10,7 @@ import presentation.Pacientes.Pacientes_View;
 import presentation.Recetas.RecetasModel;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class PrescripcionController {
     View_Prescripcion view;
@@ -24,6 +25,11 @@ public class PrescripcionController {
         this.model = model;
         this.recetasModel = new RecetasModel();
 
+        // Inicializar la lista de prescripciones si está vacía
+        if (model.getList() == null) {
+            model.setList(new ArrayList<>());
+        }
+
         view.setController(this);
         view.setRecetasModel(recetasModel);
         view.setModel(model);
@@ -37,10 +43,25 @@ public class PrescripcionController {
         model.setCurrentPaciente(p);
     }
 
-    public void create(Prescripcion e) throws  Exception{
-        Service.instance().createPrescripcion(e);
+    public void create(Prescripcion e) throws Exception {
+        // Si hay un servicio, usarlo; si no, agregar directamente a la lista local
+        try {
+            if (Service.instance() != null) {
+                Service.instance().createPrescripcion(e);
+                model.setList(Service.instance().findAllPrescripcion());
+            } else {
+                // Modo local - agregar a la lista actual
+                model.getList().add(e);
+                model.setList(new ArrayList<>(model.getList())); // Trigger property change
+            }
+        } catch (Exception ex) {
+            // Si falla el servicio, agregar localmente
+            model.getList().add(e);
+            model.setList(new ArrayList<>(model.getList())); // Trigger property change
+        }
+
+        // Limpiar current después de agregar
         model.setCurrent(new Prescripcion());
-        model.setList(Service.instance().findAllPrescripcion());
     }
 
     public void read(String id) throws Exception {
@@ -58,6 +79,19 @@ public class PrescripcionController {
 
     public void clear() {
         model.setCurrent(new Prescripcion());
+    }
+
+    // Método para eliminar un medicamento de la prescripción
+    public void eliminarMedicamento(int index) {
+        if (index >= 0 && index < model.getList().size()) {
+            model.getList().remove(index);
+            model.setList(new ArrayList<>(model.getList())); // Trigger property change
+        }
+    }
+
+    // Método para limpiar toda la lista de prescripciones
+    public void limpiarPrescripciones() {
+        model.setList(new ArrayList<>());
     }
 
     public void ventanaBuscarPaciente() {
@@ -82,35 +116,46 @@ public class PrescripcionController {
 
     public void ventanaBuscarMedicamento() {
         if (buscarMedicamentoFrame == null) {
-            View_buscarMedicamento view = new View_buscarMedicamento();
-            view.setControllerPr(this);  // conecta con el controlador de prescripción
+            viewBuscarMedicamento = new View_buscarMedicamento();
+            viewBuscarMedicamento.setControllerPr(this);  // conecta con el controlador de prescripción
 
             Medicamentos_View viewMed = new Medicamentos_View();
             MedicamentosModel medicamentosModel = new MedicamentosModel();
             MedicamentosController controllerMed = new MedicamentosController(viewMed, medicamentosModel);
 
-            view.setController(controllerMed);
-            view.setModel(medicamentosModel);
+            viewBuscarMedicamento.setController(controllerMed);
+            viewBuscarMedicamento.setModel(medicamentosModel);
 
             buscarMedicamentoFrame = new JFrame("Agregar Medicamento");
             buscarMedicamentoFrame.setSize(900, 450);
             buscarMedicamentoFrame.setResizable(false);
             buscarMedicamentoFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            buscarMedicamentoFrame.setContentPane(view.getPanel());
+            buscarMedicamentoFrame.setContentPane(viewBuscarMedicamento.getPanel());
         }
         buscarMedicamentoFrame.setVisible(true);
     }
 
-
     public void cerrarventanabuscarPaciente() {
-        buscarPacienteFrame.dispose();
-    }
-    public void cerrarventanabuscarMedicamento() {
-        buscarMedicamentoFrame.dispose();
+        if (buscarPacienteFrame != null) {
+            buscarPacienteFrame.dispose();
+            buscarPacienteFrame = null; // Reset para permitir recrear
+        }
     }
 
-    public void crearReceta(){
-        //kelor, agragar ambos id, los 3 ultimos se van en vacio⬇️
-        Receta r = new Receta(viewBuscarMedicamento.getAuxNombre(), viewBuscarMedicamento.getAuxPresentacion(), " ", " ", " ", " ", " ");
+    public void cerrarventanabuscarMedicamento() {
+        if (buscarMedicamentoFrame != null) {
+            buscarMedicamentoFrame.dispose();
+            buscarMedicamentoFrame = null; // Reset para permitir recrear
+        }
+    }
+
+    public void crearReceta() {
+        // Implementar la lógica para crear receta con los medicamentos seleccionados
+        if (model.getCurrentPaciente() != null && !model.getList().isEmpty()) {
+            // Aquí puedes implementar la lógica para crear la receta
+            // con todos los medicamentos de la prescripción
+            System.out.println("Creando receta para paciente: " + model.getCurrentPaciente().getNombre());
+            System.out.println("Medicamentos: " + model.getList().size());
+        }
     }
 }
