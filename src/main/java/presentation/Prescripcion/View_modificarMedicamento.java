@@ -7,14 +7,13 @@ import java.awt.event.ActionListener;
 public class View_modificarMedicamento {
     private JButton guardar;
     private JSpinner cantidadS;
-    private JSpinner spinner2;
+    private JSpinner duracionS;
     private JButton cancelar;
     private JTextField indicacionesT;
     private JLabel cantidad;
     private JLabel duracion;
     private JLabel indicaciones;
     private JPanel panel;
-
 
     public View_modificarMedicamento() {
         cancelar.addActionListener(new ActionListener() {
@@ -23,7 +22,15 @@ public class View_modificarMedicamento {
                 controller.cerrarventanaModificarMedicamento();
             }
         });
+        guardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.setCambios(cantidadS.getValue().toString(),  duracionS.getValue().toString(), indicacionesT.getText());
+            }
+        });
     }
+
+
     public JPanel getPanel() {
         return panel;
     }

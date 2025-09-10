@@ -5,7 +5,6 @@ import presentation.Logic.*;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
 import presentation.Medicamentos.Medicamentos_View;
-import presentation.Prescripcion.View_buscarMedicamento;
 import presentation.Pacientes.PacientesController;
 import presentation.Pacientes.PacientesModel;
 import presentation.Pacientes.Pacientes_View;
@@ -20,6 +19,9 @@ public class PrescripcionController {
     private JFrame buscarPacienteFrame;
     private JFrame buscarMedicamentoFrame;
     private JFrame ModificarMedicamentoFrame;
+    public String cantidadAux;
+    public String duracionAux;
+    public String indicacionesAux;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
         model.init(Service.instance().searchPrescripcion(new Prescripcion()));
@@ -77,6 +79,17 @@ public class PrescripcionController {
     public void clear() {
         model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Prescripcion());
+    }
+
+    public void setCambios(String cantidad, String duracion, String indicaciones){
+        cantidadAux = cantidad;
+        duracionAux = duracion;
+        indicacionesAux = indicaciones;
+    }
+
+    public Prescripcion modificarMedicamento(Prescripcion p) throws Exception {
+        Prescripcion prescripcion = new Prescripcion(p.getNombre(), p.getPresentacion(), cantidadAux, indicacionesAux, duracionAux);
+        return prescripcion;
     }
 
     public void ventanaBuscarPaciente() {
