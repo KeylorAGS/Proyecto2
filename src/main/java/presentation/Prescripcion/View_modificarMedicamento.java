@@ -26,6 +26,12 @@ public class View_modificarMedicamento {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.setCambios(cantidadS.getValue().toString(),  duracionS.getValue().toString(), indicacionesT.getText());
+                try {
+                    controller.aplicarCambios();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+                controller.cerrarventanaModificarMedicamento();
             }
         });
     }

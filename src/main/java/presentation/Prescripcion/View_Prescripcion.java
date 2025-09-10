@@ -60,11 +60,6 @@ public class View_Prescripcion implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.ventanaModificarMedicamento();
-                try {
-                    controller.modificarMedicamento(model.getCurrent());
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
             }
         });
     }

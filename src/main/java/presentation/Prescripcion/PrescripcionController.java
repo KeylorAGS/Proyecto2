@@ -87,9 +87,23 @@ public class PrescripcionController {
         indicacionesAux = indicaciones;
     }
 
-    public Prescripcion modificarMedicamento(Prescripcion p) throws Exception {
-        Prescripcion prescripcion = new Prescripcion(p.getNombre(), p.getPresentacion(), cantidadAux, indicacionesAux, duracionAux);
-        return prescripcion;
+    public void aplicarCambios() throws Exception {
+        Prescripcion vieja = model.getCurrent();
+        Prescripcion nueva = new Prescripcion(
+                vieja.getNombre(),
+                vieja.getPresentacion(),
+                cantidadAux,
+                indicacionesAux,
+                duracionAux
+        );
+
+        Service.instance().deletePrescripcion(vieja);
+        Service.instance().createPrescripcion(nueva);
+
+        search(model.getFilter());
+
+        // Selecciona la nueva como "current"
+        model.setCurrent(nueva);
     }
 
     public void ventanaBuscarPaciente() {
@@ -135,12 +149,9 @@ public class PrescripcionController {
     public void ventanaModificarMedicamento() {
         if (ModificarMedicamentoFrame == null) {
             View_modificarMedicamento modificarView = new View_modificarMedicamento();
-            View_Prescripcion view = new View_Prescripcion();
-            PrescripcionModel prescripcionModel = new PrescripcionModel();
-            PrescripcionController prescripcionController = new PrescripcionController(view, prescripcionModel);
 
-            modificarView.setModel(prescripcionModel);
-            modificarView.setController(prescripcionController);
+            modificarView.setModel(model);
+            modificarView.setController(this);
 
             ModificarMedicamentoFrame = new JFrame("Agregar Medicamento");
             ModificarMedicamentoFrame.setSize(400, 250);

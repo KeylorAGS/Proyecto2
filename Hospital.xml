@@ -73,8 +73,8 @@
     <prescripciones>
         <nombre>Jarabe de Mirriflote</nombre>
         <presentacion>100ml</presentacion>
-        <cantidad>0</cantidad>
-        <indicaciones>N/A</indicaciones>
-        <duracion>0</duracion>
+        <cantidad>10</cantidad>
+        <indicaciones>por el ano</indicaciones>
+        <duracion>5</duracion>
     </prescripciones>
 </data>
