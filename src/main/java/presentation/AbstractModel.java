@@ -31,4 +31,5 @@ public abstract class AbstractModel {
     protected void firePropertyChange(String propertyName,String Old,String New) {
         propertyChangeSupport.firePropertyChange(propertyName, Old, New);
     }
+
 }

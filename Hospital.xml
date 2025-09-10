@@ -48,6 +48,18 @@
             <telefono>72682583</telefono>
         </Paciente>
     </Pacientes>
+    <Recetas>
+        <Receta>
+            <nombre>Paracetamol</nombre>
+            <presentacion>Tabletas 500mg</presentacion>
+            <cantidad>20</cantidad>
+            <indicaciones>Tomar una tableta cada 8 horas después de los alimentos</indicaciones>
+            <duracion>7 días</duracion>
+            <idPaciente>PAC123</idPaciente>
+            <idDoctor>DOC456</idDoctor>
+            <estado>Pendiente</estado>
+        </Receta>
+    </Recetas>
     <medicamentos>
         <id>123</id>
         <nombre>Jarabe de Mirriflote</nombre>

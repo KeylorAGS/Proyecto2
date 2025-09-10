@@ -2,6 +2,7 @@ package presentation.Logic;
 
 import presentation.data.*;
 
+import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -442,8 +443,23 @@ public class Service {
         }
     }
 
-    public void deleteReceta(Receta receta) throws Exception {
-        data.getRecetas().remove(receta);
+    public void deleteReceta(Receta receta) {
+        if (receta.getEstado().equals("Pendiente")){
+            data.getRecetas().remove(receta);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "La receta aun no esta lista para entregar");
+        }
+    }
+
+    public void modificarEstadoReceta(Receta receta) {
+        if (receta.getEstado().equals("Confeccionada")){
+            receta.setEstado("Preparacion");
+        }else if (receta.getEstado().equals("Preparacion")){
+            receta.setEstado("Pendiente");
+        }else if (receta.getEstado().equals("Pendiente")){
+            JOptionPane.showMessageDialog(null, "La receta esta lista para entregar");
+        }
     }
 
     public List<Receta> searchReceta(Receta receta) {

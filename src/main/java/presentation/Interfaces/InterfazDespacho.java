@@ -39,6 +39,9 @@ public class InterfazDespacho {
         Controller = new Controller(view,model);
         tabbedPane.addTab("Despacho",new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Despacho.png"))), view.getPanel());
 
+        /// --- Historico
+        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))) , null);
+
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Receta.png"))), acercaDe.getPanel());
@@ -49,6 +52,7 @@ public class InterfazDespacho {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("Recetas");
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
     }
 
 }

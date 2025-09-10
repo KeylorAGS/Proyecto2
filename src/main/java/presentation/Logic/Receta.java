@@ -4,6 +4,8 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlID;
 
+import java.util.List;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Receta {
     @XmlID
@@ -14,9 +16,11 @@ public class Receta {
     private String duracion;
     private String idPaciente;
     private String idDoctor;
+    private String estado;
+    private List<String> listaMedicamento;
 
 
-    public Receta(String nombre, String presentacion, String idPaciente, String idDoctor, String cantidad, String indicaciones, String duracion) {
+    public Receta(String nombre, String presentacion,String estado, String idPaciente, String idDoctor, String cantidad, String indicaciones, String duracion) {
         this.nombre = nombre;
         this.presentacion = presentacion;
         this.cantidad = cantidad;
@@ -24,9 +28,10 @@ public class Receta {
         this.duracion = duracion;
         this.idPaciente = idPaciente;
         this.idDoctor = idDoctor;
+        this.estado = estado;
     }
 
-    public Receta(){this("", "", "", "", "", "", "");}
+    public Receta(){this("", "","", "", "", "", "", "");}
 
     public String getCantidad() {
         return cantidad;
@@ -83,4 +88,21 @@ public class Receta {
     public void setIdDoctor(String idDoctor) {
         this.idDoctor = idDoctor;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public List<String> getListaMedicamento() {
+        return listaMedicamento;
+    }
+
+    public void setListaMedicamento(List<String> listaMedicamento) {
+        this.listaMedicamento = listaMedicamento;
+    }
+
 }

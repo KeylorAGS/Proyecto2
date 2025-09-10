@@ -56,6 +56,17 @@ public class Data {
     private List<Paciente> Pacientes;
 
     /**
+     * Lista de médicos registrados en el sistema.
+     *
+     * Se serializa en XML dentro de una etiqueta <Medicos>,
+     * y cada médico individual dentro de una etiqueta <Medico>.
+     */
+    @XmlElementWrapper(name = "Recetas")
+    @XmlElement(name = "Receta")
+    private List<Receta> recetas;
+
+
+    /**
      * Constructor por defecto.
      *
      * Inicializa las listas de médicos y farmaceutas como listas vacías.
@@ -68,6 +79,7 @@ public class Data {
         medicamentos = new ArrayList<>();
         administradores = new ArrayList<>();
         prescripciones = new ArrayList<>();
+        recetas = new ArrayList<>();
     }
 
     /**
@@ -102,7 +114,12 @@ public class Data {
     public List<Medicamento> getMedicamentos() {return medicamentos;}
 
     //----------------------------Receta--------------------------
-    private List<Receta> recetas;
+
+    /**
+     * Obtiene la lista de administradores registrados en el sistema.
+     *
+     * @return Lista de objetos {@link Receta}.
+     */
 
     public List<Receta> getRecetas() {return recetas;}
 
