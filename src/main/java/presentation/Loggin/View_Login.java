@@ -7,6 +7,8 @@ import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
 import presentation.Interfaces.InterfazAdministrador;
+import presentation.Prescripcion.View_Prescripcion;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,7 @@ public class View_Login implements PropertyChangeListener {
     private JLabel idLabel;
     private JLabel claveLabel;
     private JLabel iniciarSesionLogo;
+    private String guardaUsuario;
 
     LoginModel model;
     LoginController controller;
@@ -92,6 +95,7 @@ public class View_Login implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = idField.getText().trim();
+                guardaUsuario = idField.getText();
                 String clave = new String(claveField.getPassword());
 
                 if (id.isEmpty() || clave.isEmpty()) {
@@ -114,7 +118,8 @@ public class View_Login implements PropertyChangeListener {
             if (usuario instanceof Medico) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
-                InterfazPrescripcion.ventanaPrescripcion();
+                String idMedico = idField.getText();
+                InterfazPrescripcion.ventanaPrescripcion(idMedico);
             } else if (usuario instanceof Farmaceutico) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();

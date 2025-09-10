@@ -50,14 +50,44 @@
     </Pacientes>
     <Recetas>
         <Receta>
-            <nombre>Paracetamol</nombre>
-            <presentacion>Tabletas 500mg</presentacion>
-            <cantidad>20</cantidad>
-            <indicaciones>Tomar una tableta cada 8 horas después de los alimentos</indicaciones>
-            <duracion>7 días</duracion>
-            <idPaciente>PAC123</idPaciente>
-            <idDoctor>DOC456</idDoctor>
-            <estado>Pendiente</estado>
+            <idPaciente>789</idPaciente>
+            <idDoctor>12345</idDoctor>
+            <estado>Entregada</estado>
+            <idReceta>01KMM</idReceta>
+            <prescripciones>
+                <nombre>Jarabe de Mirriflote</nombre>
+                <presentacion>100ml</presentacion>
+                <cantidad>1</cantidad>
+                <indicaciones>Si</indicaciones>
+                <duracion>1</duracion>
+            </prescripciones>
+            <prescripciones>
+                <nombre>vergapirina</nombre>
+                <presentacion>10tb</presentacion>
+                <cantidad>2</cantidad>
+                <indicaciones>No</indicaciones>
+                <duracion>2</duracion>
+            </prescripciones>
+        </Receta>
+        <Receta>
+            <idPaciente>789</idPaciente>
+            <idDoctor>12345</idDoctor>
+            <estado>Lista</estado>
+            <idReceta>02KMM</idReceta>
+            <prescripciones>
+                <nombre>Jarabe de Mirriflote</nombre>
+                <presentacion>100ml</presentacion>
+                <cantidad>1</cantidad>
+                <indicaciones>Si</indicaciones>
+                <duracion>1</duracion>
+            </prescripciones>
+            <prescripciones>
+                <nombre>vergapirina</nombre>
+                <presentacion>10tb</presentacion>
+                <cantidad>2</cantidad>
+                <indicaciones>No</indicaciones>
+                <duracion>2</duracion>
+            </prescripciones>
         </Receta>
     </Recetas>
     <medicamentos>
@@ -73,8 +103,15 @@
     <prescripciones>
         <nombre>Jarabe de Mirriflote</nombre>
         <presentacion>100ml</presentacion>
-        <cantidad>10</cantidad>
-        <indicaciones>por el ano</indicaciones>
-        <duracion>5</duracion>
+        <cantidad>1</cantidad>
+        <indicaciones>Si</indicaciones>
+        <duracion>1</duracion>
+    </prescripciones>
+    <prescripciones>
+        <nombre>vergapirina</nombre>
+        <presentacion>10tb</presentacion>
+        <cantidad>2</cantidad>
+        <indicaciones>No</indicaciones>
+        <duracion>2</duracion>
     </prescripciones>
 </data>

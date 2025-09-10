@@ -20,7 +20,7 @@ public class InterfazPrescripcion {
     public final static int MODE_EDIT = 2;
     public static final Color BACKGROUND_ERROR = new Color(255, 102, 102);
 
-    public static void ventanaPrescripcion() {
+    public static void ventanaPrescripcion(String idMedico) {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {}
@@ -39,7 +39,7 @@ public class InterfazPrescripcion {
 
         // --- Prescripción
         PrescripcionModel prescripcionModel = new PrescripcionModel();
-        View_Prescripcion prescripcionView = new View_Prescripcion();
+        View_Prescripcion prescripcionView = new View_Prescripcion(); prescripcionView.setDoctorIngresado(idMedico);
         prescripcionController = new PrescripcionController(prescripcionView, prescripcionModel);
         tabbedPane.addTab("Prescripción", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Prescribir.png"))), prescripcionView.getPanel());
 

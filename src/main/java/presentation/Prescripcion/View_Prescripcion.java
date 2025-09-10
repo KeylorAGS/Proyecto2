@@ -3,6 +3,8 @@ package presentation.Prescripcion;
 import com.github.lgooddatepicker.components.DatePicker;
 import presentation.Interfaces.InterfazAdministrador;
 import presentation.Logic.Prescripcion;
+import presentation.Logic.Receta;
+import presentation.Logic.Service;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -11,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
+import java.util.Random;
 
 public class View_Prescripcion implements PropertyChangeListener {
     private JPanel panel;
@@ -24,6 +28,15 @@ public class View_Prescripcion implements PropertyChangeListener {
     private JButton detalles;
     private JButton descartarMedicamento;
     private JButton limpiar;
+    private String doctorIngresado;
+
+    public String getDoctorIngresado() {
+        return doctorIngresado;
+    }
+
+    public void setDoctorIngresado(String doctorIngresado) {
+        this.doctorIngresado = doctorIngresado;
+    }
 
     public View_Prescripcion() {
         buscarPaciente.addActionListener(new ActionListener() {
@@ -60,6 +73,36 @@ public class View_Prescripcion implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.ventanaModificarMedicamento();
+            }
+        });
+        guardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(getDoctorIngresado());
+                Receta receta = new Receta();
+                List<Prescripcion> lista = model.getList();
+                for (Prescripcion objeto : lista) {
+                    System.out.println(objeto);
+                    receta.getPrescripcions().add(objeto);
+                }
+                String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                Random random = new Random();
+                StringBuilder sb = new StringBuilder();
+
+                // Crear un código de 5 caracteres
+                for (int i = 0; i < 5; i++) {
+                    int index = random.nextInt(caracteres.length());
+                    sb.append(caracteres.charAt(index));
+                }
+                receta.setIdReceta(sb.toString());
+                receta.setEstado("Confeccionada");
+                receta.setIdDoctor(getDoctorIngresado());
+                receta.setIdPaciente(model.getCurrentPaciente().getId());
+                try {
+                    controller.createReceta(receta);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

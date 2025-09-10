@@ -421,13 +421,13 @@ public class Service {
 
     // =============== RECETAS ===============
     public void createReceta(Receta receta) throws Exception {
-        Receta result = data.getRecetas().stream().filter(i->i.getNombre().equals(receta.getNombre())).findFirst().orElse(null);
+        Receta result = data.getRecetas().stream().filter(i->i.getIdReceta().equals(receta.getIdReceta())).findFirst().orElse(null);
         if (result==null) data.getRecetas().add(receta);
         else throw new Exception("Receta ya existe");
     }
 
     public Receta readReceta(Receta receta) throws Exception {
-        Receta result = data.getRecetas().stream().filter(i->i.getNombre().equals(receta.getNombre())).findFirst().orElse(null);
+        Receta result = data.getRecetas().stream().filter(i->i.getIdReceta().equals(receta.getIdReceta())).findFirst().orElse(null);
         if (result!=null) return result;
         else throw new Exception("Receta no existe");
     }
@@ -444,28 +444,71 @@ public class Service {
     }
 
     public void deleteReceta(Receta receta) {
-        if (receta.getEstado().equals("Pendiente")){
-            data.getRecetas().remove(receta);
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "La receta aun no esta lista para entregar");
+        String estadoActual = receta.getEstado();
+
+        if ("Lista".equals(estadoActual)) {
+            receta.setEstado("Entregada");
+            JOptionPane.showMessageDialog(null, "La receta ha sido entregada exitosamente");
+        } else if ("Entregada".equals(estadoActual)) {
+            JOptionPane.showMessageDialog(null, "La receta ya fue entregada anteriormente");
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "La receta no está lista para entregar.\nEstado actual: " + estadoActual);
         }
     }
 
     public void modificarEstadoReceta(Receta receta) {
-        if (receta.getEstado().equals("Confeccionada")){
-            receta.setEstado("Preparacion");
-        }else if (receta.getEstado().equals("Preparacion")){
-            receta.setEstado("Pendiente");
-        }else if (receta.getEstado().equals("Pendiente")){
-            JOptionPane.showMessageDialog(null, "La receta esta lista para entregar");
+        String estadoActual = receta.getEstado();
+
+        switch (estadoActual) {
+            case "Confeccionada":
+                receta.setEstado("Proceso");
+                JOptionPane.showMessageDialog(null,
+                        "Estado actualizado: Confeccionada → Proceso");
+                break;
+
+            case "Proceso":
+                receta.setEstado("Lista");
+                JOptionPane.showMessageDialog(null,
+                        "Estado actualizado: Proceso → Lista");
+                break;
+
+            case "Lista":
+                JOptionPane.showMessageDialog(null,
+                        "La receta está lista para entregar.\nUse el botón 'Entregar' para completar la entrega.");
+                break;
+
+            case "Entregada":
+                JOptionPane.showMessageDialog(null,
+                        "Esta receta ya fue entregada y no se puede modificar.");
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(null,
+                        "Estado no reconocido: " + estadoActual);
+                break;
         }
     }
 
-    public List<Receta> searchReceta(Receta receta) {
+    public List<Receta> searchRecetaNoEntregadas(Receta receta) {
         return data.getRecetas().stream()
-                .filter(i->i.getNombre().contains(receta.getNombre()))
-                .sorted(Comparator.comparing(Receta::getNombre))
+                .filter(r -> !r.getEstado().equals("Entregada"))
+                .filter(r -> r.getIdReceta().contains(receta.getIdReceta()))
+                .sorted(Comparator.comparing(Receta::getIdReceta))
+                .collect(Collectors.toList());
+    }
+
+    public List<Receta> findRecetasPorEstado(String estado) {
+        return data.getRecetas().stream()
+                .filter(receta -> receta.getEstado().equals(estado))
+                .sorted(Comparator.comparing(Receta::getIdReceta))
+                .collect(Collectors.toList());
+    }
+
+    public List<Receta> findRecetasNoEntregadas() {
+        return data.getRecetas().stream()
+                .filter(receta -> !receta.getEstado().equals("Entregada"))
+                .sorted(Comparator.comparing(Receta::getIdReceta))
                 .collect(Collectors.toList());
     }
 

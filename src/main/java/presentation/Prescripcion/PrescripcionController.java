@@ -162,6 +162,10 @@ public class PrescripcionController {
         ModificarMedicamentoFrame.setVisible(true);
     }
 
+    public void createReceta(Receta receta) throws Exception {
+        Service.instance().createReceta(receta);
+    }
+
     public void cerrarventanabuscarPaciente() {
         buscarPacienteFrame.dispose();
     }

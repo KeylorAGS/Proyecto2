@@ -1,6 +1,7 @@
 package presentation.Despacho;
 
 import presentation.AbstractModel;
+import presentation.Logic.Prescripcion;
 import presentation.Logic.Receta;
 
 import java.beans.PropertyChangeListener;
@@ -10,10 +11,12 @@ import java.util.List;
 public class Model extends AbstractModel {
     Receta current;
     List<Receta> listaReceta;
+    List<Prescripcion> listaPrescripcion;
 
     public Model(){
         current = new Receta();
         listaReceta = new ArrayList<>();
+        listaPrescripcion = new ArrayList<>();
     }
 
     public Receta getCurrent() {return current;}
@@ -32,9 +35,21 @@ public class Model extends AbstractModel {
         return listaReceta;
     }
 
-    public static final String LIST = "list";
+    public void setListaPrescripcion(List<Prescripcion> listaPrescripcion) {
+        this.listaPrescripcion = listaPrescripcion;
+    }
 
+    public void setListmedicamentos(){
+        firePropertyChange(LISTMEDICAMENTOS);
+    }
+
+    public List<Prescripcion> getListmedicamentos(){
+        return listaPrescripcion;
+    }
+
+    public static final String LIST = "list";
     public static final String CURRENT = "current";
+    public static final String LISTMEDICAMENTOS = "list_medicamento";
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -42,5 +57,4 @@ public class Model extends AbstractModel {
         firePropertyChange(CURRENT);
         firePropertyChange(LIST);
     }
-
 }
