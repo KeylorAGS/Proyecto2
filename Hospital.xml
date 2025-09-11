@@ -52,7 +52,7 @@
         <Receta>
             <idPaciente>789</idPaciente>
             <idDoctor>12345</idDoctor>
-            <estado>Lista</estado>
+            <estado>Entregada</estado>
             <idReceta>02KMM</idReceta>
             <prescripciones>
                 <nombre>Jarabe de Mirriflote</nombre>
@@ -87,7 +87,7 @@
         <Receta>
             <idPaciente>123</idPaciente>
             <idDoctor>12345</idDoctor>
-            <estado>Confeccionada</estado>
+            <estado>Proceso</estado>
             <idReceta>7E0MH</idReceta>
             <prescripciones>
                 <nombre>Jarabe de Mirriflote</nombre>
