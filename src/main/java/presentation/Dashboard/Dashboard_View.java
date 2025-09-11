@@ -12,9 +12,9 @@ public class Dashboard_View {
     private JComboBox comboBox3;
     private JComboBox comboBox4;
     private JComboBox comboBox5;
-    private JButton button1;
-    private JButton button2;
+    private JButton SeleccionUnica;
+    private JButton SeleccionMultiple;
     private JTable table1;
-    private JButton button3;
-    private JButton button4;
+    private JButton BorrarUno;
+    private JButton BorrarTodas;
 }
