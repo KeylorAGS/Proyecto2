@@ -512,6 +512,13 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
+    public List<Receta> searchRecetas(Receta receta) {
+        return data.getRecetas().stream()
+                .filter(i->i.getIdPaciente().contains(receta.getIdReceta()))
+                .sorted(Comparator.comparing(Receta::getIdReceta))
+                .collect(Collectors.toList());
+    }
+
     public List<Receta> findAllRecetas() {
         return data.getRecetas();
     }

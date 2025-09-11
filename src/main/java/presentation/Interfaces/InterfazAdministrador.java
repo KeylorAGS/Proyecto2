@@ -1,6 +1,7 @@
 package presentation.Interfaces;
 
 import presentation.Acerca_De;
+import presentation.Historico.HistoricosController;
 import presentation.Logic.Service;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
@@ -17,6 +18,7 @@ public class InterfazAdministrador {
     public static presentation.Medicos.MedicosController medicosController;
     public static presentation.Farmaceuticos.FarmaceuticosController farmaceuticosController;
     public static presentation.Pacientes.PacientesController pacientesController;
+    public static   presentation.Historico.HistoricosController HistoricosController;
 
     public final static int MODE_CREATE = 1;
     public final static int MODE_EDIT = 2;
@@ -67,7 +69,10 @@ public class InterfazAdministrador {
         tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , null);
 
         /// --- Historico
-        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Historico.png"))) , null);
+        presentation.Historico.HistoricosModel historicosModel = new  presentation.Historico.HistoricosModel();
+        presentation.Historico.Historico_View historicoView = new presentation.Historico.Historico_View();
+        HistoricosController = new presentation.Historico.HistoricosController(historicoView,historicosModel);
+        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Historico.png"))) , historicoView.getPanel());
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();

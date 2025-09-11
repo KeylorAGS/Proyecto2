@@ -52,26 +52,6 @@
         <Receta>
             <idPaciente>789</idPaciente>
             <idDoctor>12345</idDoctor>
-            <estado>Entregada</estado>
-            <idReceta>01KMM</idReceta>
-            <prescripciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-                <cantidad>1</cantidad>
-                <indicaciones>Si</indicaciones>
-                <duracion>1</duracion>
-            </prescripciones>
-            <prescripciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-                <cantidad>2</cantidad>
-                <indicaciones>No</indicaciones>
-                <duracion>2</duracion>
-            </prescripciones>
-        </Receta>
-        <Receta>
-            <idPaciente>789</idPaciente>
-            <idDoctor>12345</idDoctor>
             <estado>Lista</estado>
             <idReceta>02KMM</idReceta>
             <prescripciones>
