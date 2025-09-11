@@ -98,6 +98,7 @@ public class View_Prescripcion implements PropertyChangeListener {
                 receta.setEstado("Confeccionada");
                 receta.setIdDoctor(getDoctorIngresado());
                 receta.setIdPaciente(model.getCurrentPaciente().getId());
+                receta.setFecha(elegirFecha.getText());
                 try {
                     controller.createReceta(receta);
                 } catch (Exception ex) {

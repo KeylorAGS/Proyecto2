@@ -15,18 +15,20 @@ public class Receta {
     private String estado;
     private String idReceta;
     private List<Prescripcion>prescripciones;
+    private String fecha;
 
 
-    public Receta(String idReceta,String estado, String idPaciente, String idDoctor) {
+    public Receta(String idReceta,String estado, String idPaciente, String idDoctor, String fecha) {
         this.idReceta = idReceta;
         this.idPaciente = idPaciente;
         this.idDoctor = idDoctor;
         this.estado = estado;
         this.prescripciones = new ArrayList<Prescripcion>();
+        this.fecha = fecha;
     }
 
     public Receta(){
-        this("","", "","");
+        this("","", "","","");
     }
 
     public String getIdPaciente() {
@@ -69,4 +71,11 @@ public class Receta {
         this.prescripciones = prescripcions;
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 }
