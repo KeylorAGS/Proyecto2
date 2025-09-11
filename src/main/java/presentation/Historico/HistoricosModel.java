@@ -12,7 +12,6 @@ public class HistoricosModel extends AbstractModel {
     Receta filter;
     List<Receta> list;
     Receta current;
-
     int mode;
 
     public static final String LIST = "list";

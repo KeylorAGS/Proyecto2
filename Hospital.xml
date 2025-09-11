@@ -69,6 +69,19 @@
                 <duracion>2</duracion>
             </prescripciones>
         </Receta>
+        <Receta>
+            <idPaciente>123</idPaciente>
+            <idDoctor>888</idDoctor>
+            <estado>Confeccionada</estado>
+            <idReceta>S8DUE</idReceta>
+            <prescripciones>
+                <nombre>vergapirina</nombre>
+                <presentacion>10tb</presentacion>
+                <cantidad>45</cantidad>
+                <indicaciones>Una por dia</indicaciones>
+                <duracion>45</duracion>
+            </prescripciones>
+        </Receta>
     </Recetas>
     <medicamentos>
         <id>123</id>
@@ -81,17 +94,10 @@
         <presentacion>10tb</presentacion>
     </medicamentos>
     <prescripciones>
-        <nombre>Jarabe de Mirriflote</nombre>
-        <presentacion>100ml</presentacion>
-        <cantidad>1</cantidad>
-        <indicaciones>Si</indicaciones>
-        <duracion>1</duracion>
-    </prescripciones>
-    <prescripciones>
         <nombre>vergapirina</nombre>
         <presentacion>10tb</presentacion>
-        <cantidad>2</cantidad>
-        <indicaciones>No</indicaciones>
-        <duracion>2</duracion>
+        <cantidad>45</cantidad>
+        <indicaciones>Una por dia</indicaciones>
+        <duracion>45</duracion>
     </prescripciones>
 </data>

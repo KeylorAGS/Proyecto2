@@ -1,12 +1,11 @@
 package presentation.Historico;
 
 import com.itextpdf.text.DocumentException;
-import presentation.Interfaces.InterfazAdministrador;
-import presentation.Logic.Medico;
 import presentation.Logic.Receta;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-public class Historico_View implements PropertyChangeListener  {
+public class Historico_View extends Component implements PropertyChangeListener  {
     private JPanel panel;
     private JLabel searchNombreLbl;
     private JTextField searchNombre;
@@ -86,6 +85,8 @@ public class Historico_View implements PropertyChangeListener  {
                 columnModel.getColumn(1).setPreferredWidth(150);
                 columnModel.getColumn(2).setPreferredWidth(150);
                 columnModel.getColumn(3).setPreferredWidth(150);
+                break;
+            case HistoricosModel.CURRENT:
                 break;
             case HistoricosModel.FILTER:
                 searchNombre.setText(model.getFilter().getIdPaciente());

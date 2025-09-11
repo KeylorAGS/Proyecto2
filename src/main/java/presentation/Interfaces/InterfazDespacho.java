@@ -4,6 +4,9 @@ import presentation.Acerca_De;
 import presentation.Despacho.Controller;
 import presentation.Despacho.Model;
 import presentation.Despacho.View_despacho;
+import presentation.Historico.Historico_View;
+import presentation.Historico.HistoricosController;
+import presentation.Historico.HistoricosModel;
 import presentation.Logic.Service;
 
 import javax.swing.*;
@@ -15,6 +18,7 @@ public class InterfazDespacho {
 
     public static JFrame window;
     public static Controller Controller;
+    public static HistoricosController historicosController;
 
     public static void ventanaDespacho() {
 
@@ -40,7 +44,10 @@ public class InterfazDespacho {
         tabbedPane.addTab("Despacho",new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Despacho.png"))), view.getPanel());
 
         /// --- Historico
-        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))) , null);
+        HistoricosModel historicosModel = new HistoricosModel();
+        Historico_View historicoView = new Historico_View();
+        historicosController = new HistoricosController(historicoView,historicosModel);
+        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))) , historicoView.getPanel());
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();

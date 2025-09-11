@@ -1,6 +1,9 @@
 package presentation.Interfaces;
 
 import presentation.Acerca_De;
+import presentation.Historico.Historico_View;
+import presentation.Historico.HistoricosController;
+import presentation.Historico.HistoricosModel;
 import presentation.Logic.Service;
 import presentation.Prescripcion.PrescripcionController;
 import presentation.Prescripcion.PrescripcionModel;
@@ -15,6 +18,7 @@ import java.util.Objects;
 public class InterfazPrescripcion {
     public static JFrame window;
     public static PrescripcionController prescripcionController;
+    public static HistoricosController historicosController;
 
     public final static int MODE_CREATE = 1;
     public final static int MODE_EDIT = 2;
@@ -47,7 +51,10 @@ public class InterfazPrescripcion {
         tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Dashboard.png"))) , null);
 
         /// --- Historico
-        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Historico.png"))) , null);
+        HistoricosModel historicosModel = new HistoricosModel();
+        Historico_View historicoView = new Historico_View();
+        historicosController = new HistoricosController(historicoView,historicosModel);
+        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))) , historicoView.getPanel());
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
