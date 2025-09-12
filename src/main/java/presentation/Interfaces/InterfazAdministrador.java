@@ -66,7 +66,10 @@ public class InterfazAdministrador {
         tabbedPane.addTab("Medicamentos", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Medicamentos.png"))), medicamentosView.getPanel());
 
         /// --- Dashboard
-        tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , null);
+        presentation.Dashboard.DashboardModel dashboardModel = new presentation.Dashboard.DashboardModel();
+        presentation.Dashboard.Dashboard_View dashboardView = new presentation.Dashboard.Dashboard_View();
+        presentation.Dashboard.DashboardController dashboardController = new presentation.Dashboard.DashboardController(dashboardView, dashboardModel);
+        tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , dashboardView.getPanel());
 
         /// --- Historico
         presentation.Historico.HistoricosModel historicosModel = new  presentation.Historico.HistoricosModel();
