@@ -10,9 +10,9 @@ import java.util.List;
 public class DashboardController {
 
     private DashboardModel model;
-    private Dashboard_View view;
+    private Dashboard_View1 view;
 
-    public DashboardController(Dashboard_View view, DashboardModel model) {
+    public DashboardController(Dashboard_View1 view, DashboardModel model) {
         this.view = view;
         this.model = model;
 

@@ -67,7 +67,7 @@ public class InterfazAdministrador {
 
         /// --- Dashboard
         presentation.Dashboard.DashboardModel dashboardModel = new presentation.Dashboard.DashboardModel();
-        presentation.Dashboard.Dashboard_View dashboardView = new presentation.Dashboard.Dashboard_View();
+        presentation.Dashboard.Dashboard_View1 dashboardView = new presentation.Dashboard.Dashboard_View1();
         presentation.Dashboard.DashboardController dashboardController = new presentation.Dashboard.DashboardController(dashboardView, dashboardModel);
         tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , dashboardView.getPanel());
 
