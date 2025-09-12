@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class View_modificarMedicamento {
+public class View_modificarMedicamento extends JDialog {
     private JButton guardar;
     private JSpinner cantidadS;
     private JSpinner duracionS;
@@ -16,10 +16,17 @@ public class View_modificarMedicamento {
     private JPanel panel;
 
     public View_modificarMedicamento() {
+        setContentPane(panel);
+        setModal(true);
+        setTitle("Modificar Medicamento");
+        setSize(400, 250);
+        setLocationRelativeTo(null);
+
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.cerrarventanaModificarMedicamento();
+                // La propia vista maneja su cierre
+                View_modificarMedicamento.this.setVisible(false);
             }
         });
         guardar.addActionListener(new ActionListener() {
@@ -31,11 +38,10 @@ public class View_modificarMedicamento {
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
-                controller.cerrarventanaModificarMedicamento();
+                View_modificarMedicamento.this.setVisible(false);
             }
         });
     }
-
 
     public JPanel getPanel() {
         return panel;
@@ -52,3 +58,4 @@ public class View_modificarMedicamento {
         this.model = model;
     }
 }
+

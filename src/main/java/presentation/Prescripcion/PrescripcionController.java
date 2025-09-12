@@ -16,9 +16,17 @@ import java.util.stream.Collectors;
 public class PrescripcionController {
     private View_Prescripcion view;
     private PrescripcionModel model;
-    private JFrame buscarPacienteFrame;
-    private JFrame buscarMedicamentoFrame;
-    private JFrame ModificarMedicamentoFrame;
+
+    // Removed frame fields (views will handle visibility)
+    // Provide Pacientes/Medicamentos models & controllers so view can set them on subviews
+    private PacientesModel pacientesModel;
+    private Pacientes_View pacientesView;
+    private PacientesController pacientesController;
+
+    private MedicamentosModel medicamentosModel;
+    private Medicamentos_View medicamentosView;
+    private MedicamentosController medicamentosController;
+
     public String cantidadAux;
     public String duracionAux;
     public String indicacionesAux;
@@ -27,8 +35,37 @@ public class PrescripcionController {
         model.init(Service.instance().searchPrescripcion(new Prescripcion()));
         this.view = view;
         this.model = model;
+
+        // Initialize Pacientes module (models/controllers) here so the view can use them
+        this.pacientesModel = new PacientesModel();
+        this.pacientesView = new Pacientes_View();
+        this.pacientesController = new PacientesController(pacientesView, pacientesModel);
+
+        // Initialize Medicamentos module (models/controllers)
+        this.medicamentosModel = new MedicamentosModel();
+        this.medicamentosView = new Medicamentos_View();
+        this.medicamentosController = new MedicamentosController(medicamentosView, medicamentosModel);
+
+        // Wire MVC
         view.setController(this);
         view.setModel(model);
+    }
+
+    // Getters so the main view can pass the correct models/controllers to subviews
+    public PacientesModel getPacientesModel() {
+        return pacientesModel;
+    }
+
+    public PacientesController getPacientesController() {
+        return pacientesController;
+    }
+
+    public MedicamentosModel getMedicamentosModel() {
+        return medicamentosModel;
+    }
+
+    public MedicamentosController getMedicamentosController() {
+        return medicamentosController;
     }
 
     public void seleccionarPaciente(Paciente p) {
@@ -89,6 +126,13 @@ public class PrescripcionController {
 
     public void aplicarCambios() throws Exception {
         Prescripcion vieja = model.getCurrent();
+
+        // Validar que haya un nombre
+        if (vieja.getNombre() == null || vieja.getNombre().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Medicamento", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return; // salir del método, no crear nada
+        }
+
         Prescripcion nueva = new Prescripcion(
                 vieja.getNombre(),
                 vieja.getPresentacion(),
@@ -106,75 +150,8 @@ public class PrescripcionController {
         model.setCurrent(nueva);
     }
 
-    public void ventanaBuscarPaciente() {
-        if (buscarPacienteFrame == null) {
-            View_buscarPaciente buscarView = new View_buscarPaciente();
-            Pacientes_View pacientesView = new Pacientes_View();
-            PacientesModel pacientesModel = new PacientesModel();
-            PacientesController pacientesController = new PacientesController(pacientesView, pacientesModel);
-
-            buscarView.setModel(pacientesModel);
-            buscarView.setController(pacientesController);
-            buscarView.setControllerPr(this);
-
-            buscarPacienteFrame = new JFrame("Buscar Paciente");
-            buscarPacienteFrame.setSize(900, 450);
-            buscarPacienteFrame.setResizable(false);
-            buscarPacienteFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            buscarPacienteFrame.setContentPane(buscarView.getPanel());
-        }
-        buscarPacienteFrame.setVisible(true);
-    }
-
-    public void ventanaBuscarMedicamento() {
-        if (buscarMedicamentoFrame == null) {
-            View_buscarMedicamento buscarView = new View_buscarMedicamento();
-            MedicamentosModel medicamentosModel = new MedicamentosModel();
-            Medicamentos_View medicamentosView = new Medicamentos_View();
-            MedicamentosController medicamentosController = new MedicamentosController(medicamentosView, medicamentosModel);
-
-            buscarView.setModel(medicamentosModel);
-            buscarView.setController(medicamentosController);
-            buscarView.setControllerPr(this);
-
-            buscarMedicamentoFrame = new JFrame("Agregar Medicamento");
-            buscarMedicamentoFrame.setSize(900, 450);
-            buscarMedicamentoFrame.setResizable(false);
-            buscarMedicamentoFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            buscarMedicamentoFrame.setContentPane(buscarView.getPanel());
-        }
-        buscarMedicamentoFrame.setVisible(true);
-    }
-
-    public void ventanaModificarMedicamento() {
-        if (ModificarMedicamentoFrame == null) {
-            View_modificarMedicamento modificarView = new View_modificarMedicamento();
-
-            modificarView.setModel(model);
-            modificarView.setController(this);
-
-            ModificarMedicamentoFrame = new JFrame("Agregar Medicamento");
-            ModificarMedicamentoFrame.setSize(400, 250);
-            ModificarMedicamentoFrame.setResizable(false);
-            ModificarMedicamentoFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            ModificarMedicamentoFrame.setContentPane(modificarView.getPanel());
-        }
-        ModificarMedicamentoFrame.setVisible(true);
-    }
 
     public void createReceta(Receta receta) throws Exception {
         Service.instance().createReceta(receta);
-    }
-
-    public void cerrarventanabuscarPaciente() {
-        buscarPacienteFrame.dispose();
-    }
-
-    public void cerrarventanaModificarMedicamento() {
-        ModificarMedicamentoFrame.dispose();
-    }
-
-    public void cerrarventanabuscarMedicamento() {
-        buscarMedicamentoFrame.dispose();
     }
 }

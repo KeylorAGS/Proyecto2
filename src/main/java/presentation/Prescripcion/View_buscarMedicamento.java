@@ -14,7 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class View_buscarMedicamento implements PropertyChangeListener {
+public class View_buscarMedicamento extends JDialog implements PropertyChangeListener {
     private JPanel panel;
     private JTable tabla;
     private JLabel filtrar;
@@ -25,6 +25,13 @@ public class View_buscarMedicamento implements PropertyChangeListener {
     private JButton cancelar;
 
     public View_buscarMedicamento() {
+        setContentPane(panel);
+        setModal(true);
+        setTitle("Buscar Medicamento");
+        setSize(900, 450);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
         buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,7 +53,8 @@ public class View_buscarMedicamento implements PropertyChangeListener {
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                prescripcionController.cerrarventanabuscarMedicamento();
+                // La propia vista se oculta
+                View_buscarMedicamento.this.setVisible(false);
             }
         });
 
@@ -68,7 +76,8 @@ public class View_buscarMedicamento implements PropertyChangeListener {
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
-                prescripcionController.cerrarventanabuscarMedicamento();
+                // cerrar la propia vista
+                View_buscarMedicamento.this.setVisible(false);
             }
         });
     }

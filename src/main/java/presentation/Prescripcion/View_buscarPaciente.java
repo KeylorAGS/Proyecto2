@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class View_buscarPaciente implements PropertyChangeListener {
+public class View_buscarPaciente extends JDialog implements PropertyChangeListener {
     private JPanel panel;
     private JTable table;
     private JTextField filtrarTexto;
@@ -24,10 +24,18 @@ public class View_buscarPaciente implements PropertyChangeListener {
     private JButton buscar;
 
     public View_buscarPaciente() {
+        setContentPane(panel);
+        setModal(true);
+        setTitle("Buscar Paciente");
+        setSize(900, 450);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controllerPr.cerrarventanabuscarPaciente();
+                // La propia vista se oculta
+                View_buscarPaciente.this.setVisible(false);
             }
         });
 
@@ -36,7 +44,8 @@ public class View_buscarPaciente implements PropertyChangeListener {
             if (row != -1) {
                 Paciente p = model.getList().get(row);
                 controllerPr.seleccionarPaciente(p);
-                controllerPr.cerrarventanabuscarPaciente();
+                // Cerrar la propia vista
+                View_buscarPaciente.this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }

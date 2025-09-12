@@ -112,8 +112,15 @@
     <prescripciones>
         <nombre>Jarabe de Mirriflote</nombre>
         <presentacion>100ml</presentacion>
-        <cantidad>20</cantidad>
-        <indicaciones>zaswee</indicaciones>
-        <duracion>30</duracion>
+        <cantidad>6</cantidad>
+        <indicaciones>na</indicaciones>
+        <duracion>6</duracion>
+    </prescripciones>
+    <prescripciones>
+        <nombre></nombre>
+        <presentacion></presentacion>
+        <cantidad>0</cantidad>
+        <indicaciones></indicaciones>
+        <duracion>0</duracion>
     </prescripciones>
 </data>
