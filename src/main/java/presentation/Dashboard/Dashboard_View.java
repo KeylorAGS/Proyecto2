@@ -1,5 +1,6 @@
 package presentation.Dashboard;
 
+import com.itextpdf.text.DocumentException;
 import presentation.Logic.Medicamento;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -12,202 +13,72 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Dashboard_View implements PropertyChangeListener {
+    // Componentes de UI (generados por UI Designer)
     private JPanel panel;
-    private JPanel DatosPanel;
-    private JPanel medicamentosPanel;
-    private JPanel RecetasPanel;
-    private JComboBox<String> comboMesDesde;
-    private JComboBox<String> comboMesHasta;
-    private JComboBox<String> comboMedicamento1;
-    private JComboBox<String> comboMedicamento2;
-    private JComboBox<String> comboMedicamento3;
-    private JButton seleccionUnica;
-    private JButton seleccionMultiple;
-    private JTable tableDatos;
+    private JPanel datosPanel;
+    private JComboBox desdeAños;
+    private JComboBox desdeMes;
+    private JComboBox hastaAño;
+    private JComboBox hastaMes;
+    private JComboBox medicamentosBox;
+    private JButton agregarMedicamento;
+    private JButton seleccionarTodos;
     private JButton borrarUno;
-    private JButton borrarTodas;
+    private JButton borrarTodos;
+    private JTable table1;
+    private JPanel medicamentosPanel;
+    private JPanel recetasPanel;
 
     // Paneles para gráficos
     private ChartPanel chartPanelLineas;
     private ChartPanel chartPanelPastel;
 
-    private DashboardController controller;
-    private DashboardModel model;
+    public JPanel getPanel() {
+        return panel;
+    }
 
     public Dashboard_View() {
-        initComponents();
+        initializeCharts();
         setupEventListeners();
+        setupComboBoxes();
     }
 
-    private void initComponents() {
-        panel = new JPanel(new BorderLayout());
-
-        // Panel superior con controles
-        JPanel controlPanel = createControlPanel();
-        panel.add(controlPanel, BorderLayout.NORTH);
-
-        // Panel central con gráficos
-        JPanel chartsPanel = createChartsPanel();
-        panel.add(chartsPanel, BorderLayout.CENTER);
-    }
-
-    private JPanel createControlPanel() {
-        JPanel mainControlPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        // Panel de Datos
-        JPanel datosPanel = new JPanel(new GridBagLayout());
-        datosPanel.setBorder(BorderFactory.createTitledBorder("Datos"));
-        GridBagConstraints datosGbc = new GridBagConstraints();
-        datosGbc.insets = new Insets(2, 2, 2, 2);
-
-        // Filtros de fecha
-        datosGbc.gridx = 0; datosGbc.gridy = 0;
-        datosPanel.add(new JLabel("Desde:"), datosGbc);
-        datosGbc.gridx = 1;
-        comboMesDesde = new JComboBox<>();
-        comboMesDesde.setPreferredSize(new Dimension(80, 25));
-        datosPanel.add(comboMesDesde, datosGbc);
-
-        datosGbc.gridx = 0; datosGbc.gridy = 1;
-        datosPanel.add(new JLabel("Hasta:"), datosGbc);
-        datosGbc.gridx = 1;
-        comboMesHasta = new JComboBox<>();
-        comboMesHasta.setPreferredSize(new Dimension(80, 25));
-        datosPanel.add(comboMesHasta, datosGbc);
-
-        // Label Medicamentos
-        datosGbc.gridx = 0; datosGbc.gridy = 2;
-        datosGbc.gridwidth = 2;
-        datosPanel.add(new JLabel("Medicamentos"), datosGbc);
-
-        // ComboBoxes de medicamentos
-        datosGbc.gridx = 0; datosGbc.gridy = 3;
-        datosGbc.gridwidth = 1;
-        comboMedicamento1 = new JComboBox<>();
-        comboMedicamento1.setPreferredSize(new Dimension(120, 25));
-        datosPanel.add(comboMedicamento1, datosGbc);
-
-        datosGbc.gridx = 1;
-        comboMedicamento2 = new JComboBox<>();
-        comboMedicamento2.setPreferredSize(new Dimension(120, 25));
-        datosPanel.add(comboMedicamento2, datosGbc);
-
-        datosGbc.gridx = 0; datosGbc.gridy = 4;
-        comboMedicamento3 = new JComboBox<>();
-        comboMedicamento3.setPreferredSize(new Dimension(120, 25));
-        datosPanel.add(comboMedicamento3, datosGbc);
-
-        // Botones de selección
-        datosGbc.gridx = 1; datosGbc.gridy = 4;
-        JPanel botonesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
-
-        seleccionUnica = new JButton("✓");
-        seleccionUnica.setPreferredSize(new Dimension(25, 25));
-        seleccionUnica.setBackground(Color.GREEN);
-        botonesPanel.add(seleccionUnica);
-
-        seleccionMultiple = new JButton("✓");
-        seleccionMultiple.setPreferredSize(new Dimension(25, 25));
-        seleccionMultiple.setBackground(Color.GREEN);
-        botonesPanel.add(seleccionMultiple);
-
-        datosPanel.add(botonesPanel, datosGbc);
-
-        // Panel central con tabla
-        JPanel tablaPanel = new JPanel(new BorderLayout());
-        String[] columnas = {"Medicamento", "2025-8", "2025-9", "2025-10"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnas, 0);
-        tableDatos = new JTable(tableModel);
-        tableDatos.setPreferredScrollableViewportSize(new Dimension(300, 100));
-        JScrollPane scrollPane = new JScrollPane(tableDatos);
-        tablaPanel.add(scrollPane, BorderLayout.CENTER);
-
-        // Panel derecho con botones de borrar
-        JPanel borrarPanel = new JPanel(new GridLayout(2, 1, 2, 2));
-
-        borrarUno = new JButton("●");
-        borrarUno.setPreferredSize(new Dimension(25, 25));
-        borrarUno.setBackground(Color.RED);
-        borrarUno.setForeground(Color.WHITE);
-        borrarPanel.add(borrarUno);
-
-        borrarTodas = new JButton("●");
-        borrarTodas.setPreferredSize(new Dimension(25, 25));
-        borrarTodas.setBackground(Color.RED);
-        borrarTodas.setForeground(Color.WHITE);
-        borrarPanel.add(borrarTodas);
-
-        // Ensamblar panel de control principal
-        gbc.gridx = 0; gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        mainControlPanel.add(datosPanel, gbc);
-
-        gbc.gridx = 1; gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1.0;
-        mainControlPanel.add(tablaPanel, gbc);
-
-        gbc.gridx = 2; gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0;
-        gbc.anchor = GridBagConstraints.NORTH;
-        mainControlPanel.add(borrarPanel, gbc);
-
-        return mainControlPanel;
-    }
-
-    private JPanel createChartsPanel() {
-        JPanel chartsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
-
-        // Panel para gráfico de medicamentos (líneas)
-        medicamentosPanel = new JPanel(new BorderLayout());
-        medicamentosPanel.setBorder(BorderFactory.createTitledBorder("Medicamentos"));
-
-        // Crear gráfico inicial con datos de ejemplo
+    private void initializeCharts() {
+        // Inicializar gráfico de líneas
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "Medicamentos", "Mes", "Cantidad", dataset,
                 PlotOrientation.VERTICAL, true, true, false);
 
-        // Personalizar el gráfico
         CategoryPlot plot = lineChart.getCategoryPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setDomainGridlinePaint(Color.WHITE);
-        plot.setRangeGridlinePaint(Color.WHITE);
-
         LineAndShapeRenderer renderer = new LineAndShapeRenderer();
         renderer.setSeriesShapesVisible(0, true);
-        renderer.setSeriesShapesVisible(1, true);
-        renderer.setSeriesPaint(0, Color.RED);
-        renderer.setSeriesPaint(1, Color.BLUE);
         plot.setRenderer(renderer);
 
         chartPanelLineas = new ChartPanel(lineChart);
+        medicamentosPanel.setLayout(new BorderLayout());
         medicamentosPanel.add(chartPanelLineas, BorderLayout.CENTER);
 
-        // Panel para gráfico de recetas (pastel)
-        RecetasPanel = new JPanel(new BorderLayout());
-        RecetasPanel.setBorder(BorderFactory.createTitledBorder("Recetas"));
-
-        // Crear gráfico de pastel inicial
+        // Inicializar gráfico de pastel
         DefaultPieDataset pieDataset = new DefaultPieDataset();
         JFreeChart pieChart = ChartFactory.createPieChart(
                 "Recetas", pieDataset, true, true, false);
 
-        // Personalizar colores del gráfico de pastel
         PiePlot piePlot = (PiePlot) pieChart.getPlot();
         piePlot.setSectionPaint("CONFECCIONADA", Color.YELLOW);
         piePlot.setSectionPaint("PROCESO", Color.BLUE);
@@ -215,92 +86,194 @@ public class Dashboard_View implements PropertyChangeListener {
         piePlot.setSectionPaint("ENTREGADA", Color.RED);
 
         chartPanelPastel = new ChartPanel(pieChart);
-        RecetasPanel.add(chartPanelPastel, BorderLayout.CENTER);
+        recetasPanel.setLayout(new BorderLayout());
+        recetasPanel.add(chartPanelPastel, BorderLayout.CENTER);
+    }
 
-        chartsPanel.add(medicamentosPanel);
-        chartsPanel.add(RecetasPanel);
+    private void setupComboBoxes() {
+        // Configurar ComboBoxes de años
+        String[] años = {"", "2024", "2025", "2026"}; // Agregar opción vacía
+        desdeAños.setModel(new DefaultComboBoxModel<>(años));
+        hastaAño.setModel(new DefaultComboBoxModel<>(años));
 
-        return chartsPanel;
+        // Configurar ComboBoxes de meses
+        String[] meses = {"", "1-Enero", "2-Febrero", "3-Marzo", "4-Abril", "5-Mayo", "6-Junio",
+                "7-Julio", "8-Agosto", "9-Septiembre", "10-Octubre", "11-Noviembre", "12-Diciembre"};
+        desdeMes.setModel(new DefaultComboBoxModel<>(meses));
+        hastaMes.setModel(new DefaultComboBoxModel<>(meses));
+
+        // ComboBox de medicamentos se llenará desde el modelo
+        medicamentosBox.setModel(new DefaultComboBoxModel<>());
+
+        // Listeners para actualización automática de fechas
+        desdeAños.addActionListener(e -> actualizarFiltrosFecha());
+        desdeMes.addActionListener(e -> actualizarFiltrosFecha());
+        hastaAño.addActionListener(e -> actualizarFiltrosFecha());
+        hastaMes.addActionListener(e -> actualizarFiltrosFecha());
+
+        // Llamar una vez al inicio para configurar las fechas iniciales
+        actualizarFiltrosFecha();
+    }
+
+    private void actualizarFiltrosFecha() {
+        if (controller == null) return;
+
+        String añoDesde = (String) desdeAños.getSelectedItem();
+        String mesDesdeCompleto = (String) desdeMes.getSelectedItem();
+
+        String añoHasta = (String) hastaAño.getSelectedItem();
+        String mesHastaCompleto = (String) hastaMes.getSelectedItem();
+
+        // Validar que no haya selecciones vacías
+        if (añoDesde == null || añoDesde.isEmpty() ||
+                mesDesdeCompleto == null || mesDesdeCompleto.isEmpty() ||
+                añoHasta == null || añoHasta.isEmpty() ||
+                mesHastaCompleto == null || mesHastaCompleto.isEmpty()) {
+
+            // Limpiar tabla y gráficos si no hay selección completa
+            try {
+                controller.clearMedicamentos();
+            } catch (Exception ex) {
+                // Ignorar error de limpieza
+            }
+            return;
+        }
+
+        // Extraer solo el número del mes (antes del guión)
+        String mesDesde = extraerNumeroMes(mesDesdeCompleto);
+        String mesHasta = extraerNumeroMes(mesHastaCompleto);
+
+        String fechaDesde = añoDesde + "-" + mesDesde;
+        String fechaHasta = añoHasta + "-" + mesHasta;
+
+        // Validar que la fecha desde sea menor o igual a fecha hasta
+        if (!validarRangoFechas(fechaDesde, fechaHasta)) {
+            JOptionPane.showMessageDialog(panel,
+                    "La fecha 'Desde' debe ser anterior o igual a la fecha 'Hasta'",
+                    "Rango de fechas inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            controller.updateDateRange(fechaDesde, fechaHasta);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String extraerNumeroMes(String mesCompleto) {
+        if (mesCompleto == null || mesCompleto.isEmpty() || !mesCompleto.contains("-")) {
+            return null;
+        }
+
+        String[] partes = mesCompleto.split("-");
+        return partes[0]; // Retorna la parte antes del guión
+    }
+
+
+    private boolean validarRangoFechas(String fechaDesde, String fechaHasta) {
+        try {
+            String[] desdePartes = fechaDesde.split("-");
+            String[] hastaPartes = fechaHasta.split("-");
+
+            int añoDesde = Integer.parseInt(desdePartes[0]);
+            int mesDesde = Integer.parseInt(desdePartes[1]);
+            int añoHasta = Integer.parseInt(hastaPartes[0]);
+            int mesHasta = Integer.parseInt(hastaPartes[1]);
+
+            // Convertir a valor comparable
+            int valorDesde = añoDesde * 12 + mesDesde;
+            int valorHasta = añoHasta * 12 + mesHasta;
+
+            return valorDesde <= valorHasta;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void setupEventListeners() {
-        seleccionUnica.addActionListener(new ActionListener() {
+        // Agregar medicamento
+        agregarMedicamento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                aplicarFiltros();
-            }
-        });
-
-        seleccionMultiple.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (controller != null) {
-                    controller.seleccionarTodosMedicamentos();
+                String medicamento = (String) medicamentosBox.getSelectedItem();
+                if (medicamento != null && !medicamento.isEmpty()) {
+                    try {
+                        controller.addMedicamento(medicamento);
+                        JOptionPane.showMessageDialog(panel, "Medicamento agregado", "", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
 
+        // Seleccionar todos
+        seleccionarTodos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controller.selectAllMedicamentos();
+                    JOptionPane.showMessageDialog(panel, "Todos los medicamentos seleccionados", "", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Borrar uno (medicamento seleccionado en tabla)
         borrarUno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = tableDatos.getSelectedRow();
-                if (selectedRow >= 0) {
-                    DefaultTableModel tableModel = (DefaultTableModel) tableDatos.getModel();
-                    String medicamento = (String) tableModel.getValueAt(selectedRow, 0);
-
-                    List<String> medicamentosActuales = new ArrayList<>(model.getMedicamentosSeleccionados());
-                    medicamentosActuales.remove(medicamento);
-
-                    if (controller != null) {
-                        controller.actualizarFiltroMedicamentos(medicamentosActuales);
+                int row = table1.getSelectedRow();
+                if (row >= 0) {
+                    try {
+                        controller.removeSelectedMedicamento(row);
+                        JOptionPane.showMessageDialog(panel, "Medicamento eliminado", "", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(panel, "Por favor seleccione una fila para eliminar.");
+                    JOptionPane.showMessageDialog(panel, "Seleccione una fila para eliminar", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
-        borrarTodas.addActionListener(new ActionListener() {
+        // Borrar todos
+        borrarTodos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controller != null) {
-                    controller.deseleccionarTodosMedicamentos();
+                try {
+                    controller.clearMedicamentos();
+                    JOptionPane.showMessageDialog(panel, "Todos los medicamentos eliminados", "", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-    }
 
-    private void aplicarFiltros() {
-        if (controller == null) return;
 
-        String mesDesde = (String) comboMesDesde.getSelectedItem();
-        String mesHasta = (String) comboMesHasta.getSelectedItem();
-
-        List<String> medicamentosSeleccionados = new ArrayList<>();
-        String med1 = (String) comboMedicamento1.getSelectedItem();
-        String med2 = (String) comboMedicamento2.getSelectedItem();
-        String med3 = (String) comboMedicamento3.getSelectedItem();
-
-        if (med1 != null && !med1.isEmpty() && !med1.equals("")) medicamentosSeleccionados.add(med1);
-        if (med2 != null && !med2.isEmpty() && !med2.equals("")) medicamentosSeleccionados.add(med2);
-        if (med3 != null && !med3.isEmpty() && !med3.equals("")) medicamentosSeleccionados.add(med3);
-
-        controller.actualizarFiltroFecha(mesDesde, mesHasta);
-        controller.actualizarFiltroMedicamentos(medicamentosSeleccionados);
+        // Click en tabla para selección
+        table1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Solo para selección visual, no necesita acción específica
+            }
+        });
     }
 
     private void actualizarGraficoLineas() {
         if (model == null) return;
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        var datosFiltrados = model.getDatosFiltrados();
+        List<String> mesesRango = model.getMesesEnRango();
 
-        for (String medicamento : datosFiltrados.keySet()) {
-            Map<String, Integer> datos = datosFiltrados.get(medicamento);
-            for (String mes : model.getMesesDisponibles()) {
-                if (model.esMesEnRango(mes)) {
-                    dataset.addValue(datos.getOrDefault(mes, 0), medicamento, mes);
-                }
+        for (DashboardRowData rowData : model.getList()) {
+            String medicamento = rowData.getNombreMedicamento();
+            List<Integer> cantidades = rowData.getCantidadesPorMes();
+
+            for (int i = 0; i < mesesRango.size() && i < cantidades.size(); i++) {
+                dataset.addValue(cantidades.get(i), medicamento, mesesRango.get(i));
             }
         }
 
@@ -308,7 +281,6 @@ public class Dashboard_View implements PropertyChangeListener {
                 "Medicamentos", "Mes", "Cantidad", dataset,
                 PlotOrientation.VERTICAL, true, true, false);
 
-        // Personalizar el gráfico
         CategoryPlot plot = lineChart.getCategoryPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
         plot.setDomainGridlinePaint(Color.WHITE);
@@ -316,9 +288,6 @@ public class Dashboard_View implements PropertyChangeListener {
 
         LineAndShapeRenderer renderer = new LineAndShapeRenderer();
         renderer.setSeriesShapesVisible(0, true);
-        renderer.setSeriesShapesVisible(1, true);
-        renderer.setSeriesPaint(0, Color.RED);
-        renderer.setSeriesPaint(1, Color.BLUE);
         plot.setRenderer(renderer);
 
         chartPanelLineas.setChart(lineChart);
@@ -328,115 +297,142 @@ public class Dashboard_View implements PropertyChangeListener {
         if (model == null) return;
 
         DefaultPieDataset dataset = new DefaultPieDataset();
-        Map<String, Integer> recetasPorEstado = model.getRecetasPorEstado();
+        Map<String, Integer> recetasPorEstado = model.getRecetasData();
 
         int total = recetasPorEstado.values().stream().mapToInt(Integer::intValue).sum();
 
         for (Map.Entry<String, Integer> entry : recetasPorEstado.entrySet()) {
             double porcentaje = total > 0 ? (entry.getValue() * 100.0) / total : 0;
-            String label = entry.getKey().toUpperCase() + " (" + String.format("%.0f%%", porcentaje) + ")";
+            String label = entry.getKey() + " (" + String.format("%.0f%%", porcentaje) + ")";
             dataset.setValue(label, entry.getValue());
         }
 
         JFreeChart pieChart = ChartFactory.createPieChart(
                 "Recetas", dataset, true, true, false);
 
-        // Personalizar colores
         PiePlot plot = (PiePlot) pieChart.getPlot();
-        plot.setSectionPaint("CONFECCIONADA (21%)", Color.YELLOW);
-        plot.setSectionPaint("PROCESO (29%)", Color.BLUE);
-        plot.setSectionPaint("LISTA (29%)", Color.GREEN);
-        plot.setSectionPaint("ENTREGADA (21%)", Color.RED);
+        // Configurar colores dinámicamente
+        for (String key : recetasPorEstado.keySet()) {
+            String labelKey = key + " (" + String.format("%.0f%%",
+                    total > 0 ? (recetasPorEstado.get(key) * 100.0) / total : 0) + ")";
+
+            switch (key.toUpperCase()) {
+                case "CONFECCIONADA":
+                    plot.setSectionPaint(labelKey, Color.YELLOW);
+                    break;
+                case "PROCESO":
+                    plot.setSectionPaint(labelKey, Color.BLUE);
+                    break;
+                case "LISTA":
+                    plot.setSectionPaint(labelKey, Color.GREEN);
+                    break;
+                case "ENTREGADA":
+                    plot.setSectionPaint(labelKey, Color.RED);
+                    break;
+            }
+        }
 
         chartPanelPastel.setChart(pieChart);
     }
 
-    private void actualizarComboBoxes() {
+    private void actualizarComboBoxMedicamentos() {
         if (model == null) return;
 
-        // Actualizar combos de fechas
-        comboMesDesde.removeAllItems();
-        comboMesHasta.removeAllItems();
-
-        // Agregar meses específicos como en la imagen
-        String[] mesesEspecificos = {"2025-8", "2025-9", "2025-10"};
-        for (String mes : mesesEspecificos) {
-            comboMesDesde.addItem(mes);
-            comboMesHasta.addItem(mes);
-        }
-
-        // Seleccionar valores por defecto
-        if (comboMesDesde.getItemCount() > 0) {
-            comboMesDesde.setSelectedIndex(0);
-            comboMesHasta.setSelectedIndex(comboMesHasta.getItemCount() - 1);
-        }
-
-        // Actualizar combos de medicamentos
-        comboMedicamento1.removeAllItems();
-        comboMedicamento2.removeAllItems();
-        comboMedicamento3.removeAllItems();
-
-        comboMedicamento1.addItem("");
-        comboMedicamento2.addItem("");
-        comboMedicamento3.addItem("");
+        DefaultComboBoxModel<String> medicamentosModel = new DefaultComboBoxModel<>();
+        medicamentosModel.addElement(""); // Opción vacía
 
         for (Medicamento med : model.getMedicamentosDisponibles()) {
-            comboMedicamento1.addItem(med.getNombre());
-            comboMedicamento2.addItem(med.getNombre());
-            comboMedicamento3.addItem(med.getNombre());
+            medicamentosModel.addElement(med.getNombre());
+        }
+
+        medicamentosBox.setModel(medicamentosModel);
+    }
+
+    private void actualizarFiltros() {
+        if (model == null || model.getFilter() == null) return;
+
+        // Actualizar ComboBoxes de fecha si es necesario
+        String mesDesde = model.getFilter().getMesDesde();
+        String mesHasta = model.getFilter().getMesHasta();
+
+        if (mesDesde != null && mesDesde.contains("-")) {
+            String[] partes = mesDesde.split("-");
+            if (partes.length == 2) {
+                desdeAños.setSelectedItem(partes[0]);
+                desdeMes.setSelectedItem(partes[1]);
+            }
+        }
+
+        if (mesHasta != null && mesHasta.contains("-")) {
+            String[] partes = mesHasta.split("-");
+            if (partes.length == 2) {
+                hastaAño.setSelectedItem(partes[0]);
+                hastaMes.setSelectedItem(partes[1]);
+            }
         }
     }
 
-    private void actualizarTablaDatos() {
-        if (model == null) return;
-
-        DefaultTableModel tableModel = (DefaultTableModel) tableDatos.getModel();
-        tableModel.setRowCount(0);
-
-        var datosFiltrados = model.getDatosFiltrados();
-        for (String medicamento : datosFiltrados.keySet()) {
-            Map<String, Integer> datos = datosFiltrados.get(medicamento);
-            Object[] fila = {
-                    medicamento,
-                    datos.getOrDefault("2025-8", 0),
-                    datos.getOrDefault("2025-9", 0),
-                    datos.getOrDefault("2025-10", 0)
-            };
-            tableModel.addRow(fila);
-        }
-    }
-
-    public void setController(DashboardController controller) {
-        this.controller = controller;
-    }
+    //MVC
+    DashboardModel model;
+    DashboardController controller;
 
     public void setModel(DashboardModel model) {
         this.model = model;
         model.addPropertyChangeListener(this);
     }
 
+    public void setController(DashboardController controller) {
+        this.controller = controller;
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case DashboardModel.MEDICAMENTOS_MES:
+            case DashboardModel.LIST:
+                // Actualizar tabla
+                List<String> mesesRango = model.getMesesEnRango();
+
+                // Solo crear tabla si hay meses en el rango
+                if (mesesRango != null && !mesesRango.isEmpty()) {
+                    int[] cols = DashboardTableModel.crearColumnasArray(mesesRango.size());
+                    DashboardTableModel tableModel = new DashboardTableModel(cols, model.getList(), mesesRango);
+
+                    table1.setModel(tableModel);
+                    table1.setRowHeight(30);
+
+                    // Configurar ancho de columnas
+                    if (table1.getColumnModel().getColumnCount() > 0) {
+                        TableColumnModel columnModel = table1.getColumnModel();
+                        columnModel.getColumn(0).setPreferredWidth(120); // Medicamento
+                        for (int i = 1; i < columnModel.getColumnCount(); i++) {
+                            columnModel.getColumn(i).setPreferredWidth(80); // Meses
+                        }
+                    }
+                } else {
+                    // Crear tabla vacía con solo la columna de Medicamento
+                    int[] cols = {DashboardTableModel.MEDICAMENTO};
+                    List<String> columnasVacias = new ArrayList<>();
+                    DashboardTableModel tableModel = new DashboardTableModel(cols, model.getList(), columnasVacias);
+                    table1.setModel(tableModel);
+                }
+
+                // Actualizar gráfico de líneas
                 actualizarGraficoLineas();
-                actualizarTablaDatos();
                 break;
-            case DashboardModel.RECETAS_ESTADO:
+
+            case DashboardModel.RECETAS_DATA:
                 actualizarGraficoPastel();
                 break;
+
             case DashboardModel.MEDICAMENTOS_DISPONIBLES:
-            case DashboardModel.MESES_DISPONIBLES:
-                actualizarComboBoxes();
+                actualizarComboBoxMedicamentos();
                 break;
-            case DashboardModel.FILTROS:
-                actualizarGraficoLineas();
-                actualizarTablaDatos();
+
+            case DashboardModel.FILTER:
+                actualizarFiltros();
                 break;
         }
-    }
 
-    public Component getPanel() {
-        return panel;
+        this.panel.revalidate();
     }
 }

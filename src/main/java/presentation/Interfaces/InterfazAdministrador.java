@@ -1,7 +1,7 @@
 package presentation.Interfaces;
 
 import presentation.Acerca_De;
-import presentation.Historico.HistoricosController;
+import presentation.Dashboard.Dashboard_View;
 import presentation.Logic.Service;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
@@ -67,7 +67,7 @@ public class InterfazAdministrador {
 
         /// --- Dashboard
         presentation.Dashboard.DashboardModel dashboardModel = new presentation.Dashboard.DashboardModel();
-        presentation.Dashboard.Dashboard_View1 dashboardView = new presentation.Dashboard.Dashboard_View1();
+        Dashboard_View dashboardView = new Dashboard_View();
         presentation.Dashboard.DashboardController dashboardController = new presentation.Dashboard.DashboardController(dashboardView, dashboardModel);
         tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , dashboardView.getPanel());
 

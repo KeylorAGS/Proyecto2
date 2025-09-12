@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.Dashboard.Dashboard_View1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.Dashboard.Dashboard_View">
   <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
@@ -24,7 +24,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="32be9" class="javax.swing.JLabel" binding="dedeLBL">
+              <component id="32be9" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -32,7 +32,7 @@
                   <text value="Desde"/>
                 </properties>
               </component>
-              <component id="93826" class="javax.swing.JLabel" binding="hastaLBL">
+              <component id="93826" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -40,7 +40,7 @@
                   <text value="Hasta"/>
                 </properties>
               </component>
-              <component id="7f879" class="javax.swing.JLabel" binding="medicamentosLBL">
+              <component id="7f879" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -54,7 +54,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="275d7" class="javax.swing.JComboBox" binding="desdeFecha">
+              <component id="275d7" class="javax.swing.JComboBox" binding="desdeMes">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -66,7 +66,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="f4990" class="javax.swing.JComboBox" binding="hastaFecha">
+              <component id="f4990" class="javax.swing.JComboBox" binding="hastaMes">
                 <constraints>
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -86,7 +86,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="4c61f" class="javax.swing.JButton" binding="Seleccionar">
+                  <component id="4c61f" class="javax.swing.JButton" binding="agregarMedicamento">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -94,7 +94,7 @@
                       <text value="Button"/>
                     </properties>
                   </component>
-                  <component id="6b9f" class="javax.swing.JButton" binding="todos">
+                  <component id="6b9f" class="javax.swing.JButton" binding="seleccionarTodos">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>

@@ -2,247 +2,128 @@ package presentation.Dashboard;
 
 import presentation.AbstractModel;
 import presentation.Logic.Medicamento;
-import presentation.Logic.Receta;
 
 import java.beans.PropertyChangeListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class DashboardModel extends AbstractModel {
 
-    // Datos para el gráfico de medicamentos por mes
-    private Map<String, Map<String, Integer>> medicamentosPorMes;
-    private List<String> mesesDisponibles;
-    private List<Medicamento> medicamentosDisponibles;
-    private List<Receta> recetas;
+    DashboardFilter filter;
+    List<DashboardRowData> list;
+    Map<String, Integer> recetasData;
+    List<String> mesesDisponibles;
+    List<Medicamento> medicamentosDisponibles;
 
-    // Filtros seleccionados
-    private String mesDesde;
-    private String mesHasta;
-    private List<String> medicamentosSeleccionados;
-
-    // Datos para gráfico de recetas por estado
-    private Map<String, Integer> recetasPorEstado;
-
-    // Constantes para property changes
-    public static final String MEDICAMENTOS_MES = "medicamentos_mes";
-    public static final String RECETAS_ESTADO = "recetas_estado";
-    public static final String MESES_DISPONIBLES = "meses_disponibles";
+    public static final String LIST = "list";
+    public static final String FILTER = "filter";
+    public static final String RECETAS_DATA = "recetas_data";
     public static final String MEDICAMENTOS_DISPONIBLES = "medicamentos_disponibles";
-    public static final String FILTROS = "filtros";
 
-    public DashboardModel() {
-        medicamentosPorMes = new HashMap<>();
-        mesesDisponibles = new ArrayList<>();
-        medicamentosDisponibles = new ArrayList<>();
-        recetas = new ArrayList<>();
-        medicamentosSeleccionados = new ArrayList<>();
-        recetasPorEstado = new HashMap<>();
-
-        // Inicializar meses específicos como en la imagen
-        initMeses();
-    }
-
-    private void initMeses() {
-        // Meses específicos que aparecen en la imagen
-        mesesDisponibles.clear();
-        mesesDisponibles.add("2025-8");
-        mesesDisponibles.add("2025-9");
-        mesesDisponibles.add("2025-10");
-    }
-
-    public void setRecetas(List<Receta> recetas) {
-        this.recetas = recetas;
-        procesarDatos();
-    }
-
-    public void setMedicamentosDisponibles(List<Medicamento> medicamentos) {
-        this.medicamentosDisponibles = medicamentos;
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        super.addPropertyChangeListener(listener);
+        firePropertyChange(LIST);
+        firePropertyChange(FILTER);
+        firePropertyChange(RECETAS_DATA);
         firePropertyChange(MEDICAMENTOS_DISPONIBLES);
     }
 
-    private void procesarDatos() {
-        procesarMedicamentosPorMes();
-        procesarRecetasPorEstado();
+    public DashboardModel() {
     }
 
-    private void procesarMedicamentosPorMes() {
-        medicamentosPorMes.clear();
+    public void init(List<Medicamento> medicamentosDisponibles, Map<String, Integer> recetasData) {
+        this.medicamentosDisponibles = medicamentosDisponibles;
+        this.recetasData = recetasData;
+        this.list = new ArrayList<>();
+        this.filter = new DashboardFilter();
+        this.mesesDisponibles = new ArrayList<>();
 
-        for (Receta receta : recetas) {
-            String fecha = receta.getFecha();
-            if (fecha != null && !fecha.isEmpty()) {
-                String mes = extraerMes(fecha);
-                if (mes != null) {
-                    // Por cada prescripción en la receta
-                    if (receta.getPrescripcions() != null) {
-                        for (var prescripcion : receta.getPrescripcions()) {
-                            String nombreMedicamento = prescripcion.getNombre();
-                            int cantidad = 0;
-                            try {
-                                cantidad = Integer.parseInt(prescripcion.getCantidad());
-                            } catch (NumberFormatException e) {
-                                cantidad = 1; // Valor por defecto
-                            }
-
-                            medicamentosPorMes
-                                    .computeIfAbsent(nombreMedicamento, k -> new HashMap<>())
-                                    .merge(mes, cantidad, Integer::sum);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Llenar con datos de ejemplo si no hay datos reales (para coincidir con la imagen)
-        if (medicamentosPorMes.isEmpty()) {
-            llenarDatosEjemplo();
-        }
-
-        firePropertyChange(MEDICAMENTOS_MES);
     }
 
-    private void llenarDatosEjemplo() {
-        // Datos de ejemplo basados en la imagen
-        Map<String, Integer> acetaminofen = new HashMap<>();
-        acetaminofen.put("2025-8", 45);
-        acetaminofen.put("2025-9", 40);
-        acetaminofen.put("2025-10", 45);
-        medicamentosPorMes.put("Acetaminofen", acetaminofen);
-
-        Map<String, Integer> amoxicilina = new HashMap<>();
-        amoxicilina.put("2025-8", 30);
-        amoxicilina.put("2025-9", 30);
-        amoxicilina.put("2025-10", 25);
-        medicamentosPorMes.put("Amoxicilina", amoxicilina);
+    public List<DashboardRowData> getList() {
+        return list;
     }
 
-    private void procesarRecetasPorEstado() {
-        recetasPorEstado.clear();
-
-        for (Receta receta : recetas) {
-            String estado = receta.getEstado();
-            if (estado != null && !estado.isEmpty()) {
-                recetasPorEstado.merge(estado.toUpperCase(), 1, Integer::sum);
-            }
-        }
-
-        // Si no hay datos reales, usar datos de ejemplo
-        if (recetasPorEstado.isEmpty()) {
-            recetasPorEstado.put("CONFECCIONADA", 3);
-            recetasPorEstado.put("PROCESO", 4);
-            recetasPorEstado.put("LISTA", 4);
-            recetasPorEstado.put("ENTREGADA", 3);
-        }
-
-        firePropertyChange(RECETAS_ESTADO);
+    public void setList(List<DashboardRowData> list) {
+        this.list = list;
+        firePropertyChange(LIST);
     }
 
-    private String extraerMes(String fecha) {
-        // Mejorado para manejar diferentes formatos de fecha
-        try {
-            if (fecha.contains("septiembre") || fecha.contains("9")) {
-                return "2025-9";
-            } else if (fecha.contains("octubre") || fecha.contains("10")) {
-                return "2025-10";
-            } else if (fecha.contains("agosto") || fecha.contains("8")) {
-                return "2025-8";
-            }
-
-            // Intentar extraer el mes de un formato numérico
-            String[] partes = fecha.split("[-/\\s]");
-            for (String parte : partes) {
-                if (parte.equals("8") || parte.equals("08")) return "2025-8";
-                if (parte.equals("9") || parte.equals("09")) return "2025-9";
-                if (parte.equals("10")) return "2025-10";
-            }
-
-            return "2025-9"; // Por defecto
-        } catch (Exception e) {
-            return "2025-9";
-        }
+    public DashboardFilter getFilter() {
+        return filter;
     }
 
-    // Getters y Setters
-    public Map<String, Map<String, Integer>> getMedicamentosPorMes() {
-        return medicamentosPorMes;
+    public void setFilter(DashboardFilter filter) {
+        this.filter = filter;
+        firePropertyChange(FILTER);
     }
 
-    public Map<String, Integer> getRecetasPorEstado() {
-        return recetasPorEstado;
+    public Map<String, Integer> getRecetasData() {
+        return recetasData;
+    }
+
+    public void setRecetasData(Map<String, Integer> recetasData) {
+        this.recetasData = recetasData;
+        firePropertyChange(RECETAS_DATA);
     }
 
     public List<String> getMesesDisponibles() {
         return mesesDisponibles;
     }
 
+    public void setMesesDisponibles(List<String> mesesDisponibles) {
+        this.mesesDisponibles = mesesDisponibles;
+    }
+
     public List<Medicamento> getMedicamentosDisponibles() {
         return medicamentosDisponibles;
     }
 
-    public String getMesDesde() {
-        return mesDesde;
-    }
-
-    public void setMesDesde(String mesDesde) {
-        this.mesDesde = mesDesde;
-        firePropertyChange(FILTROS);
-    }
-
-    public String getMesHasta() {
-        return mesHasta;
-    }
-
-    public void setMesHasta(String mesHasta) {
-        this.mesHasta = mesHasta;
-        firePropertyChange(FILTROS);
-    }
-
-    public List<String> getMedicamentosSeleccionados() {
-        return medicamentosSeleccionados;
-    }
-
-    public void setMedicamentosSeleccionados(List<String> medicamentosSeleccionados) {
-        this.medicamentosSeleccionados = medicamentosSeleccionados;
-        firePropertyChange(FILTROS);
-    }
-
-    // Método para obtener datos filtrados para el gráfico de líneas
-    public Map<String, Map<String, Integer>> getDatosFiltrados() {
-        Map<String, Map<String, Integer>> datosFiltrados = new HashMap<>();
-
-        for (String medicamento : medicamentosSeleccionados) {
-            if (medicamentosPorMes.containsKey(medicamento)) {
-                Map<String, Integer> datosMedicamento = new HashMap<>();
-                Map<String, Integer> datosOriginales = medicamentosPorMes.get(medicamento);
-
-                for (String mes : mesesDisponibles) {
-                    if (esMesEnRango(mes)) {
-                        datosMedicamento.put(mes, datosOriginales.getOrDefault(mes, 0));
-                    }
-                }
-
-                datosFiltrados.put(medicamento, datosMedicamento);
-            }
-        }
-
-        return datosFiltrados;
-    }
-
-    public boolean esMesEnRango(String mes) {
-        if (mesDesde == null || mesHasta == null) {
-            return true;
-        }
-        return mes.compareTo(mesDesde) >= 0 && mes.compareTo(mesHasta) <= 0;
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        super.addPropertyChangeListener(listener);
-        // Disparar eventos iniciales
-        firePropertyChange(MEDICAMENTOS_MES);
-        firePropertyChange(RECETAS_ESTADO);
-        firePropertyChange(MESES_DISPONIBLES);
+    public void setMedicamentosDisponibles(List<Medicamento> medicamentosDisponibles) {
+        this.medicamentosDisponibles = medicamentosDisponibles;
         firePropertyChange(MEDICAMENTOS_DISPONIBLES);
-        firePropertyChange(FILTROS);
+    }
+
+    /**
+     * Genera la lista de meses en el rango seleccionado
+     */
+    public List<String> getMesesEnRango() {
+        List<String> mesesEnRango = new ArrayList<>();
+
+        if (filter.getMesDesde() == null || filter.getMesHasta() == null) {
+            return new ArrayList<>(mesesDisponibles);
+        }
+
+        String[] desdePartes = filter.getMesDesde().split("-");
+        String[] hastaPartes = filter.getMesHasta().split("-");
+
+        if (desdePartes.length != 2 || hastaPartes.length != 2) {
+            return new ArrayList<>(mesesDisponibles);
+        }
+
+        try {
+            int añoDesde = Integer.parseInt(desdePartes[0]);
+            int mesDesdeNum = Integer.parseInt(desdePartes[1]);
+            int añoHasta = Integer.parseInt(hastaPartes[0]);
+            int mesHastaNum = Integer.parseInt(hastaPartes[1]);
+
+            int añoActual = añoDesde;
+            int mesActual = mesDesdeNum;
+
+            while (añoActual < añoHasta || (añoActual == añoHasta && mesActual <= mesHastaNum)) {
+                mesesEnRango.add(añoActual + "-" + mesActual);
+                mesActual++;
+                if (mesActual > 12) {
+                    mesActual = 1;
+                    añoActual++;
+                }
+            }
+        } catch (NumberFormatException e) {
+            return new ArrayList<>(mesesDisponibles);
+        }
+
+        return mesesEnRango;
     }
 }
