@@ -152,6 +152,29 @@ public class PrescripcionController {
 
 
     public void createReceta(Receta receta) throws Exception {
+        // Asegurar que la receta tenga objetos completos de Paciente y Doctor
+
+        // Completar información del paciente si está incompleta
+        if (receta.getPaciente() != null && receta.getPaciente().getId() != null) {
+            try {
+                Paciente pacienteCompleto = Service.instance().readPaciente(receta.getPaciente());
+                receta.setPaciente(pacienteCompleto);
+            } catch (Exception e) {
+            }
+        }
+
+        // Completar información del doctor si está incompleta
+        if (receta.getDoctor() != null && receta.getDoctor().getId() != null) {
+            try {
+                Usuario usuarioDoctor = Service.instance().buscarUsuario(receta.getDoctor().getId());
+                if (usuarioDoctor instanceof Medico) {
+                    receta.setDoctor((Medico) usuarioDoctor);
+                }
+            } catch (Exception e) {
+            }
+        }
+
         Service.instance().createReceta(receta);
+        Service.instance().stop();
     }
 }

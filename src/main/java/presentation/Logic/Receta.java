@@ -3,6 +3,7 @@ package presentation.Logic;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,13 @@ import java.util.List;
 public class Receta {
     @XmlID
     private String idReceta;
-    private String estado;
-    private Paciente paciente;   // antes era idPaciente
-    private Medico doctor;       // antes era idDoctor
+    private String estado;// antes era idDoctor
     private List<Prescripcion> prescripciones;
     private String fecha;
+    @XmlIDREF
+    Paciente paciente;
+    @XmlIDREF
+    Medico doctor;
 
     public Receta(String idReceta, String estado, Paciente paciente, Medico doctor, String fecha) {
         this.idReceta = idReceta;

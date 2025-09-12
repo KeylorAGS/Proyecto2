@@ -33,7 +33,7 @@ public class DespachoTableModel extends AbstractTableModel<Receta> implements ja
             case ESTADO:
                 return r.getEstado();
             case IDPACIENTE:
-                return (r.getPaciente() != null) ? r.getPaciente().getId() : "";
+                return r.getPaciente().getNombre();
             case IDDOCTOR:
                 return (r.getDoctor() != null) ? r.getDoctor().getId() : "";
             default:

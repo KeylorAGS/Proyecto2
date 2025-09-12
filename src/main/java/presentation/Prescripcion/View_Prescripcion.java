@@ -2,9 +2,7 @@ package presentation.Prescripcion;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import presentation.Interfaces.InterfazAdministrador;
-import presentation.Logic.Prescripcion;
-import presentation.Logic.Receta;
-import presentation.Logic.Service;
+import presentation.Logic.*;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -93,29 +91,90 @@ public class View_Prescripcion implements PropertyChangeListener {
         guardar.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Receta receta = new Receta();
-                List<Prescripcion> lista = model.getList();
-                for (Prescripcion objeto : lista) {
-                    receta.getPrescripcions().add(objeto);
-                }
-                String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                Random random = new Random();
-                StringBuilder sb = new StringBuilder();
-
-                // Crear un código de 5 caracteres
-                for (int i = 0; i < 5; i++) {
-                    int index = random.nextInt(caracteres.length());
-                    sb.append(caracteres.charAt(index));
-                }
-                receta.setIdReceta(sb.toString());
-                receta.setEstado("Confeccionada");
-                receta.setIdDoctor(getDoctorIngresado());
-                receta.setIdPaciente(model.getCurrentPaciente().getId());
-                receta.setFecha(elegirFecha.getText());
                 try {
+                    // Validaciones
+                    if (model.getCurrentPaciente() == null) {
+                        JOptionPane.showMessageDialog(panel,
+                                "Debe seleccionar un paciente antes de guardar la receta.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    List<Prescripcion> lista = model.getList();
+                    if (lista == null || lista.isEmpty()) {
+                        JOptionPane.showMessageDialog(panel,
+                                "Debe agregar al menos un medicamento a la receta.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (elegirFecha.getText() == null || elegirFecha.getText().trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(panel,
+                                "Debe seleccionar una fecha de retiro.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Crear la receta
+                    Receta receta = new Receta();
+                    for (Prescripcion objeto : lista) {
+                        receta.getPrescripcions().add(objeto);
+                    }
+
+                    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    Random random = new Random();
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < 5; i++) {
+                        int index = random.nextInt(caracteres.length());
+                        sb.append(caracteres.charAt(index));
+                    }
+
+                    receta.setIdReceta(sb.toString());
+                    receta.setEstado("Confeccionada");
+
+                    // IMPORTANTE: Asignar el paciente COMPLETO con toda su información
+                    receta.setPaciente(model.getCurrentPaciente());
+
+                    // IMPORTANTE: Buscar y asignar el médico COMPLETO
+                    try {
+                        Usuario usuarioDoctor = Service.instance().buscarUsuario(getDoctorIngresado());
+                        if (usuarioDoctor instanceof Medico) {
+                            receta.setDoctor((Medico) usuarioDoctor);
+                        } else {
+                            // Si no es un médico válido, crear uno básico
+                            Medico doctorBasico = new Medico();
+                            doctorBasico.setId(getDoctorIngresado());
+                            doctorBasico.setNombre("Doctor no encontrado");
+                            receta.setDoctor(doctorBasico);
+                        }
+                    } catch (Exception ex) {
+                        // Si no encuentra el doctor, crear uno básico con solo el ID
+                        Medico doctorBasico = new Medico();
+                        doctorBasico.setId(getDoctorIngresado());
+                        doctorBasico.setNombre("Doctor no encontrado");
+                        receta.setDoctor(doctorBasico);
+                    }
+
+                    receta.setFecha(elegirFecha.getText());
+
+                    // Guardar la receta
                     controller.createReceta(receta);
+
+                    JOptionPane.showMessageDialog(panel,
+                            "Receta guardada exitosamente con código: " + receta.getIdReceta(),
+                            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Limpiar formulario
+                    elegirFecha.clear();
+                    verPaciente.setText("Paciente");
+                    model.setList(new java.util.ArrayList<>());
+                    model.setCurrentPaciente(null);
+
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(panel,
+                            "Error al guardar la receta: " + ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
             }
         });

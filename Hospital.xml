@@ -52,18 +52,6 @@
         <Receta>
             <idReceta>02KMM</idReceta>
             <estado>Entregada</estado>
-            <paciente>
-                <id></id>
-                <nombre></nombre>
-                <fechaNacimiento></fechaNacimiento>
-                <telefono></telefono>
-            </paciente>
-            <doctor>
-                <id></id>
-                <nombre></nombre>
-                <clave></clave>
-                <especialidad></especialidad>
-            </doctor>
             <prescripciones>
                 <cantidad>1</cantidad>
                 <duracion>1</duracion>
@@ -79,22 +67,12 @@
                 <presentacion>10tb</presentacion>
             </prescripciones>
             <fecha></fecha>
+            <paciente></paciente>
+            <doctor></doctor>
         </Receta>
         <Receta>
             <idReceta>S8DUE</idReceta>
             <estado>Confeccionada</estado>
-            <paciente>
-                <id></id>
-                <nombre></nombre>
-                <fechaNacimiento></fechaNacimiento>
-                <telefono></telefono>
-            </paciente>
-            <doctor>
-                <id></id>
-                <nombre></nombre>
-                <clave></clave>
-                <especialidad></especialidad>
-            </doctor>
             <prescripciones>
                 <cantidad>45</cantidad>
                 <duracion>45</duracion>
@@ -103,22 +81,12 @@
                 <presentacion>10tb</presentacion>
             </prescripciones>
             <fecha></fecha>
+            <paciente></paciente>
+            <doctor></doctor>
         </Receta>
         <Receta>
             <idReceta>7E0MH</idReceta>
             <estado>Proceso</estado>
-            <paciente>
-                <id></id>
-                <nombre></nombre>
-                <fechaNacimiento></fechaNacimiento>
-                <telefono></telefono>
-            </paciente>
-            <doctor>
-                <id></id>
-                <nombre></nombre>
-                <clave></clave>
-                <especialidad></especialidad>
-            </doctor>
             <prescripciones>
                 <cantidad>20</cantidad>
                 <duracion>30</duracion>
@@ -127,6 +95,64 @@
                 <presentacion>100ml</presentacion>
             </prescripciones>
             <fecha>3 de septiembre de 2025</fecha>
+            <paciente></paciente>
+            <doctor></doctor>
+        </Receta>
+        <Receta>
+            <idReceta>EC1UF</idReceta>
+            <estado>Confeccionada</estado>
+            <prescripciones>
+                <cantidad>10</cantidad>
+                <duracion>10</duracion>
+                <indicaciones>1</indicaciones>
+                <nombre>Jarabe de Mirriflote</nombre>
+                <presentacion>100ml</presentacion>
+            </prescripciones>
+            <fecha>25 de septiembre de 2025</fecha>
+            <paciente></paciente>
+            <doctor></doctor>
+        </Receta>
+        <Receta>
+            <idReceta>UV9OV</idReceta>
+            <estado>Confeccionada</estado>
+            <prescripciones>
+                <cantidad>10</cantidad>
+                <duracion>10</duracion>
+                <indicaciones>1</indicaciones>
+                <nombre>vergapirina</nombre>
+                <presentacion>10tb</presentacion>
+            </prescripciones>
+            <fecha>14 de septiembre de 2025</fecha>
+            <paciente>123</paciente>
+            <doctor></doctor>
+        </Receta>
+        <Receta>
+            <idReceta>2MZ1L</idReceta>
+            <estado>Confeccionada</estado>
+            <prescripciones>
+                <cantidad>10</cantidad>
+                <duracion>50</duracion>
+                <indicaciones>0</indicaciones>
+                <nombre>Jarabe de Mirriflote</nombre>
+                <presentacion>100ml</presentacion>
+            </prescripciones>
+            <fecha>5 de septiembre de 2026</fecha>
+            <paciente>789</paciente>
+            <doctor></doctor>
+        </Receta>
+        <Receta>
+            <idReceta>JX34G</idReceta>
+            <estado>Confeccionada</estado>
+            <prescripciones>
+                <cantidad>150</cantidad>
+                <duracion>60</duracion>
+                <indicaciones>6</indicaciones>
+                <nombre>Jarabe de Mirriflote</nombre>
+                <presentacion>100ml</presentacion>
+            </prescripciones>
+            <fecha>14 de septiembre de 2025</fecha>
+            <paciente>123</paciente>
+            <doctor>Inyectador</doctor>
         </Receta>
     </Recetas>
     <medicamentos>
@@ -139,4 +165,11 @@
         <nombre>vergapirina</nombre>
         <presentacion>10tb</presentacion>
     </medicamentos>
+    <prescripciones>
+        <cantidad>150</cantidad>
+        <duracion>60</duracion>
+        <indicaciones>6</indicaciones>
+        <nombre>Jarabe de Mirriflote</nombre>
+        <presentacion>100ml</presentacion>
+    </prescripciones>
 </data>

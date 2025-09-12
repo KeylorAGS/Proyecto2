@@ -18,7 +18,6 @@ public class Historico_View extends Component implements PropertyChangeListener 
     private JPanel panel;
     private JLabel searchNombreLbl;
     private JTextField searchNombre;
-    private JButton report;
     private JButton search;
     private JTable list;
 
@@ -48,17 +47,6 @@ public class Historico_View extends Component implements PropertyChangeListener 
             }
         });
 
-        report.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try{
-                    controller.generatePdfReport();
-                    JOptionPane.showMessageDialog(panel, "REPORTE GENERADO", "PDF", JOptionPane.INFORMATION_MESSAGE);
-                } catch (DocumentException | IOException ex) {
-                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error al generar el reporte", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
     }
 
 
@@ -77,19 +65,19 @@ public class Historico_View extends Component implements PropertyChangeListener 
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case HistoricosModel.LIST:
-                int[] cols = {HistoricoTableModel.ID_PACIENTE, HistoricoTableModel.ID_DOCTOR, HistoricoTableModel.ESTADO, HistoricoTableModel.ID_RECETA};
+                int[] cols = {HistoricoTableModel.NOMBRE_PACIENTE, HistoricoTableModel.NOMBRE_DOCTOR, HistoricoTableModel.ESTADO, HistoricoTableModel.ID_RECETA};
                 list.setModel(new HistoricoTableModel(cols, model.getList()));
                 list.setRowHeight(30);
                 TableColumnModel columnModel = list.getColumnModel();
-                columnModel.getColumn(0).setPreferredWidth(150);
-                columnModel.getColumn(1).setPreferredWidth(150);
-                columnModel.getColumn(2).setPreferredWidth(150);
+                columnModel.getColumn(0).setPreferredWidth(200); // Más ancho para nombres
+                columnModel.getColumn(1).setPreferredWidth(200); // Más ancho para nombres
+                columnModel.getColumn(2).setPreferredWidth(100);
                 columnModel.getColumn(3).setPreferredWidth(150);
                 break;
             case HistoricosModel.CURRENT:
                 break;
             case HistoricosModel.FILTER:
-                searchNombre.setText(model.getFilter().getIdPaciente());
+                searchNombre.setText(model.getFilter().getIdReceta()); // Cambiado de getIdPaciente() a getIdReceta()
                 break;
         }
         this.panel.revalidate();

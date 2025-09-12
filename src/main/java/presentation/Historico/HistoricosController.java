@@ -5,18 +5,46 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import presentation.Interfaces.InterfazAdministrador;
-import presentation.Logic.Receta;
-import presentation.Logic.Service;
+import presentation.Logic.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class HistoricosController {
     Historico_View view;
     HistoricosModel model;
 
     public HistoricosController(Historico_View view, HistoricosModel model) {
-        model.init(Service.instance().searchRecetas(new Receta()));
+        // Cargar todas las recetas con información completa
+        List<Receta> todasLasRecetas = Service.instance().findAllRecetas();
+
+        // Completar información de pacientes y doctores al inicializar
+        for (Receta receta : todasLasRecetas) {
+            // Completar información del paciente
+            if (receta.getPaciente() != null && receta.getPaciente().getId() != null &&
+                    (receta.getPaciente().getNombre() == null || receta.getPaciente().getNombre().isEmpty())) {
+                try {
+                    Paciente pacienteCompleto = Service.instance().readPaciente(receta.getPaciente());
+                    receta.setPaciente(pacienteCompleto);
+                } catch (Exception e) {
+                }
+            }
+
+            // Completar información del doctor
+            if (receta.getDoctor() != null && receta.getDoctor().getId() != null &&
+                    (receta.getDoctor().getNombre() == null || receta.getDoctor().getNombre().isEmpty())) {
+                try {
+                    Usuario usuarioDoctor = Service.instance().buscarUsuario(receta.getDoctor().getId());
+                    if (usuarioDoctor instanceof Medico) {
+                        receta.setDoctor((Medico) usuarioDoctor);
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+
+        model.init(todasLasRecetas);
         this.view = view;
         this.model = model;
         view.setController(this);
@@ -27,9 +55,38 @@ public class HistoricosController {
         model.setFilter(filter);
         model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Receta());
-        model.setList(Service.instance().searchRecetas(filter));
-    }
 
+        List<Receta> recetas = Service.instance().searchRecetas(filter);
+
+        // Completar información faltante de pacientes y doctores
+        for (Receta receta : recetas) {
+            // Completar información del paciente
+            if (receta.getPaciente() != null && receta.getPaciente().getId() != null &&
+                    (receta.getPaciente().getNombre() == null || receta.getPaciente().getNombre().isEmpty())) {
+                try {
+                    Paciente pacienteCompleto = Service.instance().readPaciente(receta.getPaciente());
+                    receta.setPaciente(pacienteCompleto);
+                } catch (Exception e) {
+                    System.out.println("No se pudo cargar paciente " + receta.getPaciente().getId());
+                }
+            }
+
+            // Completar información del doctor
+            if (receta.getDoctor() != null && receta.getDoctor().getId() != null &&
+                    (receta.getDoctor().getNombre() == null || receta.getDoctor().getNombre().isEmpty())) {
+                try {
+                    Usuario usuarioDoctor = Service.instance().buscarUsuario(receta.getDoctor().getId());
+                    if (usuarioDoctor instanceof Medico) {
+                        receta.setDoctor((Medico) usuarioDoctor);
+                    }
+                } catch (Exception e) {
+                    System.out.println("No se pudo cargar doctor " + receta.getDoctor().getId());
+                }
+            }
+        }
+
+        model.setList(recetas);
+    }
 
     public void save(Receta current) throws Exception {
         switch (model.getMode()) {
@@ -65,19 +122,4 @@ public class HistoricosController {
         model.setCurrent(new Receta());
     }
 
-    public void generatePdfReport() throws DocumentException, IOException {
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("RecetasReporte.pdf"));
-        document.open();
-        document.add(new Paragraph("Reporte de Recetas"));
-
-        for (Receta receta : model.getList()) {
-            document.add(new Paragraph("ID del paciente: " + receta.getIdPaciente()));
-            document.add(new Paragraph("ID del doctor: " + receta.getIdDoctor()));
-            document.add(new Paragraph("Estado: " + receta.getEstado()));
-            document.add(new Paragraph("Id de la receta"+ receta.getIdReceta()));
-            document.add(new Paragraph("--------------------------------------------------"));
-        }
-        document.close();
-    }
 }
