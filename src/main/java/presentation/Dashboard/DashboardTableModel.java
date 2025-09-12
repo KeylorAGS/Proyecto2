@@ -15,7 +15,8 @@ public class DashboardTableModel extends AbstractTableModel<DashboardRowData> im
 
     public DashboardTableModel(int[] cols, List<DashboardRowData> rows, List<String> mesesColumnas) {
         super(cols, rows);
-        this.mesesColumnas = mesesColumnas;
+        this.mesesColumnas = (mesesColumnas != null) ? mesesColumnas : new ArrayList<>();;
+        initColNames();
     }
 
     @Override
@@ -34,18 +35,16 @@ public class DashboardTableModel extends AbstractTableModel<DashboardRowData> im
 
     @Override
     protected void initColNames() {
-        // Verificar que mesesColumnas no sea null
         if (mesesColumnas == null) {
             mesesColumnas = new ArrayList<>();
         }
 
-        // El tamaño será 1 (medicamento) + número de meses
-        colNames = new String[1 + mesesColumnas.size()];
+        // El tamaño debe cubrir el máximo valor de cols
+        int maxIndex = mesesColumnas.size(); // porque MEDICAMENTO=0 y meses empiezan en 1
+        colNames = new String[maxIndex + 1];
 
-        // Primera columna siempre es "Medicamento"
         colNames[MEDICAMENTO] = "Medicamento";
 
-        // Las siguientes columnas son los meses
         for (int i = 0; i < mesesColumnas.size(); i++) {
             colNames[i + 1] = mesesColumnas.get(i);
         }
@@ -68,8 +67,9 @@ public class DashboardTableModel extends AbstractTableModel<DashboardRowData> im
 
     @Override
     public int getColumnCount() {
-        return colNames != null ? colNames.length : 1;
+        return cols != null ? cols.length : (colNames != null ? colNames.length : 0);
     }
+
 
     public List<String> getMesesColumnas() {
         return mesesColumnas;

@@ -1,6 +1,5 @@
 package presentation.Dashboard;
 
-import com.itextpdf.text.DocumentException;
 import presentation.Logic.Medicamento;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -21,7 +20,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,13 +37,14 @@ public class Dashboard_View implements PropertyChangeListener {
     private JButton seleccionarTodos;
     private JButton borrarUno;
     private JButton borrarTodos;
-    private JTable table1;
     private JPanel medicamentosPanel;
     private JPanel recetasPanel;
+    private JTable table1;
 
     // Paneles para gráficos
     private ChartPanel chartPanelLineas;
     private ChartPanel chartPanelPastel;
+
 
     public JPanel getPanel() {
         return panel;
@@ -399,6 +398,8 @@ public class Dashboard_View implements PropertyChangeListener {
 
                     table1.setModel(tableModel);
                     table1.setRowHeight(30);
+                    table1.getTableHeader().revalidate();
+                    table1.getTableHeader().repaint();
 
                     // Configurar ancho de columnas
                     if (table1.getColumnModel().getColumnCount() > 0) {

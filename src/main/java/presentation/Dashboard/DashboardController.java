@@ -89,8 +89,27 @@ public class DashboardController {
         List<Receta> todasRecetas = Service.instance().findAllRecetas();
         Map<String, Map<String, Integer>> medicamentosPorMes = procesarRecetas(todasRecetas);
 
+        // 1. Obtener meses del rango
         List<String> mesesRango = model.getMesesEnRango();
 
+        // 2. Si está vacío, obtenerlos de los datos procesados
+        if (mesesRango == null || mesesRango.isEmpty()) {
+            mesesRango = new ArrayList<>();
+            for (Map<String, Integer> datosMedicamento : medicamentosPorMes.values()) {
+                for (String mes : datosMedicamento.keySet()) {
+                    if (!mesesRango.contains(mes)) {
+                        mesesRango.add(mes);
+                    }
+                }
+            }
+            // Ordenar los meses (opcional, si quieres en orden cronológico)
+            mesesRango.sort(Comparator.naturalOrder());
+
+            // Guardar en el modelo para que la vista también lo use
+            model.setMesesDisponibles(mesesRango);
+        }
+
+        // 3. Construir las filas
         for (String medicamento : filter.getMedicamentosSeleccionados()) {
             Map<String, Integer> datosMedicamento = medicamentosPorMes.get(medicamento);
             if (datosMedicamento == null) {
@@ -108,6 +127,7 @@ public class DashboardController {
 
         return datosTabla;
     }
+
 
     private Map<String, Map<String, Integer>> procesarRecetas(List<Receta> recetas) {
         Map<String, Map<String, Integer>> medicamentosPorMes = new HashMap<>();
