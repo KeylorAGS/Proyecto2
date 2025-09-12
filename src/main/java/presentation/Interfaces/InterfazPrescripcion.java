@@ -4,6 +4,7 @@ import presentation.Acerca_De;
 import presentation.Historico.Historico_View;
 import presentation.Historico.HistoricosController;
 import presentation.Historico.HistoricosModel;
+import presentation.Logic.Medico;
 import presentation.Logic.Service;
 import presentation.Prescripcion.PrescripcionController;
 import presentation.Prescripcion.PrescripcionModel;
@@ -24,7 +25,8 @@ public class InterfazPrescripcion {
     public final static int MODE_EDIT = 2;
     public static final Color BACKGROUND_ERROR = new Color(255, 102, 102);
 
-    public static void ventanaPrescripcion(String idMedico) {
+    // Cambio: ahora recibe el objeto Medico
+    public static void ventanaPrescripcion(Medico medico) {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {}
@@ -43,20 +45,21 @@ public class InterfazPrescripcion {
 
         // --- Prescripción
         PrescripcionModel prescripcionModel = new PrescripcionModel();
-        View_Prescripcion prescripcionView = new View_Prescripcion(); prescripcionView.setDoctorIngresado(idMedico);
+        View_Prescripcion prescripcionView = new View_Prescripcion();
+        prescripcionView.setDoctorIngresado(medico.getId()); // ✅ pasamos el objeto completo
         prescripcionController = new PrescripcionController(prescripcionView, prescripcionModel);
         tabbedPane.addTab("Prescripción", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Prescribir.png"))), prescripcionView.getPanel());
 
-        /// --- Dashboard
-        tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Dashboard.png"))) , null);
+        // --- Dashboard
+        tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Dashboard.png"))), null);
 
-        /// --- Historico
+        // --- Historico
         HistoricosModel historicosModel = new HistoricosModel();
         Historico_View historicoView = new Historico_View();
-        historicosController = new HistoricosController(historicoView,historicosModel);
-        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))) , historicoView.getPanel());
+        historicosController = new HistoricosController(historicoView, historicosModel);
+        tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))), historicoView.getPanel());
 
-        //Acerca de
+        // Acerca de
         Acerca_De acercaDe = new Acerca_De();
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Receta.png"))), acercaDe.getPanel());
 

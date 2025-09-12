@@ -7,7 +7,6 @@ import presentation.Logic.Farmaceutico;
 import presentation.Logic.Medico;
 import presentation.Logic.Usuario;
 import presentation.Interfaces.InterfazAdministrador;
-import presentation.Prescripcion.View_Prescripcion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -118,8 +117,8 @@ public class View_Login implements PropertyChangeListener {
             if (usuario instanceof Medico) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
-                String idMedico = idField.getText();
-                InterfazPrescripcion.ventanaPrescripcion(idMedico);
+                Medico medico = (Medico) usuario; // ✅ ahora pasamos el objeto completo
+                InterfazPrescripcion.ventanaPrescripcion(medico);
             } else if (usuario instanceof Farmaceutico) {
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
@@ -133,5 +132,5 @@ public class View_Login implements PropertyChangeListener {
             }
         }
     }
-
 }
+

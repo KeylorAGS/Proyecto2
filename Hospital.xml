@@ -50,10 +50,20 @@
     </Pacientes>
     <Recetas>
         <Receta>
-            <idPaciente>789</idPaciente>
-            <idDoctor>12345</idDoctor>
-            <estado>Entregada</estado>
             <idReceta>02KMM</idReceta>
+            <estado>Entregada</estado>
+            <paciente>
+                <id></id>
+                <nombre></nombre>
+                <fechaNacimiento></fechaNacimiento>
+                <telefono></telefono>
+            </paciente>
+            <doctor>
+                <id></id>
+                <nombre></nombre>
+                <clave></clave>
+                <especialidad></especialidad>
+            </doctor>
             <prescripciones>
                 <cantidad>1</cantidad>
                 <duracion>1</duracion>
@@ -71,10 +81,20 @@
             <fecha></fecha>
         </Receta>
         <Receta>
-            <idPaciente>123</idPaciente>
-            <idDoctor>888</idDoctor>
-            <estado>Confeccionada</estado>
             <idReceta>S8DUE</idReceta>
+            <estado>Confeccionada</estado>
+            <paciente>
+                <id></id>
+                <nombre></nombre>
+                <fechaNacimiento></fechaNacimiento>
+                <telefono></telefono>
+            </paciente>
+            <doctor>
+                <id></id>
+                <nombre></nombre>
+                <clave></clave>
+                <especialidad></especialidad>
+            </doctor>
             <prescripciones>
                 <cantidad>45</cantidad>
                 <duracion>45</duracion>
@@ -85,10 +105,20 @@
             <fecha></fecha>
         </Receta>
         <Receta>
-            <idPaciente>123</idPaciente>
-            <idDoctor>12345</idDoctor>
-            <estado>Proceso</estado>
             <idReceta>7E0MH</idReceta>
+            <estado>Proceso</estado>
+            <paciente>
+                <id></id>
+                <nombre></nombre>
+                <fechaNacimiento></fechaNacimiento>
+                <telefono></telefono>
+            </paciente>
+            <doctor>
+                <id></id>
+                <nombre></nombre>
+                <clave></clave>
+                <especialidad></especialidad>
+            </doctor>
             <prescripciones>
                 <cantidad>20</cantidad>
                 <duracion>30</duracion>
