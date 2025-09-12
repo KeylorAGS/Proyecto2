@@ -55,18 +55,18 @@
             <estado>Entregada</estado>
             <idReceta>02KMM</idReceta>
             <prescripciones>
+                <cantidad>1</cantidad>
+                <duracion>1</duracion>
+                <indicaciones>Si</indicaciones>
                 <nombre>Jarabe de Mirriflote</nombre>
                 <presentacion>100ml</presentacion>
-                <cantidad>1</cantidad>
-                <indicaciones>Si</indicaciones>
-                <duracion>1</duracion>
             </prescripciones>
             <prescripciones>
+                <cantidad>2</cantidad>
+                <duracion>2</duracion>
+                <indicaciones>No</indicaciones>
                 <nombre>vergapirina</nombre>
                 <presentacion>10tb</presentacion>
-                <cantidad>2</cantidad>
-                <indicaciones>No</indicaciones>
-                <duracion>2</duracion>
             </prescripciones>
             <fecha></fecha>
         </Receta>
@@ -76,11 +76,11 @@
             <estado>Confeccionada</estado>
             <idReceta>S8DUE</idReceta>
             <prescripciones>
+                <cantidad>45</cantidad>
+                <duracion>45</duracion>
+                <indicaciones>Una por dia</indicaciones>
                 <nombre>vergapirina</nombre>
                 <presentacion>10tb</presentacion>
-                <cantidad>45</cantidad>
-                <indicaciones>Una por dia</indicaciones>
-                <duracion>45</duracion>
             </prescripciones>
             <fecha></fecha>
         </Receta>
@@ -90,11 +90,11 @@
             <estado>Proceso</estado>
             <idReceta>7E0MH</idReceta>
             <prescripciones>
+                <cantidad>20</cantidad>
+                <duracion>30</duracion>
+                <indicaciones>zaswee</indicaciones>
                 <nombre>Jarabe de Mirriflote</nombre>
                 <presentacion>100ml</presentacion>
-                <cantidad>20</cantidad>
-                <indicaciones>zaswee</indicaciones>
-                <duracion>30</duracion>
             </prescripciones>
             <fecha>3 de septiembre de 2025</fecha>
         </Receta>
@@ -109,18 +109,4 @@
         <nombre>vergapirina</nombre>
         <presentacion>10tb</presentacion>
     </medicamentos>
-    <prescripciones>
-        <nombre>Jarabe de Mirriflote</nombre>
-        <presentacion>100ml</presentacion>
-        <cantidad>6</cantidad>
-        <indicaciones>na</indicaciones>
-        <duracion>6</duracion>
-    </prescripciones>
-    <prescripciones>
-        <nombre></nombre>
-        <presentacion></presentacion>
-        <cantidad>0</cantidad>
-        <indicaciones></indicaciones>
-        <duracion>0</duracion>
-    </prescripciones>
 </data>
