@@ -24,7 +24,7 @@ public class InterfazLogin {
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 300);
+        frame.setSize(500, 300);
         frame.setTitle("Recetas");
         Image icon = Toolkit.getDefaultToolkit().getImage(
                 InterfazLogin.class.getResource("/Imagenes/Receta.png")

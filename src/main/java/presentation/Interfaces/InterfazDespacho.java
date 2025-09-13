@@ -61,7 +61,7 @@ public class InterfazDespacho {
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Receta.png"))), acercaDe.getPanel());
 
         // Ventana principal
-        window.setSize(900, 450);
+        window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("Recetas");

@@ -86,7 +86,7 @@
         </Receta>
         <Receta>
             <idReceta>7E0MH</idReceta>
-            <estado>Proceso</estado>
+            <estado>Entregada</estado>
             <prescripciones>
                 <cantidad>20</cantidad>
                 <duracion>30</duracion>
@@ -100,7 +100,7 @@
         </Receta>
         <Receta>
             <idReceta>EC1UF</idReceta>
-            <estado>Confeccionada</estado>
+            <estado>Lista</estado>
             <prescripciones>
                 <cantidad>10</cantidad>
                 <duracion>10</duracion>
@@ -128,7 +128,7 @@
         </Receta>
         <Receta>
             <idReceta>2MZ1L</idReceta>
-            <estado>Confeccionada</estado>
+            <estado>Lista</estado>
             <prescripciones>
                 <cantidad>10</cantidad>
                 <duracion>50</duracion>
@@ -154,6 +154,27 @@
             <paciente>123</paciente>
             <doctor>Inyectador</doctor>
         </Receta>
+        <Receta>
+            <idReceta>44VKB</idReceta>
+            <estado>Confeccionada</estado>
+            <prescripciones>
+                <cantidad>150</cantidad>
+                <duracion>60</duracion>
+                <indicaciones>6</indicaciones>
+                <nombre>Jarabe de Mirriflote</nombre>
+                <presentacion>100ml</presentacion>
+            </prescripciones>
+            <prescripciones>
+                <cantidad>0</cantidad>
+                <duracion>0</duracion>
+                <indicaciones>N/A</indicaciones>
+                <nombre>vergapirina</nombre>
+                <presentacion>10tb</presentacion>
+            </prescripciones>
+            <fecha>25 de septiembre de 2025</fecha>
+            <paciente>789</paciente>
+            <doctor>Vaginologo</doctor>
+        </Receta>
     </Recetas>
     <medicamentos>
         <id>123</id>
@@ -171,5 +192,12 @@
         <indicaciones>6</indicaciones>
         <nombre>Jarabe de Mirriflote</nombre>
         <presentacion>100ml</presentacion>
+    </prescripciones>
+    <prescripciones>
+        <cantidad>0</cantidad>
+        <duracion>0</duracion>
+        <indicaciones>N/A</indicaciones>
+        <nombre>vergapirina</nombre>
+        <presentacion>10tb</presentacion>
     </prescripciones>
 </data>

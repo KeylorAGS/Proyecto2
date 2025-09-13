@@ -82,7 +82,7 @@ public class InterfazAdministrador {
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Receta.png"))) , acercaDe.getPanel());
 
         // Ventana principal
-        window.setSize(900, 450);
+        window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setTitle("Recetas");
@@ -91,5 +91,6 @@ public class InterfazAdministrador {
         );
         window.setIconImage(icon);
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
     }
 }
