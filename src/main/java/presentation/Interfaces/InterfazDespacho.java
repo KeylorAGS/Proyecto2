@@ -1,6 +1,7 @@
 package presentation.Interfaces;
 
 import presentation.Acerca_De;
+import presentation.Dashboard.Dashboard_View;
 import presentation.Despacho.Controller;
 import presentation.Despacho.Model;
 import presentation.Despacho.View_despacho;
@@ -48,6 +49,12 @@ public class InterfazDespacho {
         Historico_View historicoView = new Historico_View();
         historicosController = new HistoricosController(historicoView,historicosModel);
         tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))) , historicoView.getPanel());
+
+        /// --- Dashboard
+        presentation.Dashboard.DashboardModel dashboardModel = new presentation.Dashboard.DashboardModel();
+        Dashboard_View dashboardView = new Dashboard_View();
+        presentation.Dashboard.DashboardController dashboardController = new presentation.Dashboard.DashboardController(dashboardView, dashboardModel);
+        tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Dashboard.png"))) , dashboardView.getPanel());
 
         //Acerca de
         Acerca_De acercaDe = new Acerca_De();
