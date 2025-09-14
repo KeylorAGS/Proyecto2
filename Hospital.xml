@@ -30,7 +30,7 @@
         <Farmaceutico>
             <id>2</id>
             <nombre>Dave</nombre>
-            <clave></clave>
+            <clave>2</clave>
         </Farmaceutico>
     </Farmaceuticos>
     <Pacientes>
