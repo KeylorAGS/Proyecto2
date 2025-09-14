@@ -8,7 +8,7 @@ public class Main {
         InterfazLogin.ventanaLogin();
 
         //Nombre:                      Cedula:
-        //Dave navarro madrigal        118850610
+        //Dave Navarro Madrigal        118850610
         //Keneth Andrey Jara Herrera   402600458
         //Keilor Andrey Vargas Segura  402670493
 
