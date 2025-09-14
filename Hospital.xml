@@ -32,6 +32,11 @@
             <nombre>Dave</nombre>
             <clave>2</clave>
         </Farmaceutico>
+        <Farmaceutico>
+            <id>3</id>
+            <nombre>Andrey</nombre>
+            <clave>33</clave>
+        </Farmaceutico>
     </Farmaceuticos>
     <Pacientes>
         <Paciente>

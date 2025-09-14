@@ -125,6 +125,7 @@ public class Farmaceuticos_View  implements PropertyChangeListener {
         Farmaceutico farmaceutico = new Farmaceutico();
         farmaceutico.setId(IdJtext.getText());
         farmaceutico.setNombre(NombreJtext.getText());
+        farmaceutico.setClave(IdJtext.getText());
         return farmaceutico;
     }
 
