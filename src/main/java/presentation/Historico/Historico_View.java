@@ -65,19 +65,20 @@ public class Historico_View extends Component implements PropertyChangeListener 
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case HistoricosModel.LIST:
-                int[] cols = {HistoricoTableModel.NOMBRE_PACIENTE, HistoricoTableModel.NOMBRE_DOCTOR, HistoricoTableModel.ESTADO, HistoricoTableModel.ID_RECETA};
+                int[] cols = {HistoricoTableModel.NOMBRE_PACIENTE,HistoricoTableModel.ID_PACIENTE, HistoricoTableModel.NOMBRE_DOCTOR, HistoricoTableModel.ESTADO, HistoricoTableModel.ID_RECETA};
                 list.setModel(new HistoricoTableModel(cols, model.getList()));
                 list.setRowHeight(30);
                 TableColumnModel columnModel = list.getColumnModel();
-                columnModel.getColumn(0).setPreferredWidth(200); // Más ancho para nombres
-                columnModel.getColumn(1).setPreferredWidth(200); // Más ancho para nombres
-                columnModel.getColumn(2).setPreferredWidth(100);
+                columnModel.getColumn(0).setPreferredWidth(200);
+                columnModel.getColumn(1).setPreferredWidth(200);
+                columnModel.getColumn(2).setPreferredWidth(200);
                 columnModel.getColumn(3).setPreferredWidth(150);
+                columnModel.getColumn(4).setPreferredWidth(150);
                 break;
             case HistoricosModel.CURRENT:
                 break;
             case HistoricosModel.FILTER:
-                searchNombre.setText(model.getFilter().getIdReceta()); // Cambiado de getIdPaciente() a getIdReceta()
+                searchNombre.setText(model.getFilter().getIdReceta());
                 break;
         }
         this.panel.revalidate();

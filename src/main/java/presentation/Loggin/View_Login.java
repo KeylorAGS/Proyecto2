@@ -33,7 +33,7 @@ public class View_Login implements PropertyChangeListener {
 
     public void setModel(LoginModel model){
         if(this.model != null) {
-            this.model.removePropertyChangeListener(this); // evita que se notifique dos veces
+            this.model.removePropertyChangeListener(this);
         }
         this.model = model;
         this.model.addPropertyChangeListener(this);

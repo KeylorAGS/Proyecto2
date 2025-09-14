@@ -4,7 +4,7 @@ import presentation.AbstractModel;
 import presentation.Logic.Usuario;
 
 public class LoginModel extends AbstractModel {
-    private Usuario currentUser; //Puede ser medico, farmaceutico o administrador
+    private Usuario currentUser;
 
     public Usuario getCurrentUser() {
         return currentUser;
