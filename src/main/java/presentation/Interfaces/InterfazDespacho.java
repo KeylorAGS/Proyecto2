@@ -21,7 +21,7 @@ public class InterfazDespacho {
     public static Controller Controller;
     public static HistoricosController historicosController;
 
-    public static void ventanaDespacho() {
+    public static void ventanaDespacho(String idFarmaceuta) {
 
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -64,7 +64,7 @@ public class InterfazDespacho {
         window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Recetas");
+        window.setTitle("Recetas - Farmaceuta - " + idFarmaceuta + " (Farm)");
         window.setVisible(true);
         window.setLocationRelativeTo(null);
     }

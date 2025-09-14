@@ -29,8 +29,7 @@ public class InterfazPrescripcion {
     public final static int MODE_EDIT = 2;
     public static final Color BACKGROUND_ERROR = new Color(255, 102, 102);
 
-    // Cambio: ahora recibe el objeto Medico
-    public static void ventanaPrescripcion(Medico medico) {
+    public static void ventanaPrescripcion(Medico medico,String idMedico) {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {}
@@ -74,7 +73,7 @@ public class InterfazPrescripcion {
         window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Recetas");
+        window.setTitle("Recetas - Medico - " + idMedico + " (Med)");
         Image icon = Toolkit.getDefaultToolkit().getImage(
                 InterfazPrescripcion.class.getResource("/Imagenes/Receta.png")
         );

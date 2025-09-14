@@ -24,7 +24,7 @@ public class InterfazAdministrador {
     public final static int MODE_EDIT = 2;
     public static Border BORDER_ERROR = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.RED);
 
-    public static void ventanaMedicos() {
+    public static void ventanaMedicos(String idAdmin) {
         try{
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         }catch (Exception e){}
@@ -85,7 +85,7 @@ public class InterfazAdministrador {
         window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        window.setTitle("Recetas");
+        window.setTitle("Recetas - Administrador - " + idAdmin + " (ADM)" );
         Image icon = Toolkit.getDefaultToolkit().getImage(
                 InterfazAdministrador.class.getResource("/Imagenes/Receta.png")
         );
