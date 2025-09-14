@@ -16,7 +16,6 @@ public class LoginModel extends AbstractModel {
         firePropertyChange("currentUser",tempUser,this.currentUser);
     }
 
-
     public boolean cambiarClaveUsuario(String claveActual, String claveNueva, String claveConfirmacion) {
         if (currentUser == null) {
             return false;

@@ -1,7 +1,6 @@
 package presentation.Dashboard;
 
 import presentation.AbstractTableModel;
-
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;

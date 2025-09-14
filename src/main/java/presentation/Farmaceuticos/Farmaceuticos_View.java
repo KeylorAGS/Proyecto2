@@ -3,7 +3,6 @@ package presentation.Farmaceuticos;
 import com.itextpdf.text.DocumentException;
 import presentation.Logic.Farmaceutico;
 import presentation.Interfaces.InterfazAdministrador;
-
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.event.ActionEvent;

@@ -2,7 +2,6 @@ package presentation.data;
 
 import jakarta.xml.bind.annotation.*;
 import presentation.Logic.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

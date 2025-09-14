@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlID;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Administrador extends  Usuario {
-    //@XmlID
+
     public Administrador() {
         this("", "", "");
     }

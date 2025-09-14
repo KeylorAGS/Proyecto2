@@ -12,7 +12,6 @@ import presentation.Logic.Service;
 import presentation.Prescripcion.PrescripcionController;
 import presentation.Prescripcion.PrescripcionModel;
 import presentation.Prescripcion.View_Prescripcion;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -65,11 +64,11 @@ public class InterfazPrescripcion {
         historicosController = new HistoricosController(historicoView, historicosModel);
         tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazDespacho.class.getResource("/Imagenes/Historico.png"))), historicoView.getPanel());
 
-        // Acerca de
+        // --- Acerca de
         Acerca_De acercaDe = new Acerca_De();
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazPrescripcion.class.getResource("/Imagenes/Receta.png"))), acercaDe.getPanel());
 
-        // Ventana principal
+        // --- Ventana principal
         window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

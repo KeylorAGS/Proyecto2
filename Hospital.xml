@@ -55,7 +55,7 @@
     <Recetas>
         <Receta>
             <idReceta>R1</idReceta>
-            <estado>Lista</estado>
+            <estado>Entregada</estado>
             <prescripciones>
                 <cantidad>2</cantidad>
                 <duracion>5</duracion>
@@ -69,7 +69,7 @@
         </Receta>
         <Receta>
             <idReceta>J2D95</idReceta>
-            <estado>Proceso</estado>
+            <estado>Lista</estado>
             <prescripciones>
                 <cantidad>1</cantidad>
                 <duracion>7</duracion>

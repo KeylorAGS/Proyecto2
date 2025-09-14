@@ -26,7 +26,6 @@ public class Paciente {
         this.telefono = telefono;
     }
 
-    // Getters y setters
     public String getId() {
         return id;
     }

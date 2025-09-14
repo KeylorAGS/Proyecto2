@@ -38,7 +38,6 @@ public class Pacientes_View implements PropertyChangeListener {
     }
 
     public Pacientes_View() {
-        // Aqui vam todos los listeners de los botones y acciones
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

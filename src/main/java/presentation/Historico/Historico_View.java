@@ -2,7 +2,6 @@ package presentation.Historico;
 
 import com.itextpdf.text.DocumentException;
 import presentation.Logic.Receta;
-
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;

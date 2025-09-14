@@ -120,7 +120,6 @@ public class DashboardModel extends AbstractModel {
         } catch (NumberFormatException e) {
             return new ArrayList<>(mesesDisponibles);
         }
-
         return mesesEnRango;
     }
 }

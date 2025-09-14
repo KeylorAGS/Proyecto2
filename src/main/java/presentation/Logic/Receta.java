@@ -12,7 +12,7 @@ import java.util.List;
 public class Receta {
     @XmlID
     private String idReceta;
-    private String estado;// antes era idDoctor
+    private String estado;
     private List<Prescripcion> prescripciones;
     private String fecha;
     @XmlIDREF
@@ -33,7 +33,6 @@ public class Receta {
         this("","", new Paciente(), new Medico(), "");
     }
 
-    // Getters y setters originales
     public Paciente getPaciente() { return paciente; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
 

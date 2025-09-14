@@ -3,7 +3,6 @@ package presentation.Despacho;
 import presentation.AbstractModel;
 import presentation.Logic.Prescripcion;
 import presentation.Logic.Receta;
-
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;

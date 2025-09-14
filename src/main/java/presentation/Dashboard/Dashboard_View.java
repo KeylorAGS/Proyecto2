@@ -10,7 +10,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
@@ -39,7 +38,6 @@ public class Dashboard_View implements PropertyChangeListener {
     private JPanel medicamentosPanel;
     private JPanel recetasPanel;
     private JTable table1;
-
     private ChartPanel chartPanelLineas;
     private ChartPanel chartPanelPastel;
 
@@ -321,7 +319,6 @@ public class Dashboard_View implements PropertyChangeListener {
         for (Medicamento med : model.getMedicamentosDisponibles()) {
             medicamentosModel.addElement(med.getNombre());
         }
-
         medicamentosBox.setModel(medicamentosModel);
     }
 
@@ -404,7 +401,6 @@ public class Dashboard_View implements PropertyChangeListener {
                 actualizarFiltros();
                 break;
         }
-
         this.panel.revalidate();
     }
 }

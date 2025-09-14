@@ -70,9 +70,9 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
         }));
 
         OK.addActionListener(e -> {
-            int row = tabla.getSelectedRow(); // CORREGIDO: usar tabla en lugar de table
+            int row = tabla.getSelectedRow();
             if (row != -1) {
-                Medicamento m = medicamentosModel.getList().get(row); // CORREGIDO: usar medicamentosModel en lugar de model
+                Medicamento m = medicamentosModel.getList().get(row);
 
                 try {
                     controllerPr.createPrescripcionTemporal(

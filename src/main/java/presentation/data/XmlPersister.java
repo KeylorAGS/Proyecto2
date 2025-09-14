@@ -3,7 +3,6 @@ package presentation.data;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -38,7 +37,7 @@ public class XmlPersister {
         JAXBContext jaxbContext = JAXBContext.newInstance(Data.class);
         FileOutputStream os = new FileOutputStream(path);
         Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // <-- salida formateada
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(d, os);
         os.flush();
         os.close();

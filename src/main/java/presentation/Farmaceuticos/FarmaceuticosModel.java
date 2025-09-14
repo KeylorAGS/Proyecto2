@@ -3,7 +3,6 @@ package presentation.Farmaceuticos;
 import presentation.AbstractModel;
 import presentation.Logic.Farmaceutico;
 import presentation.Interfaces.InterfazAdministrador;
-
 import java.beans.PropertyChangeListener;
 import java.util.List;
 

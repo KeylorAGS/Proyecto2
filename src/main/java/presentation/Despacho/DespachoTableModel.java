@@ -2,7 +2,6 @@ package presentation.Despacho;
 
 import presentation.AbstractTableModel;
 import presentation.Logic.Receta;
-
 import java.util.List;
 
 public class DespachoTableModel extends AbstractTableModel<Receta> implements javax.swing.table.TableModel {

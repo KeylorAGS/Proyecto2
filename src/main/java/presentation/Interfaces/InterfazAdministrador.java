@@ -5,7 +5,6 @@ import presentation.Dashboard.Dashboard_View;
 import presentation.Logic.Service;
 import presentation.Medicamentos.MedicamentosController;
 import presentation.Medicamentos.MedicamentosModel;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -65,23 +64,23 @@ public class InterfazAdministrador {
         MedicamentosController medicamentosController = new MedicamentosController(medicamentosView, medicamentosModel);
         tabbedPane.addTab("Medicamentos", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Medicamentos.png"))), medicamentosView.getPanel());
 
-        /// --- Dashboard
+        // --- Dashboard
         presentation.Dashboard.DashboardModel dashboardModel = new presentation.Dashboard.DashboardModel();
         Dashboard_View dashboardView = new Dashboard_View();
         presentation.Dashboard.DashboardController dashboardController = new presentation.Dashboard.DashboardController(dashboardView, dashboardModel);
         tabbedPane.addTab("Dashboard", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Dashboard.png"))) , dashboardView.getPanel());
 
-        /// --- Historico
+        // --- Historico
         presentation.Historico.HistoricosModel historicosModel = new  presentation.Historico.HistoricosModel();
         presentation.Historico.Historico_View historicoView = new presentation.Historico.Historico_View();
         HistoricosController = new presentation.Historico.HistoricosController(historicoView,historicosModel);
         tabbedPane.addTab("Historico", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Historico.png"))) , historicoView.getPanel());
 
-        //Acerca de
+        // --- Acerca de
         Acerca_De acercaDe = new Acerca_De();
         tabbedPane.addTab("Acerca de...", new ImageIcon(Objects.requireNonNull(InterfazAdministrador.class.getResource("/Imagenes/Receta.png"))) , acercaDe.getPanel());
 
-        // Ventana principal
+        // --- Ventana principal
         window.setSize(1300, 500);
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

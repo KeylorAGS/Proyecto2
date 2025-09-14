@@ -3,7 +3,6 @@ package presentation.Interfaces;
 import presentation.Loggin.LoginController;
 import presentation.Loggin.LoginModel;
 import presentation.Loggin.View_Login;
-
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,8 +1,6 @@
 package presentation.Despacho;
 
-import presentation.Logic.Prescripcion;
 import presentation.Logic.Receta;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

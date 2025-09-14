@@ -22,7 +22,6 @@ public abstract class Usuario {
         this.clave = clave;
     }
 
-    // Getters y setters
     public String getId() {
         return id;
     }
@@ -47,7 +46,6 @@ public abstract class Usuario {
         this.clave = clave;
     }
 
-    // Métodos utilitarios
     @Override
     public String toString() {
         return "Usuario{" +

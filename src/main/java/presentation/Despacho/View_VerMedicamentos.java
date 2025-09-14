@@ -1,7 +1,6 @@
 package presentation.Despacho;
 
 import presentation.Logic.Prescripcion;
-
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;

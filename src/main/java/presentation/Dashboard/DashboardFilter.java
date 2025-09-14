@@ -12,7 +12,6 @@ public class DashboardFilter {
         this.medicamentosSeleccionados = new ArrayList<>();
     }
 
-    // Getters y Setters
     public String getMesDesde() {
         return mesDesde;
     }

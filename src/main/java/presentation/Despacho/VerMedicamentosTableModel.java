@@ -2,7 +2,6 @@ package presentation.Despacho;
 
 import presentation.AbstractTableModel;
 import presentation.Logic.Prescripcion;
-import presentation.Logic.Receta;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class VerMedicamentosTableModel extends AbstractTableModel<Prescripcion> 
     public static final int DURACION = 4;
 
     @Override
-    protected void initColNames() { //Nombre de las columnas
+    protected void initColNames() {
         colNames = new String[5];
         colNames[NOMBRE] = "Id Receta";
         colNames[PRESENTACION] = "Presentacion";

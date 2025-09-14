@@ -7,14 +7,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 import presentation.Logic.Farmaceutico;
 import presentation.Logic.Service;
 import presentation.Interfaces.InterfazAdministrador;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FarmaceuticosController {
 
     private Farmaceuticos_View view;
-
     private FarmaceuticosModel model;
 
     public FarmaceuticosController(Farmaceuticos_View view, FarmaceuticosModel model) {
