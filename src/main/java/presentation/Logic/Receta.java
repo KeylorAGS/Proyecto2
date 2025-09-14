@@ -52,7 +52,6 @@ public class Receta {
     public String getFecha() { return fecha; }
     public void setFecha(String fecha) { this.fecha = fecha; }
 
-    // Métodos auxiliares para no romper código viejo
     public String getIdPaciente() {
         return (paciente != null) ? paciente.getId() : "";
     }
@@ -61,9 +60,7 @@ public class Receta {
         return (doctor != null) ? doctor.getId() : "";
     }
 
-    // ===============================
-    // NUEVOS SETTERS para compatibilidad con View_Prescripcion
-    // ===============================
+
     public void setIdPaciente(String idPaciente) {
         if (this.paciente == null) this.paciente = new Paciente();
         this.paciente.setId(idPaciente);

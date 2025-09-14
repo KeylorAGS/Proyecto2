@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Dashboard_View implements PropertyChangeListener {
-    // Componentes de UI (generados por UI Designer)
     private JPanel panel;
     private JPanel datosPanel;
     private JComboBox desdeAños;
@@ -41,7 +40,6 @@ public class Dashboard_View implements PropertyChangeListener {
     private JPanel recetasPanel;
     private JTable table1;
 
-    // Paneles para gráficos
     private ChartPanel chartPanelLineas;
     private ChartPanel chartPanelPastel;
 
@@ -57,7 +55,6 @@ public class Dashboard_View implements PropertyChangeListener {
     }
 
     private void initializeCharts() {
-        // Inicializar gráfico de líneas
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "Medicamentos", "Mes", "Cantidad", dataset,
@@ -73,7 +70,6 @@ public class Dashboard_View implements PropertyChangeListener {
         medicamentosPanel.setLayout(new BorderLayout());
         medicamentosPanel.add(chartPanelLineas, BorderLayout.CENTER);
 
-        // Inicializar gráfico de pastel
         DefaultPieDataset pieDataset = new DefaultPieDataset();
         JFreeChart pieChart = ChartFactory.createPieChart(
                 "Recetas", pieDataset, true, true, false);
@@ -90,27 +86,22 @@ public class Dashboard_View implements PropertyChangeListener {
     }
 
     private void setupComboBoxes() {
-        // Configurar ComboBoxes de años
         String[] años = {"", "2024", "2025", "2026"}; // Agregar opción vacía
         desdeAños.setModel(new DefaultComboBoxModel<>(años));
         hastaAño.setModel(new DefaultComboBoxModel<>(años));
 
-        // Configurar ComboBoxes de meses
         String[] meses = {"", "1-Enero", "2-Febrero", "3-Marzo", "4-Abril", "5-Mayo", "6-Junio",
                 "7-Julio", "8-Agosto", "9-Septiembre", "10-Octubre", "11-Noviembre", "12-Diciembre"};
         desdeMes.setModel(new DefaultComboBoxModel<>(meses));
         hastaMes.setModel(new DefaultComboBoxModel<>(meses));
 
-        // ComboBox de medicamentos se llenará desde el modelo
         medicamentosBox.setModel(new DefaultComboBoxModel<>());
 
-        // Listeners para actualización automática de fechas
         desdeAños.addActionListener(e -> actualizarFiltrosFecha());
         desdeMes.addActionListener(e -> actualizarFiltrosFecha());
         hastaAño.addActionListener(e -> actualizarFiltrosFecha());
         hastaMes.addActionListener(e -> actualizarFiltrosFecha());
 
-        // Llamar una vez al inicio para configurar las fechas iniciales
         actualizarFiltrosFecha();
     }
 
@@ -123,29 +114,24 @@ public class Dashboard_View implements PropertyChangeListener {
         String añoHasta = (String) hastaAño.getSelectedItem();
         String mesHastaCompleto = (String) hastaMes.getSelectedItem();
 
-        // Validar que no haya selecciones vacías
         if (añoDesde == null || añoDesde.isEmpty() ||
                 mesDesdeCompleto == null || mesDesdeCompleto.isEmpty() ||
                 añoHasta == null || añoHasta.isEmpty() ||
                 mesHastaCompleto == null || mesHastaCompleto.isEmpty()) {
 
-            // Limpiar tabla y gráficos si no hay selección completa
             try {
                 controller.clearMedicamentos();
             } catch (Exception ex) {
-                // Ignorar error de limpieza
             }
             return;
         }
 
-        // Extraer solo el número del mes (antes del guión)
         String mesDesde = extraerNumeroMes(mesDesdeCompleto);
         String mesHasta = extraerNumeroMes(mesHastaCompleto);
 
         String fechaDesde = añoDesde + "-" + mesDesde;
         String fechaHasta = añoHasta + "-" + mesHasta;
 
-        // Validar que la fecha desde sea menor o igual a fecha hasta
         if (!validarRangoFechas(fechaDesde, fechaHasta)) {
             JOptionPane.showMessageDialog(panel,
                     "La fecha 'Desde' debe ser anterior o igual a la fecha 'Hasta'",
@@ -166,7 +152,7 @@ public class Dashboard_View implements PropertyChangeListener {
         }
 
         String[] partes = mesCompleto.split("-");
-        return partes[0]; // Retorna la parte antes del guión
+        return partes[0];
     }
 
 
@@ -180,7 +166,6 @@ public class Dashboard_View implements PropertyChangeListener {
             int añoHasta = Integer.parseInt(hastaPartes[0]);
             int mesHasta = Integer.parseInt(hastaPartes[1]);
 
-            // Convertir a valor comparable
             int valorDesde = añoDesde * 12 + mesDesde;
             int valorHasta = añoHasta * 12 + mesHasta;
 
@@ -191,7 +176,6 @@ public class Dashboard_View implements PropertyChangeListener {
     }
 
     private void setupEventListeners() {
-        // Agregar medicamento
         agregarMedicamento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -207,7 +191,6 @@ public class Dashboard_View implements PropertyChangeListener {
             }
         });
 
-        // Seleccionar todos
         seleccionarTodos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,7 +203,6 @@ public class Dashboard_View implements PropertyChangeListener {
             }
         });
 
-        // Borrar uno (medicamento seleccionado en tabla)
         borrarUno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -238,7 +220,6 @@ public class Dashboard_View implements PropertyChangeListener {
             }
         });
 
-        // Borrar todos
         borrarTodos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -252,11 +233,9 @@ public class Dashboard_View implements PropertyChangeListener {
         });
 
 
-        // Click en tabla para selección
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Solo para selección visual, no necesita acción específica
             }
         });
     }
@@ -310,7 +289,6 @@ public class Dashboard_View implements PropertyChangeListener {
                 "Recetas", dataset, true, true, false);
 
         PiePlot plot = (PiePlot) pieChart.getPlot();
-        // Configurar colores dinámicamente
         for (String key : recetasPorEstado.keySet()) {
             String labelKey = key + " (" + String.format("%.0f%%",
                     total > 0 ? (recetasPorEstado.get(key) * 100.0) / total : 0) + ")";
@@ -338,7 +316,7 @@ public class Dashboard_View implements PropertyChangeListener {
         if (model == null) return;
 
         DefaultComboBoxModel<String> medicamentosModel = new DefaultComboBoxModel<>();
-        medicamentosModel.addElement(""); // Opción vacía
+        medicamentosModel.addElement("");
 
         for (Medicamento med : model.getMedicamentosDisponibles()) {
             medicamentosModel.addElement(med.getNombre());
@@ -350,7 +328,6 @@ public class Dashboard_View implements PropertyChangeListener {
     private void actualizarFiltros() {
         if (model == null || model.getFilter() == null) return;
 
-        // Actualizar ComboBoxes de fecha si es necesario
         String mesDesde = model.getFilter().getMesDesde();
         String mesHasta = model.getFilter().getMesHasta();
 
@@ -371,7 +348,6 @@ public class Dashboard_View implements PropertyChangeListener {
         }
     }
 
-    //MVC
     DashboardModel model;
     DashboardController controller;
 
@@ -388,10 +364,8 @@ public class Dashboard_View implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case DashboardModel.LIST:
-                // Actualizar tabla
                 List<String> mesesRango = model.getMesesEnRango();
 
-                // Solo crear tabla si hay meses en el rango
                 if (mesesRango != null && !mesesRango.isEmpty()) {
                     int[] cols = DashboardTableModel.crearColumnasArray(mesesRango.size());
                     DashboardTableModel tableModel = new DashboardTableModel(cols, model.getList(), mesesRango);
@@ -401,7 +375,6 @@ public class Dashboard_View implements PropertyChangeListener {
                     table1.getTableHeader().revalidate();
                     table1.getTableHeader().repaint();
 
-                    // Configurar ancho de columnas
                     if (table1.getColumnModel().getColumnCount() > 0) {
                         TableColumnModel columnModel = table1.getColumnModel();
                         columnModel.getColumn(0).setPreferredWidth(120); // Medicamento
@@ -410,14 +383,12 @@ public class Dashboard_View implements PropertyChangeListener {
                         }
                     }
                 } else {
-                    // Crear tabla vacía con solo la columna de Medicamento
                     int[] cols = {DashboardTableModel.MEDICAMENTO};
                     List<String> columnasVacias = new ArrayList<>();
                     DashboardTableModel tableModel = new DashboardTableModel(cols, model.getList(), columnasVacias);
                     table1.setModel(tableModel);
                 }
 
-                // Actualizar gráfico de líneas
                 actualizarGraficoLineas();
                 break;
 

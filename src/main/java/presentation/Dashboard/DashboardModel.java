@@ -86,9 +86,6 @@ public class DashboardModel extends AbstractModel {
         firePropertyChange(MEDICAMENTOS_DISPONIBLES);
     }
 
-    /**
-     * Genera la lista de meses en el rango seleccionado
-     */
     public List<String> getMesesEnRango() {
         List<String> mesesEnRango = new ArrayList<>();
 

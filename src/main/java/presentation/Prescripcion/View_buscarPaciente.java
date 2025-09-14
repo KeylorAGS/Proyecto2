@@ -34,7 +34,6 @@ public class View_buscarPaciente extends JDialog implements PropertyChangeListen
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // La propia vista se oculta
                 View_buscarPaciente.this.setVisible(false);
             }
         });
@@ -44,7 +43,6 @@ public class View_buscarPaciente extends JDialog implements PropertyChangeListen
             if (row != -1) {
                 Paciente p = model.getList().get(row);
                 controllerPr.seleccionarPaciente(p);
-                // Cerrar la propia vista
                 View_buscarPaciente.this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(panel, "Seleccione un paciente.", "Aviso", JOptionPane.WARNING_MESSAGE);

@@ -24,7 +24,6 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
     private JButton OK;
     private JButton cancelar;
 
-    // Variables de instancia - usar nombres consistentes
     private MedicamentosModel medicamentosModel;
     private MedicamentosController medicamentosController;
     private PrescripcionController controllerPr;
@@ -76,7 +75,6 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
                 Medicamento m = medicamentosModel.getList().get(row); // CORREGIDO: usar medicamentosModel en lugar de model
 
                 try {
-                    // Usar el método correcto del controller
                     controllerPr.createPrescripcionTemporal(
                             m.getNombre(),
                             m.getPresentacion(),
@@ -85,7 +83,6 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
                             "0"
                     );
 
-                    // Cerrar la ventana
                     View_buscarMedicamento.this.setVisible(false);
 
                 } catch (Exception ex) {

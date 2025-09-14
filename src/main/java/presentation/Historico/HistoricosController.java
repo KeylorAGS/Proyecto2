@@ -16,12 +16,9 @@ public class HistoricosController {
     HistoricosModel model;
 
     public HistoricosController(Historico_View view, HistoricosModel model) {
-        // Cargar todas las recetas con información completa
         List<Receta> todasLasRecetas = Service.instance().findAllRecetas();
 
-        // Completar información de pacientes y doctores al inicializar
         for (Receta receta : todasLasRecetas) {
-            // Completar información del paciente
             if (receta.getPaciente() != null && receta.getPaciente().getId() != null &&
                     (receta.getPaciente().getNombre() == null || receta.getPaciente().getNombre().isEmpty())) {
                 try {
@@ -31,7 +28,6 @@ public class HistoricosController {
                 }
             }
 
-            // Completar información del doctor
             if (receta.getDoctor() != null && receta.getDoctor().getId() != null &&
                     (receta.getDoctor().getNombre() == null || receta.getDoctor().getNombre().isEmpty())) {
                 try {
@@ -58,9 +54,7 @@ public class HistoricosController {
 
         List<Receta> recetas = Service.instance().searchRecetas(filter);
 
-        // Completar información faltante de pacientes y doctores
         for (Receta receta : recetas) {
-            // Completar información del paciente
             if (receta.getPaciente() != null && receta.getPaciente().getId() != null &&
                     (receta.getPaciente().getNombre() == null || receta.getPaciente().getNombre().isEmpty())) {
                 try {
@@ -71,7 +65,6 @@ public class HistoricosController {
                 }
             }
 
-            // Completar información del doctor
             if (receta.getDoctor() != null && receta.getDoctor().getId() != null &&
                     (receta.getDoctor().getNombre() == null || receta.getDoctor().getNombre().isEmpty())) {
                 try {

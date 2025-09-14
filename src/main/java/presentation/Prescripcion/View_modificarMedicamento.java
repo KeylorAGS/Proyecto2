@@ -25,7 +25,6 @@ public class View_modificarMedicamento extends JDialog {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        // Limpiar cuando se cierre la ventana por cualquier método
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -56,9 +55,6 @@ public class View_modificarMedicamento extends JDialog {
         });
     }
 
-    /**
-     * Limpia solo los campos de la ventana
-     */
     private void limpiarCampos() {
         cantidadS.setValue(0);
         duracionS.setValue(0);

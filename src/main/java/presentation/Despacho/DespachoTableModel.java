@@ -17,7 +17,7 @@ public class DespachoTableModel extends AbstractTableModel<Receta> implements ja
     public static final int IDDOCTOR = 3;
 
     @Override
-    protected void initColNames() { //Nombre de las columnas
+    protected void initColNames() {
         colNames = new String[4];
         colNames[IDRECETA] = "Id Receta";
         colNames[ESTADO] = "Estado";

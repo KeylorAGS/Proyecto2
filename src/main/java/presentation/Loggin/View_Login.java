@@ -53,22 +53,17 @@ public class View_Login implements PropertyChangeListener {
                     return;
                 }
 
-                // Crear vista de cambiar clave
                 View_CambiarClave cambiarClaveView = new View_CambiarClave();
 
-                // Usar el mismo modelo y controlador del login
                 LoginModel cambiarClaveModel = new LoginModel();
                 LoginController cambiarClaveController = new LoginController(cambiarClaveModel, cambiarClaveView);
 
-                // Pasar el usuario al controlador/modelo
                 cambiarClaveView.setIdUsuario(id);
                 cambiarClaveController.buscarUsuario(id);
 
-                // Cerrar ventana actual (login)
                 JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(panelPrincipal);
                 topFrame.dispose();
 
-                // Nueva ventana de cambiar clave
                 JFrame frame = new JFrame("Cambiar Clave");
                 Image icon = Toolkit.getDefaultToolkit().getImage(
                         getClass().getResource("/Imagenes/Logo_Cambiar_Contrasena.png")

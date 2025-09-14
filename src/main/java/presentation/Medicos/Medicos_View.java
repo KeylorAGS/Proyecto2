@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-//setController
 
 public class Medicos_View implements PropertyChangeListener {
     private JPanel panel;
@@ -37,7 +36,6 @@ public class Medicos_View implements PropertyChangeListener {
     }
 
     public Medicos_View(){
-        // Aqui van todos los listeners de los botones y acciones
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,7 +140,6 @@ public class Medicos_View implements PropertyChangeListener {
         return valid;
     }
 
- // MVC
     MedicosModel model;
     MedicosController controller;
 

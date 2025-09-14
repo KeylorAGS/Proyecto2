@@ -42,7 +42,6 @@ public class View_VerMedicamentos implements PropertyChangeListener {
                         VerMedicamentosTableModel.INDICACIONES,
                         VerMedicamentosTableModel.DURACION};
 
-                // Usar la lista del modelo si está disponible, sino usar la lista local
                 List<Prescripcion> prescripciones = model != null && model.getListmedicamentos() != null
                         ? model.getListmedicamentos()
                         : getObjeto();

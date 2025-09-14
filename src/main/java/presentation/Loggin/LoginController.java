@@ -23,26 +23,22 @@ public class LoginController {
         cambiarClaveView.setModel(model);
     }
 
-    // Si también se necesita la vista de cambiar clave
     public void setCambiarClaveView(View_CambiarClave view) {
         this.cambiarClaveView = view;
         view.setController(this);
         view.setModel(model);
     }
 
-    // ---- LOGIN ----
     public void login(String id, String clave) {
         Usuario tempUser = Service.instance().login(id, clave);
         model.setCurrentUser(tempUser);
     }
 
-    // ---- BUSCAR USUARIO (para cambiar clave) ----
     public void buscarUsuario(String id) {
         Usuario tempUser = Service.instance().buscarUsuario(id);
         model.setCurrentUser(tempUser);
     }
 
-    // ---- CAMBIAR CLAVE ----
     public void cambiarClave() {
         if (cambiarClaveView == null) {
             JOptionPane.showMessageDialog(null, "No se ha asignado la vista de cambiar clave");

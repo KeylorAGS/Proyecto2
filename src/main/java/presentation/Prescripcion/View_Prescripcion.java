@@ -36,18 +36,15 @@ public class View_Prescripcion implements PropertyChangeListener {
         this.doctorIngresado = doctorIngresado;
     }
 
-    // Subventanas (ahora cada una gestiona su propio dialogo)
     private View_buscarPaciente buscarPacienteView;
     private View_buscarMedicamento buscarMedicamentoView;
     private View_modificarMedicamento modificarMedicamentoView;
 
     public View_Prescripcion() {
-        // Instanciar las subventanas (ellas mismas configuran su JDialog en su constructor)
         buscarPacienteView = new View_buscarPaciente();
         buscarMedicamentoView = new View_buscarMedicamento();
         modificarMedicamentoView = new View_modificarMedicamento();
 
-        // Botones principales: sólo muestran las subventanas
         buscarPaciente.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,7 +89,6 @@ public class View_Prescripcion implements PropertyChangeListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Validaciones
                     if (model.getCurrentPaciente() == null) {
                         JOptionPane.showMessageDialog(panel,
                                 "Debe seleccionar un paciente antes de guardar la receta.",
@@ -115,7 +111,6 @@ public class View_Prescripcion implements PropertyChangeListener {
                         return;
                     }
 
-                    // Crear la receta
                     Receta receta = new Receta();
                     for (Prescripcion objeto : lista) {
                         receta.getPrescripcions().add(objeto);
@@ -131,24 +126,19 @@ public class View_Prescripcion implements PropertyChangeListener {
 
                     receta.setIdReceta(sb.toString());
                     receta.setEstado("Confeccionada");
-
-                    // IMPORTANTE: Asignar el paciente COMPLETO con toda su información
                     receta.setPaciente(model.getCurrentPaciente());
 
-                    // IMPORTANTE: Buscar y asignar el médico COMPLETO
                     try {
                         Usuario usuarioDoctor = Service.instance().buscarUsuario(getDoctorIngresado());
                         if (usuarioDoctor instanceof Medico) {
                             receta.setDoctor((Medico) usuarioDoctor);
                         } else {
-                            // Si no es un médico válido, crear uno básico
                             Medico doctorBasico = new Medico();
                             doctorBasico.setId(getDoctorIngresado());
                             doctorBasico.setNombre("Doctor no encontrado");
                             receta.setDoctor(doctorBasico);
                         }
                     } catch (Exception ex) {
-                        // Si no encuentra el doctor, crear uno básico con solo el ID
                         Medico doctorBasico = new Medico();
                         doctorBasico.setId(getDoctorIngresado());
                         doctorBasico.setNombre("Doctor no encontrado");
@@ -156,15 +146,12 @@ public class View_Prescripcion implements PropertyChangeListener {
                     }
 
                     receta.setFecha(elegirFecha.getText());
-
-                    // Guardar la receta
                     controller.createReceta(receta);
 
                     JOptionPane.showMessageDialog(panel,
                             "Receta guardada exitosamente con código: " + receta.getIdReceta(),
                             "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-                    // LIMPIEZA SIMPLE DESPUÉS DE CREAR LA PRESCRIPCIÓN
                     elegirFecha.clear();
                     verPaciente.setText("Paciente");
                     controller.clearTemporalList();
@@ -202,24 +189,17 @@ public class View_Prescripcion implements PropertyChangeListener {
         buscarPacienteView.setController(controller.getPacientesController());
         buscarPacienteView.setControllerPr(controller);
 
-        // Subventana buscarMedicamento necesita el MedicamentosModel y MedicamentosController
         buscarMedicamentoView.setModel(controller.getMedicamentosModel());
         buscarMedicamentoView.setController(controller.getMedicamentosController());
         buscarMedicamentoView.setControllerPr(controller);
 
-        // Subventana modificarMedicamento necesita el PrescripcionController (para setCambios/aplicar)
         modificarMedicamentoView.setController(controller);
-        // El model de prescripción se asignará en setModel(...) que se llama inmediatamente después en el controller
     }
 
     public void setModel(PrescripcionModel model) {
         this.model = model;
         model.addPropertyChangeListener(this);
-
-        // Pasar el modelo de prescripción a la vista de modificar medicamento
         modificarMedicamentoView.setModel(model);
-
-        // (Nota: los modelos de Pacientes/Medicamentos fueron creados en el controller y se asignaron en setController)
     }
 
     @Override

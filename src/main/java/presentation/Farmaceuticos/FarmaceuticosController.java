@@ -69,10 +69,8 @@ public class FarmaceuticosController {
         PdfWriter.getInstance(document, new FileOutputStream("FaramaceuticosReporte.pdf"));
         document.open();
 
-        // Agregar título
         document.add(new Paragraph("Reporte de Faramaceuticos"));
 
-        // Agregar datos
         for (Farmaceutico farmaceutico : model.getList()) {
             document.add(new Paragraph("ID: " + farmaceutico.getId()));
             document.add(new Paragraph("Nombre: " + farmaceutico.getNombre()));

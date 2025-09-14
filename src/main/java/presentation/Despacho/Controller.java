@@ -55,7 +55,6 @@ public class Controller {
 
             Service.instance().deleteReceta(receta);
             actualizarLista();
-            // Guardar cambios
             Service.instance().stop();
 
         } catch (Exception ex) {

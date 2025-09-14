@@ -16,15 +16,12 @@ public class DashboardController {
         this.view = view;
         this.model = model;
 
-        // Inicializar datos
         try {
             List<Medicamento> medicamentos = Service.instance().findAll();
             Map<String, Integer> recetasData = cargarRecetasData();
             model.init(medicamentos, recetasData);
 
-            // NO realizar búsqueda inicial - dejar que el usuario seleccione fechas
         } catch (Exception e) {
-            // Inicializar con datos vacíos en caso de error
             model.init(new ArrayList<>(), new HashMap<>());
         }
 
@@ -33,20 +30,17 @@ public class DashboardController {
     }
 
     public void updateDateRange(String mesDesde, String mesHasta) throws Exception {
-        // Validar que las fechas no sean null o vacías
         if (mesDesde == null || mesDesde.isEmpty() || mesHasta == null || mesHasta.isEmpty()) {
-            // Limpiar datos si no hay fechas válidas
             model.setList(new ArrayList<>());
             return;
         }
 
         model.getFilter().setMesDesde(mesDesde);
         model.getFilter().setMesHasta(mesHasta);
-        model.setFilter(model.getFilter()); // Disparar evento
+        model.setFilter(model.getFilter());
 
-        // Solo buscar si hay medicamentos seleccionados
         if (!model.getFilter().getMedicamentosSeleccionados().isEmpty()) {
-            search(); // Actualizar datos
+            search();
         }
     }
 
@@ -61,7 +55,6 @@ public class DashboardController {
             }
         }
 
-        // Si no hay datos, usar datos de ejemplo
         if (recetasPorEstado.isEmpty()) {
             recetasPorEstado.put("CONFECCIONADA", 3);
             recetasPorEstado.put("PROCESO", 4);
@@ -85,14 +78,11 @@ public class DashboardController {
             return datosTabla;
         }
 
-        // Obtener datos de recetas
         List<Receta> todasRecetas = Service.instance().findAllRecetas();
         Map<String, Map<String, Integer>> medicamentosPorMes = procesarRecetas(todasRecetas);
 
-        // 1. Obtener meses del rango
         List<String> mesesRango = model.getMesesEnRango();
 
-        // 2. Si está vacío, obtenerlos de los datos procesados
         if (mesesRango == null || mesesRango.isEmpty()) {
             mesesRango = new ArrayList<>();
             for (Map<String, Integer> datosMedicamento : medicamentosPorMes.values()) {
@@ -102,14 +92,11 @@ public class DashboardController {
                     }
                 }
             }
-            // Ordenar los meses (opcional, si quieres en orden cronológico)
             mesesRango.sort(Comparator.naturalOrder());
 
-            // Guardar en el modelo para que la vista también lo use
             model.setMesesDisponibles(mesesRango);
         }
 
-        // 3. Construir las filas
         for (String medicamento : filter.getMedicamentosSeleccionados()) {
             Map<String, Integer> datosMedicamento = medicamentosPorMes.get(medicamento);
             if (datosMedicamento == null) {
@@ -185,15 +172,15 @@ public class DashboardController {
     public void addMedicamento(String medicamento) throws Exception {
         if (medicamento != null && !medicamento.isEmpty()) {
             model.getFilter().addMedicamento(medicamento);
-            model.setFilter(model.getFilter()); // Disparar evento
-            search(); // Actualizar datos
+            model.setFilter(model.getFilter());
+            search();
         }
     }
 
     public void removeMedicamento(String medicamento) throws Exception {
         model.getFilter().removeMedicamento(medicamento);
-        model.setFilter(model.getFilter()); // Disparar evento
-        search(); // Actualizar datos
+        model.setFilter(model.getFilter());
+        search();
     }
 
     public void removeSelectedMedicamento(int row) throws Exception {
@@ -205,8 +192,8 @@ public class DashboardController {
 
     public void clearMedicamentos() throws Exception {
         model.getFilter().clearMedicamentos();
-        model.setFilter(model.getFilter()); // Disparar evento
-        search(); // Actualizar datos
+        model.setFilter(model.getFilter());
+        search();
     }
 
     public void selectAllMedicamentos() throws Exception {
@@ -215,8 +202,8 @@ public class DashboardController {
             todosMedicamentos.add(med.getNombre());
         }
         model.getFilter().setMedicamentosSeleccionados(todosMedicamentos);
-        model.setFilter(model.getFilter()); // Disparar evento
-        search(); // Actualizar datos
+        model.setFilter(model.getFilter());
+        search();
     }
 
 

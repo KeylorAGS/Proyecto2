@@ -20,7 +20,6 @@ public class PacientesController {
     public PacientesController(Pacientes_View view, PacientesModel model) {
         this.view = view;
         this.model = model;
-        // Inicializa la lista completa al inicio
         List<Paciente> allPacientes = Service.instance().searchPaciente(new Paciente());
         model.init(allPacientes);
 
@@ -28,13 +27,11 @@ public class PacientesController {
         view.setModel(model);
     }
 
-    // Método de búsqueda que filtra según los campos no vacíos
     public void search(Paciente filter) throws Exception {
         model.setFilter(filter);
         model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Paciente());
 
-        // Filtrado usando stream según los campos de filter
         List<Paciente> result = Service.instance().searchPaciente(new Paciente()).stream()
                 .filter(p -> filter.getId() == null || filter.getId().isEmpty() || p.getId().equalsIgnoreCase(filter.getId()))
                 .filter(p -> filter.getNombre() == null || filter.getNombre().isEmpty() || p.getNombre().toLowerCase().contains(filter.getNombre().toLowerCase()))

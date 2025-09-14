@@ -53,12 +53,9 @@ public class Data {
 
     public List<Paciente> getPacientes() { return Pacientes; }
 
-    //----------------------------Medicamento--------------------------
     private List<Medicamento> medicamentos;
 
     public List<Medicamento> getMedicamentos() {return medicamentos;}
-
-    //----------------------------Receta--------------------------
 
     public List<Receta> getRecetas() {return recetas;}
 }

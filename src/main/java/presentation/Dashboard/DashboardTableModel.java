@@ -9,7 +9,6 @@ import java.util.List;
 public class DashboardTableModel extends AbstractTableModel<DashboardRowData> implements TableModel {
 
     public static final int MEDICAMENTO = 0;
-    // Las columnas de meses se definirán dinámicamente a partir del índice 1
 
     private List<String> mesesColumnas;
 
@@ -24,7 +23,6 @@ public class DashboardTableModel extends AbstractTableModel<DashboardRowData> im
         if (cols[col] == MEDICAMENTO) {
             return rowData.getNombreMedicamento();
         } else {
-            // Para las columnas de meses, el índice real es col-1 porque MEDICAMENTO es 0
             int mesIndex = cols[col] - 1;
             if (mesIndex >= 0 && mesIndex < rowData.getCantidadesPorMes().size()) {
                 return rowData.getCantidadesPorMes().get(mesIndex);
@@ -39,8 +37,7 @@ public class DashboardTableModel extends AbstractTableModel<DashboardRowData> im
             mesesColumnas = new ArrayList<>();
         }
 
-        // El tamaño debe cubrir el máximo valor de cols
-        int maxIndex = mesesColumnas.size(); // porque MEDICAMENTO=0 y meses empiezan en 1
+        int maxIndex = mesesColumnas.size();
         colNames = new String[maxIndex + 1];
 
         colNames[MEDICAMENTO] = "Medicamento";
@@ -50,14 +47,10 @@ public class DashboardTableModel extends AbstractTableModel<DashboardRowData> im
         }
     }
 
-    /**
-     * Crear array de columnas dinámicamente basado en el número de meses
-     */
     public static int[] crearColumnasArray(int numeroMeses) {
-        int[] cols = new int[1 + numeroMeses]; // 1 para medicamento + meses
+        int[] cols = new int[1 + numeroMeses];
         cols[0] = MEDICAMENTO;
 
-        // Las columnas de meses van de 1 a numeroMeses
         for (int i = 1; i <= numeroMeses; i++) {
             cols[i] = i;
         }
