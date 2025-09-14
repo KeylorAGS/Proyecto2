@@ -38,7 +38,6 @@ public class Data {
         Pacientes = new ArrayList<>();
         medicamentos = new ArrayList<>();
         administradores = new ArrayList<>();
-        prescripciones = new ArrayList<>();
         recetas = new ArrayList<>();
     }
 
@@ -62,9 +61,4 @@ public class Data {
     //----------------------------Receta--------------------------
 
     public List<Receta> getRecetas() {return recetas;}
-
-    //----------------------------Prescripcion--------------------------
-    private List<Prescripcion> prescripciones;
-
-    public List<Prescripcion> getPrescripciones() {return prescripciones;}
 }

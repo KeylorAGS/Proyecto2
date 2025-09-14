@@ -381,42 +381,115 @@ public class Service {
     }
 
     // =============== Prescripcion ===============
-    public void createPrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getNombre().equals(prescripcion.getNombre())).findFirst().orElse(null);
-        if (result==null) data.getPrescripciones().add(prescripcion);
-        else throw new Exception("Prescripcion ya existe");
-    }
 
-    public Prescripcion readPrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result = data.getPrescripciones().stream().filter(i->i.getNombre().equals(prescripcion.getNombre())).findFirst().orElse(null);
-        if (result!=null) return result;
-        else throw new Exception("Prescripcion no existe");
-    }
+    public List<Prescripcion> searchPrescripcionEnRecetas(Prescripcion filtro) {
+        List<Prescripcion> resultado = new ArrayList<>();
 
-    public void updatePrescripcion(Prescripcion prescripcion) throws Exception {
-        Prescripcion result;
-        try{
-            result = this.readPrescripcion(prescripcion);
-            data.getPrescripciones().remove(result);
-            data.getPrescripciones().add(prescripcion);
-        }catch (Exception ex) {
-            throw new Exception("Prescripcion no existe");
+        for (Receta receta : data.getRecetas()) {
+            for (Prescripcion prescripcion : receta.getPrescripcions()) {
+                boolean coincide = true;
+
+                if (filtro.getNombre() != null && !filtro.getNombre().isEmpty()) {
+                    if (!prescripcion.getNombre().toLowerCase().contains(filtro.getNombre().toLowerCase())) {
+                        coincide = false;
+                    }
+                }
+
+                if (filtro.getPresentacion() != null && !filtro.getPresentacion().isEmpty()) {
+                    if (!prescripcion.getPresentacion().equals(filtro.getPresentacion())) {
+                        coincide = false;
+                    }
+                }
+
+                if (filtro.getCantidad() != null && !filtro.getCantidad().isEmpty()) {
+                    if (!prescripcion.getCantidad().equalsIgnoreCase(filtro.getCantidad())) {
+                        coincide = false;
+                    }
+                }
+
+                if (filtro.getIndicaciones() != null && !filtro.getIndicaciones().isEmpty()) {
+                    if (!prescripcion.getIndicaciones().equalsIgnoreCase(filtro.getIndicaciones())) {
+                        coincide = false;
+                    }
+                }
+
+                if (filtro.getDuracion() != null && !filtro.getDuracion().isEmpty()) {
+                    if (!prescripcion.getDuracion().equalsIgnoreCase(filtro.getDuracion())) {
+                        coincide = false;
+                    }
+                }
+
+                if (coincide) {
+                    resultado.add(prescripcion);
+                }
+            }
         }
-    }
 
-    public void deletePrescripcion(Prescripcion prescripcion) throws Exception {
-        data.getPrescripciones().remove(prescripcion);
-    }
-
-    public List<Prescripcion> searchPrescripcion(Prescripcion prescripcion) {
-        return data.getPrescripciones().stream()
-                .filter(i->i.getNombre().contains(prescripcion.getNombre()))
+        return resultado.stream()
                 .sorted(Comparator.comparing(Prescripcion::getNombre))
                 .collect(Collectors.toList());
     }
 
-    public List<Prescripcion> findAllPrescripciones() {
-        return data.getPrescripciones();
+    /**
+     * Encuentra una prescripción específica dentro de una receta
+     */
+    public Prescripcion findPrescripcionEnReceta(String idReceta, String nombrePrescripcion) throws Exception {
+        Receta receta = data.getRecetas().stream()
+                .filter(r -> r.getIdReceta().equals(idReceta))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Receta no encontrada"));
+
+        return receta.getPrescripcions().stream()
+                .filter(p -> p.getNombre().equals(nombrePrescripcion))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Prescripción no encontrada en la receta"));
+    }
+
+    /**
+     * Actualiza una prescripción específica dentro de una receta
+     */
+    public void updatePrescripcionEnReceta(String idReceta, Prescripcion prescripcionVieja, Prescripcion prescripcionNueva) throws Exception {
+        Receta receta = data.getRecetas().stream()
+                .filter(r -> r.getIdReceta().equals(idReceta))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Receta no encontrada"));
+
+        List<Prescripcion> prescripciones = receta.getPrescripcions();
+        int index = -1;
+
+        for (int i = 0; i < prescripciones.size(); i++) {
+            Prescripcion p = prescripciones.get(i);
+            if (p.getNombre().equals(prescripcionVieja.getNombre()) &&
+                    p.getPresentacion().equals(prescripcionVieja.getPresentacion())) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index != -1) {
+            prescripciones.set(index, prescripcionNueva);
+        } else {
+            throw new Exception("Prescripción no encontrada en la receta");
+        }
+    }
+
+    /**
+     * Elimina una prescripción específica de una receta
+     */
+    public void deletePrescripcionDeReceta(String idReceta, Prescripcion prescripcion) throws Exception {
+        Receta receta = data.getRecetas().stream()
+                .filter(r -> r.getIdReceta().equals(idReceta))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Receta no encontrada"));
+
+        boolean removed = receta.getPrescripcions().removeIf(p ->
+                p.getNombre().equals(prescripcion.getNombre()) &&
+                        p.getPresentacion().equals(prescripcion.getPresentacion())
+        );
+
+        if (!removed) {
+            throw new Exception("Prescripción no encontrada en la receta");
+        }
     }
 
     // =============== RECETAS ===============

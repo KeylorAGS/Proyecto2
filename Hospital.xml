@@ -2,314 +2,110 @@
 <data>
     <Medicos>
         <Medico>
-            <id>12345</id>
-            <nombre>Keylor</nombre>
-            <clave>000</clave>
-            <especialidad>Vaginologo</especialidad>
+            <id>1</id>
+            <nombre>Juan</nombre>
+            <clave>111</clave>
+            <especialidad>Pediatra</especialidad>
         </Medico>
         <Medico>
-            <id>888</id>
-            <nombre>Dave</nombre>
-            <clave>777</clave>
-            <especialidad>Inyectador</especialidad>
-        </Medico>
-        <Medico>
-            <id>5202</id>
+            <id>2</id>
             <nombre>Keneth</nombre>
-            <clave>5202</clave>
-            <especialidad>Inspector de pechos</especialidad>
+            <clave>2</clave>
+            <especialidad>Cardiologo</especialidad>
         </Medico>
     </Medicos>
     <Administradores>
         <Administrador>
-            <id>555</id>
-            <nombre>Andrey</nombre>
-            <clave>999</clave>
+            <id>1</id>
+            <nombre>Ana</nombre>
+            <clave>222</clave>
         </Administrador>
     </Administradores>
     <Farmaceuticos>
         <Farmaceutico>
-            <id>222</id>
-            <nombre>Keylor</nombre>
-            <clave>444</clave>
+            <id>1</id>
+            <nombre>Carlos</nombre>
+            <clave>333</clave>
+        </Farmaceutico>
+        <Farmaceutico>
+            <id>2</id>
+            <nombre>Dave</nombre>
+            <clave></clave>
         </Farmaceutico>
     </Farmaceuticos>
     <Pacientes>
         <Paciente>
-            <id>123</id>
-            <nombre>Keneth</nombre>
-            <fechaNacimiento>3 de septiembre de 2025</fechaNacimiento>
-            <telefono>123</telefono>
+            <id>1</id>
+            <nombre>Maria</nombre>
+            <fechaNacimiento>1 de enero de 2000</fechaNacimiento>
+            <telefono>88888888</telefono>
         </Paciente>
         <Paciente>
-            <id>789</id>
-            <nombre>Keylor</nombre>
-            <fechaNacimiento>17 de septiembre de 2025</fechaNacimiento>
+            <id>2</id>
+            <nombre>Keilor</nombre>
+            <fechaNacimiento>10 de abril de 2005</fechaNacimiento>
             <telefono>72682583</telefono>
         </Paciente>
     </Pacientes>
     <Recetas>
         <Receta>
-            <idReceta>02KMM</idReceta>
-            <estado>Entregada</estado>
-            <prescripciones>
-                <cantidad>1</cantidad>
-                <duracion>1</duracion>
-                <indicaciones>Si</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <prescripciones>
-                <cantidad>2</cantidad>
-                <duracion>2</duracion>
-                <indicaciones>No</indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha></fecha>
-            <paciente></paciente>
-            <doctor></doctor>
-        </Receta>
-        <Receta>
-            <idReceta>S8DUE</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>45</cantidad>
-                <duracion>45</duracion>
-                <indicaciones>Una por dia</indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha></fecha>
-            <paciente></paciente>
-            <doctor></doctor>
-        </Receta>
-        <Receta>
-            <idReceta>7E0MH</idReceta>
-            <estado>Entregada</estado>
-            <prescripciones>
-                <cantidad>20</cantidad>
-                <duracion>30</duracion>
-                <indicaciones>zaswee</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <fecha>3 de septiembre de 2025</fecha>
-            <paciente></paciente>
-            <doctor></doctor>
-        </Receta>
-        <Receta>
-            <idReceta>EC1UF</idReceta>
+            <idReceta>R1</idReceta>
             <estado>Lista</estado>
             <prescripciones>
-                <cantidad>10</cantidad>
-                <duracion>10</duracion>
-                <indicaciones>1</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
+                <cantidad>2</cantidad>
+                <duracion>5</duracion>
+                <indicaciones>Tomar después de comer</indicaciones>
+                <nombre>Paracetamol</nombre>
+                <presentacion>500mg</presentacion>
+            </prescripciones>
+            <fecha>10 de septiembre de 2025</fecha>
+            <paciente>1</paciente>
+            <doctor>Pediatra</doctor>
+        </Receta>
+        <Receta>
+            <idReceta>J2D95</idReceta>
+            <estado>Proceso</estado>
+            <prescripciones>
+                <cantidad>1</cantidad>
+                <duracion>7</duracion>
+                <indicaciones>Tomar 1 por dia</indicaciones>
+                <nombre>Paracetamol</nombre>
+                <presentacion>500mg</presentacion>
             </prescripciones>
             <fecha>25 de septiembre de 2025</fecha>
-            <paciente></paciente>
-            <doctor></doctor>
+            <paciente>1</paciente>
+            <doctor>Pediatra</doctor>
         </Receta>
         <Receta>
-            <idReceta>UV9OV</idReceta>
-            <estado>Confeccionada</estado>
+            <idReceta>74GXU</idReceta>
+            <estado>Entregada</estado>
             <prescripciones>
-                <cantidad>10</cantidad>
-                <duracion>10</duracion>
-                <indicaciones>1</indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
+                <cantidad>5</cantidad>
+                <duracion>7</duracion>
+                <indicaciones>5 mililitros por dia, durante 1 semana</indicaciones>
+                <nombre>Jarabe</nombre>
+                <presentacion>1L</presentacion>
             </prescripciones>
-            <fecha>14 de septiembre de 2025</fecha>
-            <paciente>123</paciente>
-            <doctor></doctor>
-        </Receta>
-        <Receta>
-            <idReceta>2MZ1L</idReceta>
-            <estado>Lista</estado>
-            <prescripciones>
-                <cantidad>10</cantidad>
-                <duracion>50</duracion>
-                <indicaciones>0</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <fecha>5 de septiembre de 2026</fecha>
-            <paciente>789</paciente>
-            <doctor></doctor>
-        </Receta>
-        <Receta>
-            <idReceta>JX34G</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>150</cantidad>
-                <duracion>60</duracion>
-                <indicaciones>6</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <fecha>14 de septiembre de 2025</fecha>
-            <paciente>123</paciente>
-            <doctor>Inyectador</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>44VKB</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>150</cantidad>
-                <duracion>60</duracion>
-                <indicaciones>6</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <prescripciones>
-                <cantidad>0</cantidad>
-                <duracion>0</duracion>
-                <indicaciones>N/A</indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha>25 de septiembre de 2025</fecha>
-            <paciente>789</paciente>
-            <doctor>Vaginologo</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>WTW8S</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>6</cantidad>
-                <duracion>3</duracion>
-                <indicaciones>sss</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <prescripciones>
-                <cantidad>6</cantidad>
-                <duracion>3</duracion>
-                <indicaciones></indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha>12 de septiembre de 2025</fecha>
-            <paciente>789</paciente>
-            <doctor>Vaginologo</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>1LG1E</idReceta>
-            <estado>Confeccionada</estado>
             <prescripciones>
                 <cantidad>1</cantidad>
-                <duracion>0</duracion>
-                <indicaciones></indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
+                <duracion>7</duracion>
+                <indicaciones>Cuando le duela el cuerpo</indicaciones>
+                <nombre>Paracetamol</nombre>
+                <presentacion>500mg</presentacion>
             </prescripciones>
-            <fecha>6 de septiembre de 2025</fecha>
-            <paciente>789</paciente>
-            <doctor>Vaginologo</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>L5EQS</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>10</cantidad>
-                <duracion>2</duracion>
-                <indicaciones>qw</indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha>30 de septiembre de 2025</fecha>
-            <paciente>789</paciente>
-            <doctor>Vaginologo</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>4LFS8</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>1</cantidad>
-                <duracion>30</duracion>
-                <indicaciones>Pene todos los dias</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <prescripciones>
-                <cantidad>0</cantidad>
-                <duracion>0</duracion>
-                <indicaciones>N/A</indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha>20 de septiembre de 2025</fecha>
-            <paciente>123</paciente>
-            <doctor>Vaginologo</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>6NQVB</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>1</cantidad>
-                <duracion>30</duracion>
-                <indicaciones>Pene todos los dias</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <prescripciones>
-                <cantidad>2</cantidad>
-                <duracion>-2</duracion>
-                <indicaciones></indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha>28 de septiembre de 2025</fecha>
-            <paciente>123</paciente>
-            <doctor>Vaginologo</doctor>
-        </Receta>
-        <Receta>
-            <idReceta>OJOMQ</idReceta>
-            <estado>Confeccionada</estado>
-            <prescripciones>
-                <cantidad>0</cantidad>
-                <duracion>0</duracion>
-                <indicaciones>dddd</indicaciones>
-                <nombre>Jarabe de Mirriflote</nombre>
-                <presentacion>100ml</presentacion>
-            </prescripciones>
-            <prescripciones>
-                <cantidad>2</cantidad>
-                <duracion>-2</duracion>
-                <indicaciones></indicaciones>
-                <nombre>vergapirina</nombre>
-                <presentacion>10tb</presentacion>
-            </prescripciones>
-            <fecha>1 de septiembre de 2025</fecha>
-            <paciente>123</paciente>
-            <doctor>Vaginologo</doctor>
+            <fecha>27 de septiembre de 2025</fecha>
+            <paciente>2</paciente>
+            <doctor>Pediatra</doctor>
         </Receta>
     </Recetas>
     <medicamentos>
-        <id>123</id>
-        <nombre>Jarabe de Mirriflote</nombre>
-        <presentacion>100ml</presentacion>
+        <id>1</id>
+        <nombre>Paracetamol</nombre>
+        <presentacion>500mg</presentacion>
     </medicamentos>
     <medicamentos>
-        <id>321</id>
-        <nombre>vergapirina</nombre>
-        <presentacion>10tb</presentacion>
+        <id>2</id>
+        <nombre>Jarabe</nombre>
+        <presentacion>1L</presentacion>
     </medicamentos>
-    <prescripciones>
-        <cantidad>2</cantidad>
-        <duracion>-2</duracion>
-        <indicaciones></indicaciones>
-        <nombre>vergapirina</nombre>
-        <presentacion>10tb</presentacion>
-    </prescripciones>
-    <prescripciones>
-        <cantidad>0</cantidad>
-        <duracion>0</duracion>
-        <indicaciones>dddd</indicaciones>
-        <nombre>Jarabe de Mirriflote</nombre>
-        <presentacion>100ml</presentacion>
-    </prescripciones>
 </data>

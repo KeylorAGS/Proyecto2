@@ -167,8 +167,7 @@ public class View_Prescripcion implements PropertyChangeListener {
                     // LIMPIEZA SIMPLE DESPUÉS DE CREAR LA PRESCRIPCIÓN
                     elegirFecha.clear();
                     verPaciente.setText("Paciente");
-                    model.setList(new java.util.ArrayList<>());
-                    model.setCurrentPaciente(null);
+                    controller.clearTemporalList();
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(panel,
@@ -184,8 +183,7 @@ public class View_Prescripcion implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 elegirFecha.clear();
                 verPaciente.setText("Paciente");
-                model.setList(new java.util.ArrayList<>());
-                model.setCurrentPaciente(null);
+                controller.clearTemporalList(); // Usar el método del controller
             }
         });
     }

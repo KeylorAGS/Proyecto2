@@ -24,6 +24,11 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
     private JButton OK;
     private JButton cancelar;
 
+    // Variables de instancia - usar nombres consistentes
+    private MedicamentosModel medicamentosModel;
+    private MedicamentosController medicamentosController;
+    private PrescripcionController controllerPr;
+
     public View_buscarMedicamento() {
         setContentPane(panel);
         setModal(true);
@@ -53,7 +58,6 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // La propia vista se oculta
                 View_buscarMedicamento.this.setVisible(false);
             }
         });
@@ -65,19 +69,30 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
                 medicamentosController.edit(row);
             }
         }));
-        OK.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = tabla.getSelectedRow();
-                Medicamento m = medicamentosModel.getList().get(row);
-                Prescripcion p = new Prescripcion(m.getNombre(), m.getPresentacion(), "0", "N/A", "0");
+
+        OK.addActionListener(e -> {
+            int row = tabla.getSelectedRow(); // CORREGIDO: usar tabla en lugar de table
+            if (row != -1) {
+                Medicamento m = medicamentosModel.getList().get(row); // CORREGIDO: usar medicamentosModel en lugar de model
+
                 try {
-                    prescripcionController.save(p);
+                    // Usar el método correcto del controller
+                    controllerPr.createPrescripcionTemporal(
+                            m.getNombre(),
+                            m.getPresentacion(),
+                            "0",
+                            "N/A",
+                            "0"
+                    );
+
+                    // Cerrar la ventana
+                    View_buscarMedicamento.this.setVisible(false);
+
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                // cerrar la propia vista
-                View_buscarMedicamento.this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(panel, "Seleccione un medicamento.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
         });
     }
@@ -86,21 +101,17 @@ public class View_buscarMedicamento extends JDialog implements PropertyChangeLis
         return panel;
     }
 
-    MedicamentosModel medicamentosModel;
-    MedicamentosController medicamentosController;
-    PrescripcionController prescripcionController;
-
-    public void setModel(MedicamentosModel medicamentosModel){
+    public void setModel(MedicamentosModel medicamentosModel) {
         this.medicamentosModel = medicamentosModel;
         medicamentosModel.addPropertyChangeListener(this);
     }
 
-    public void setController(MedicamentosController medicamentosController){
+    public void setController(MedicamentosController medicamentosController) {
         this.medicamentosController = medicamentosController;
     }
 
     public void setControllerPr(PrescripcionController controllerPr) {
-        this.prescripcionController = controllerPr;
+        this.controllerPr = controllerPr;
     }
 
     @Override

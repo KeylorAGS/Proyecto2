@@ -10,14 +10,17 @@ import presentation.Pacientes.PacientesModel;
 import presentation.Pacientes.Pacientes_View;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PrescripcionController {
     private View_Prescripcion view;
     private PrescripcionModel model;
 
-    // Removed frame fields (views will handle visibility)
+    // Variables para manejar la receta temporal mientras se construye
+    private List<Prescripcion> prescripcionesTemporales;
+    private String recetaTemporalId; // Para saber si estamos editando una receta existente
+
     // Provide Pacientes/Medicamentos models & controllers so view can set them on subviews
     private PacientesModel pacientesModel;
     private Pacientes_View pacientesView;
@@ -32,7 +35,13 @@ public class PrescripcionController {
     public String indicacionesAux;
 
     public PrescripcionController(View_Prescripcion view, PrescripcionModel model) {
-        model.init(Service.instance().searchPrescripcion(new Prescripcion()));
+        // Inicializar lista temporal de prescripciones
+        this.prescripcionesTemporales = new ArrayList<>();
+        this.recetaTemporalId = null;
+
+        // Inicializar el modelo con la lista temporal vacía
+        model.init(this.prescripcionesTemporales);
+
         this.view = view;
         this.model = model;
 
@@ -72,50 +81,90 @@ public class PrescripcionController {
         model.setCurrentPaciente(p);
     }
 
+    /**
+     * Busca prescripciones - ahora solo muestra las prescripciones temporales
+     */
     public void search(Prescripcion filter) throws Exception {
         model.setFilter(filter);
         model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Prescripcion());
-        List<Prescripcion> result = Service.instance().searchPrescripcion(new Prescripcion()).stream()
-                .filter(p -> filter.getNombre() == null || filter.getNombre().isEmpty() || p.getNombre().toLowerCase().contains(filter.getNombre().toLowerCase()))
-                .filter(p -> filter.getPresentacion() == null || filter.getPresentacion().isEmpty() || p.getPresentacion().equals(filter.getPresentacion()))
-                .filter(p -> filter.getCantidad() == null || filter.getCantidad().isEmpty() || p.getCantidad().equalsIgnoreCase(filter.getCantidad()))
-                .filter(p -> filter.getIndicaciones() == null || filter.getIndicaciones().isEmpty() || p.getIndicaciones().equalsIgnoreCase(filter.getIndicaciones()))
-                .filter(p -> filter.getDuracion() == null || filter.getDuracion().isEmpty() || p.getDuracion().equalsIgnoreCase(filter.getDuracion()))
-                .collect(Collectors.toList());
 
-        model.setList(result);
+        // Mostrar solo las prescripciones de la receta temporal actual
+        model.setList(new ArrayList<>(prescripcionesTemporales));
     }
 
-    public void save(Prescripcion p) throws Exception {
-        switch (model.getMode()) {
-            case InterfazAdministrador.MODE_CREATE:
-                Service.instance().createPrescripcion(p);
-                break;
-            case InterfazAdministrador.MODE_EDIT:
-                Service.instance().updatePrescripcion(p);
-                break;
+    /**
+     * Agrega una prescripción a la lista temporal (no la guarda en XML todavía)
+     */
+    public void addPrescripcionTemporal(Prescripcion prescripcion) throws Exception {
+        // Verificar si ya existe una prescripción con el mismo nombre y presentación
+        boolean existe = prescripcionesTemporales.stream()
+                .anyMatch(p -> p.getNombre().equals(prescripcion.getNombre()) &&
+                        p.getPresentacion().equals(prescripcion.getPresentacion()));
+
+        if (!existe) {
+            prescripcionesTemporales.add(prescripcion);
+            model.setList(new ArrayList<>(prescripcionesTemporales));
+        } else {
+            throw new Exception("Ya existe una prescripción con el mismo medicamento y presentación");
         }
-        model.setFilter(new Prescripcion());
-        search(model.getFilter());
+    }
+
+    /**
+     * Crear una nueva prescripción y agregarla a la lista temporal
+     */
+    public void createPrescripcionTemporal(String nombre, String presentacion, String cantidad, String indicaciones, String duracion) {
+        Prescripcion nueva = new Prescripcion(nombre, presentacion, cantidad, indicaciones, duracion);
+        try {
+            addPrescripcionTemporal(nueva);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * No se usa más - las prescripciones se guardan como parte de la receta
+     */
+    public void save(Prescripcion p) throws Exception {
+        // Este método ya no se usa - las prescripciones se guardan con la receta
+        throw new UnsupportedOperationException("Las prescripciones se guardan como parte de la receta");
     }
 
     public void edit(int row) {
-        Prescripcion prescripcion = model.getList().get(row);
-        try {
+        if (row >= 0 && row < prescripcionesTemporales.size()) {
+            Prescripcion prescripcion = prescripcionesTemporales.get(row);
             model.setMode(InterfazAdministrador.MODE_EDIT);
-            model.setCurrent(Service.instance().readPrescripcion(prescripcion));
-        } catch (Exception ex) {}
+            model.setCurrent(prescripcion);
+        }
     }
 
+    /**
+     * Elimina una prescripción de la lista temporal
+     */
     public void delete() throws Exception {
-        Service.instance().deletePrescripcion(model.getCurrent());
-        search(model.getFilter());
+        Prescripcion current = model.getCurrent();
+        if (current != null && current.getNombre() != null) {
+            prescripcionesTemporales.removeIf(p ->
+                    p.getNombre().equals(current.getNombre()) &&
+                            p.getPresentacion().equals(current.getPresentacion())
+            );
+            model.setList(new ArrayList<>(prescripcionesTemporales));
+        }
     }
 
     public void clear() {
         model.setMode(InterfazAdministrador.MODE_CREATE);
         model.setCurrent(new Prescripcion());
+    }
+
+    /**
+     * Limpia completamente la lista temporal de prescripciones
+     */
+    public void clearTemporalList() {
+        prescripcionesTemporales.clear();
+        model.setList(new ArrayList<>(prescripcionesTemporales));
+        model.setCurrentPaciente(null);
+        recetaTemporalId = null;
     }
 
     public void setCambios(String cantidad, String duracion, String indicaciones){
@@ -124,15 +173,19 @@ public class PrescripcionController {
         indicacionesAux = indicaciones;
     }
 
+    /**
+     * Aplica cambios a una prescripción en la lista temporal
+     */
     public void aplicarCambios() throws Exception {
         Prescripcion vieja = model.getCurrent();
 
         // Validar que haya un nombre
         if (vieja.getNombre() == null || vieja.getNombre().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Seleccione un Medicamento", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return; // salir del método, no crear nada
+            return;
         }
 
+        // Crear nueva prescripción con los cambios
         Prescripcion nueva = new Prescripcion(
                 vieja.getNombre(),
                 vieja.getPresentacion(),
@@ -141,29 +194,35 @@ public class PrescripcionController {
                 duracionAux
         );
 
-        Service.instance().deletePrescripcion(vieja);
-        Service.instance().createPrescripcion(nueva);
+        // Reemplazar en la lista temporal
+        for (int i = 0; i < prescripcionesTemporales.size(); i++) {
+            Prescripcion p = prescripcionesTemporales.get(i);
+            if (p.getNombre().equals(vieja.getNombre()) &&
+                    p.getPresentacion().equals(vieja.getPresentacion())) {
+                prescripcionesTemporales.set(i, nueva);
+                break;
+            }
+        }
 
-        search(model.getFilter());
-
-        // Selecciona la nueva como "current"
+        // Actualizar modelo
+        model.setList(new ArrayList<>(prescripcionesTemporales));
         model.setCurrent(nueva);
     }
 
-
     public void createReceta(Receta receta) throws Exception {
-        // Asegurar que la receta tenga objetos completos de Paciente y Doctor
+        // Asegurar que la receta tenga las prescripciones temporales
+        receta.setPrescripcions(new ArrayList<>(prescripcionesTemporales));
 
-        // Completar información del paciente si está incompleta
+        // Asegurar que la receta tenga objetos completos de Paciente y Doctor
         if (receta.getPaciente() != null && receta.getPaciente().getId() != null) {
             try {
                 Paciente pacienteCompleto = Service.instance().readPaciente(receta.getPaciente());
                 receta.setPaciente(pacienteCompleto);
             } catch (Exception e) {
+                // Si no se puede leer, usar el que se tiene
             }
         }
 
-        // Completar información del doctor si está incompleta
         if (receta.getDoctor() != null && receta.getDoctor().getId() != null) {
             try {
                 Usuario usuarioDoctor = Service.instance().buscarUsuario(receta.getDoctor().getId());
@@ -171,10 +230,21 @@ public class PrescripcionController {
                     receta.setDoctor((Medico) usuarioDoctor);
                 }
             } catch (Exception e) {
+                // Si no se puede leer, usar el que se tiene
             }
         }
 
         Service.instance().createReceta(receta);
         Service.instance().stop();
+
+        // Limpiar la lista temporal después de guardar
+        clearTemporalList();
+    }
+
+    /**
+     * Obtiene la lista temporal de prescripciones
+     */
+    public List<Prescripcion> getPrescripcionesTemporales() {
+        return new ArrayList<>(prescripcionesTemporales);
     }
 }
