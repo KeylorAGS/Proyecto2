@@ -164,7 +164,7 @@ public class View_Prescripcion implements PropertyChangeListener {
                             "Receta guardada exitosamente con código: " + receta.getIdReceta(),
                             "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-                    // Limpiar formulario
+                    // LIMPIEZA SIMPLE DESPUÉS DE CREAR LA PRESCRIPCIÓN
                     elegirFecha.clear();
                     verPaciente.setText("Paciente");
                     model.setList(new java.util.ArrayList<>());
@@ -178,12 +178,13 @@ public class View_Prescripcion implements PropertyChangeListener {
                 }
             }
         });
+
         limpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                elegirFecha.clear();   // limpia el DatePicker
-                verPaciente.setText("Paciente");  // restaura el label del paciente
-                model.setList(new java.util.ArrayList<>()); // limpia la tabla
+                elegirFecha.clear();
+                verPaciente.setText("Paciente");
+                model.setList(new java.util.ArrayList<>());
                 model.setCurrentPaciente(null);
             }
         });
