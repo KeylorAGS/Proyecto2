@@ -1,12 +1,6 @@
 package presentation.Logic;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlID;
-
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Medico extends Usuario {
-    @XmlID
     private String especialidad;
 
     public Medico() {

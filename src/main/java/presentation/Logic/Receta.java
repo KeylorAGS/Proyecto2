@@ -1,23 +1,14 @@
 package presentation.Logic;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlIDREF;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Receta {
-    @XmlID
     private String idReceta;
     private String estado;
     private List<Prescripcion> prescripciones;
     private String fecha;
-    @XmlIDREF
     Paciente paciente;
-    @XmlIDREF
     Medico doctor;
 
     public Receta(String idReceta, String estado, Paciente paciente, Medico doctor, String fecha) {
